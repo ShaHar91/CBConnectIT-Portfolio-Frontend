@@ -40,7 +40,7 @@ fun AboutSection() {
         modifier = Modifier
             .id(Section.About.id)
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = 100.px),
+            .padding(topBottom = 150.px),
         contentAlignment = Alignment.Center
     ) {
         AboutContent()
@@ -53,7 +53,7 @@ fun AboutContent() {
 
     Column(
         modifier = Modifier
-            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 90.percent else 100.percent)
+            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 100.percent else 90.percent)
             .maxWidth(1200.px),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

@@ -3,6 +3,7 @@ package com.christiano.bolla.pages
 import androidx.compose.runtime.*
 import com.christiano.bolla.sections.AboutSection
 import com.christiano.bolla.sections.MainSection
+import com.christiano.bolla.sections.ServiceSection
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -20,5 +21,6 @@ fun HomePage() {
     ) {
         MainSection()
         AboutSection()
+        ServiceSection()
     }
 }
