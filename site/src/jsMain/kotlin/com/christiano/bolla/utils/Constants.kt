@@ -9,10 +9,12 @@ object Constants {
     const val FONT_FAMILY = "Roboto"
 
     const val LOREM_IPSUM_SHORTEST = "Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    const val LOREM_IPSUM_SHORT = "Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 }
 
 object Res {
     object Image {
+        const val about = "about_image.png"
         const val background = "background.svg"
         const val logo = "logo.svg"
         const val mainImage = "main_image.png"

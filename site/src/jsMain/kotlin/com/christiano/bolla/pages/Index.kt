@@ -1,6 +1,7 @@
 package com.christiano.bolla.pages
 
 import androidx.compose.runtime.*
+import com.christiano.bolla.sections.AboutSection
 import com.christiano.bolla.sections.MainSection
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -18,5 +19,6 @@ fun HomePage() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         MainSection()
+        AboutSection()
     }
 }
