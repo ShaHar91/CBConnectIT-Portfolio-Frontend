@@ -1,6 +1,7 @@
 package com.christiano.bolla.styles
 
 import com.christiano.bolla.models.Theme
+import com.christiano.bolla.utils.Identifiers.ServiceCard.iconBox
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
@@ -29,17 +30,17 @@ val ServiceCardStyle by ComponentStyle {
     }
 
     // This means we are targeting a child element with the id `iconBox`
-    cssRule(" > #iconBox") {
+    cssRule(" > #$iconBox") {
         Modifier.backgroundColor(Colors.Transparent)
             .transition(CSSTransition("background", 200.ms))
 
     }
 
-    cssRule(":hover > #iconBox") {
+    cssRule(":hover > #$iconBox") {
         Modifier.backgroundColor(Colors.White)
     }
 
-    // This means we are targeting all child element of type 'P'
+    // This means we are targeting all child elements of type 'P'
     cssRule(" > p") {
         Modifier.color(Theme.Secondary.rgb)
             .transition(CSSTransition("color", 200.ms))

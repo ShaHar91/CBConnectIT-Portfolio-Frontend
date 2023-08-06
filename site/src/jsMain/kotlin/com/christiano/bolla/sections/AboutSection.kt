@@ -40,7 +40,7 @@ fun AboutSection() {
         modifier = Modifier
             .id(Section.About.id)
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = 150.px),
+            .padding(topBottom = 100.px),
         contentAlignment = Alignment.Center
     ) {
         AboutContent()
