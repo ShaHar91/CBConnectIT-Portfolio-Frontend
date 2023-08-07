@@ -12,7 +12,7 @@ import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Constants.LOREM_IPSUM_SHORT
 import com.christiano.bolla.utils.ObserveViewportEntered
 import com.christiano.bolla.utils.Res
-import com.christiano.bolla.utils.animatePercentage
+import com.christiano.bolla.utils.animateNumbers
 import com.varabyte.kobweb.compose.css.FontStyle
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
@@ -98,8 +98,8 @@ fun AboutMe() {
         viewportEntered = true
         Skill.values().forEach { skill ->
             scope.launch {
-                animatePercentage(
-                    percent = skill.percentage.value.toInt(),
+                animateNumbers(
+                    number = skill.percentage.value.toInt(),
                     onUpdate = {
                         animatedPercentage[skill.ordinal] = it
                     }

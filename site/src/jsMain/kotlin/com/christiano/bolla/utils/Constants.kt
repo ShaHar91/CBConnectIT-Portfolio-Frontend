@@ -30,6 +30,10 @@ object Res {
     }
 
     object Icon {
+        const val checkmark = "checkmark_icon.svg"
+        const val shield = "shield_icon.svg"
+        const val happy = "happy_icon.svg"
+        const val user = "user_icon.svg"
         const val link = "link_icon.svg"
         const val android = "android_icon.svg"
         const val ios = "apple_icon.svg"
@@ -49,6 +53,7 @@ object Identifiers {
     object PortfolioCards {
         const val scrollableContainer = "scrollableContainer"
     }
+
     object PortfolioCard {
         const val columnParent = "columnParent"
         const val boxParent = "boxParent"

@@ -5,7 +5,6 @@ import com.christiano.bolla.models.Portfolio
 import com.christiano.bolla.models.Theme
 import com.christiano.bolla.styles.PortfolioSectionStyle
 import com.christiano.bolla.utils.Constants
-import com.christiano.bolla.utils.Identifiers
 import com.christiano.bolla.utils.Identifiers.PortfolioCard.boxParent
 import com.christiano.bolla.utils.Identifiers.PortfolioCard.columnParent
 import com.christiano.bolla.utils.Identifiers.PortfolioCard.greenOverlay

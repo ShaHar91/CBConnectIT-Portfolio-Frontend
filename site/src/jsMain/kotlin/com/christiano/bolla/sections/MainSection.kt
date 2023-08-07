@@ -60,7 +60,7 @@ fun MainBackground() {
 
 @Composable
 fun MainContent() {
-    val breakpoint by rememberBreakpoint()
+    val breakpoint = rememberBreakpoint()
 
     Column(
         modifier = Modifier.fillMaxSize(),
