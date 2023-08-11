@@ -15,6 +15,7 @@ fun ObserveViewportEntered(
     var viewportEntered by remember { mutableStateOf(false) }
     val listener = remember {
         EventListener {
+            window.screen.height
             val top = document.getElementById(sectionId)?.getBoundingClientRect()?.top
             if (top != null && top < distanceFromTop) {
                 viewportEntered = true
