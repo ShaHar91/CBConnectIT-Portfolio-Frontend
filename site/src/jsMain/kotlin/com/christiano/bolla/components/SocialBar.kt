@@ -5,6 +5,7 @@ import com.christiano.bolla.styles.SocialLinkStyle
 import com.christiano.bolla.utils.Constants
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
+import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
@@ -16,29 +17,48 @@ import com.varabyte.kobweb.silk.components.style.toModifier
 import org.jetbrains.compose.web.css.px
 
 @Composable
-fun SocialBar() {
-    Column(
-        modifier = Modifier
-            .margin(right = 25.px)
-            .padding(topBottom = 25.px)
-            .minWidth(40.px)
-            .borderRadius(r = 20.px)
-            .backgroundColor(Colors.White),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        SocialLinks()
+fun SocialBar(row: Boolean = false) {
+    if (row) {
+        Row(
+            modifier = Modifier
+                .margin(top = 25.px)
+                .padding(leftRight = 25.px)
+                .minHeight(40.px)
+                .borderRadius(r = 20.px)
+                .backgroundColor(Colors.White),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            SocialLinks(row)
+        }
+    } else {
+        Column(
+            modifier = Modifier
+                .margin(right = 25.px)
+                .padding(topBottom = 25.px)
+                .minWidth(40.px)
+                .borderRadius(r = 20.px)
+                .backgroundColor(Colors.White),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            SocialLinks(row)
+        }
     }
 }
 
 @Composable
-private fun SocialLinks() {
+private fun SocialLinks(row: Boolean = false) {
     Link(
         path = Constants.FACEBOOK,
         openExternalLinksStrategy = OpenLinkStrategy.IN_NEW_TAB
     ) {
         FaFacebook(
-            modifier = SocialLinkStyle.toModifier().margin(bottom = 40.px),
+            modifier = SocialLinkStyle.toModifier()
+                .margin(
+                    bottom = if (row) 0.px else 40.px,
+                    right = if (row) 40.px else 0.px
+                ),
             size = IconSize.LG
         )
     }
@@ -48,7 +68,11 @@ private fun SocialLinks() {
         openExternalLinksStrategy = OpenLinkStrategy.IN_NEW_TAB
     ) {
         FaTwitter(
-            modifier = SocialLinkStyle.toModifier().margin(bottom = 40.px),
+            modifier = SocialLinkStyle.toModifier()
+                .margin(
+                    bottom = if (row) 0.px else 40.px,
+                    right = if (row) 40.px else 0.px
+                ),
             size = IconSize.LG
         )
     }
@@ -58,7 +82,11 @@ private fun SocialLinks() {
         openExternalLinksStrategy = OpenLinkStrategy.IN_NEW_TAB
     ) {
         FaInstagram(
-            modifier = SocialLinkStyle.toModifier().margin(bottom = 40.px),
+            modifier = SocialLinkStyle.toModifier()
+                .margin(
+                    bottom = if (row) 0.px else 40.px,
+                    right = if (row) 40.px else 0.px
+                ),
             size = IconSize.LG
         )
     }
