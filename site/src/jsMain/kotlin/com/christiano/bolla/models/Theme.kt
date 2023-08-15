@@ -2,11 +2,13 @@ package com.christiano.bolla.models
 
 import org.jetbrains.compose.web.css.CSSColorValue
 import org.jetbrains.compose.web.css.rgb
+import org.jetbrains.compose.web.css.rgba
 
 enum class Theme(val hex: String, val rgb: CSSColorValue) {
     Primary(hex = "#00A78E", rgb = rgb(r =0, g = 167, b = 142)),
+    Primary_15(hex = "#00A78E1E", rgb = rgba(r =0, g = 167, b = 142, a = 30)),
     Secondary(hex = "121D34", rgb = rgb(r = 18, g = 29, b = 52)),
     Gray(hex = "#CFCFCF", rgb = rgb(r = 207, g = 207, b = 207)),
     LightGray(hex = "#EDEDED", rgb = rgb(r = 237, g = 237, b = 237)),
-    LighterGray(hex = "#F9F9F9", rgb = rgb(r = 249, g = 249, b = 249))
+    LighterGray(hex = "#F9F9F9", rgb = rgb(r = 249, g = 249, b = 249));
 }

@@ -46,8 +46,12 @@ fun BackToTopButton() {
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.End
     ) {
+        val startingModifier = if (breakpoint > Breakpoint.MD) {
+            BackToTopButtonStyle.toModifier()
+        } else Modifier
+
         Box(
-            modifier = BackToTopButtonStyle.toModifier()
+            modifier = startingModifier
                 .size(50.px)
                 .visibility(if ((scroll ?: 0.0) > 400.0) Visibility.Visible else Visibility.Hidden)
                 .borderRadius(20.percent)
