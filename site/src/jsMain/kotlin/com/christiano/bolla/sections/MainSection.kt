@@ -98,7 +98,7 @@ fun MainText(breakpoint: Breakpoint) {
         Column {
             P(
                 attrs = Modifier
-                    .margin(topBottom = 0.px)
+                    .margin(top = if (breakpoint <= Breakpoint.SM) 50.px else 0.px, bottom = 0.px)
                     .fontFamily(FONT_FAMILY)
                     .fontSize(if (breakpoint >= Breakpoint.LG) 45.px else 20.px)
                     .fontWeight(FontWeight.Normal)

@@ -6,6 +6,7 @@ import com.christiano.bolla.styles.NavigationItemStyle
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
 import com.varabyte.kobweb.compose.css.*
+import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -51,18 +52,26 @@ fun OverlowMenu(onMenuClosed: () -> Unit) {
         }
     }
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(100.vh)
             .position(Position.Fixed)
             .zIndex(2)
-            .opacity(opacity)
-            .backgroundColor(argb(0.5f, 0.0f, 0.0f, 0.0f))
-            .transition(
-                CSSTransition("opacity", 500.ms)
-            )
     ) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+                .opacity(opacity)
+                .backgroundColor(argb(0.5f, 0.0f, 0.0f, 0.0f))
+                .transition(
+                    CSSTransition("opacity", 500.ms)
+                )
+                .onClick { scope.closeMenu() }
+                .onTouchMove { scope.closeMenu() }
+                .onScroll { scope.closeMenu() }
+                .onWheel { scope.closeMenu() }
+        )
+
         Column(
             modifier = Modifier
                 .fillMaxHeight()

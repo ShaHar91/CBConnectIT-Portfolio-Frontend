@@ -37,9 +37,7 @@ fun HomePage() {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            MainSection {
-                menuOpened = true
-            }
+            MainSection()
             AboutSection()
             ServiceSection()
             PortfolioSection()
