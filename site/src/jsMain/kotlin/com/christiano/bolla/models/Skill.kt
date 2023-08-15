@@ -9,7 +9,7 @@ enum class Skill(
     val percentage: CSSSizeValue<CSSUnit.percent>
 ) {
     Creative("Creative", 90.percent),
-    Accountable("Accountabl", 90.percent),
+    Accountable("Accountable", 90.percent),
     HardWorking("Hard Working", 80.percent),
     Value("Value for Money", 85.percent),
     Delivery("On-Time Delivery", 75.percent)

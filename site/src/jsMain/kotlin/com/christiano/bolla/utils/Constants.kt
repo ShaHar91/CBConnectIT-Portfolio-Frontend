@@ -3,10 +3,11 @@ package com.christiano.bolla.utils
 object Constants {
     const val WEBSITE = "https://github.com/ShaHar91"
 
-    const val LINKEDIN = "https://www.linkedin.com"
-    const val FACEBOOK = "https://www.facebook.com"
-    const val INSTAGRAM = "https://www.instagram.com"
-    const val TWITTER = "https://www.twitter.com"
+    const val LINKEDIN = "https://www.linkedin.com/in/christiano-bolla/"
+//    const val FACEBOOK = "https://www.facebook.com"
+//    const val INSTAGRAM = "https://www.instagram.com"
+//    const val TWITTER = "https://www.twitter.com"
+    const val GITHUB = "https://github.com/ShaHar91"
     const val SECTION_WIDTH = 1920
     const val FONT_FAMILY = "Roboto"
 

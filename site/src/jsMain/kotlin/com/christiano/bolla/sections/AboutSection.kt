@@ -125,7 +125,7 @@ fun AboutMe() {
                 .color(Theme.Secondary.rgb)
                 .toAttrs()
         ) {
-            Text(LOREM_IPSUM_SHORT)
+            Text("Very skilled Android Developer with over 5 years of experience in developing applications using Java and Kotlin. Someone who has a passion for staying up-to-date with all new technologies, constantly seeking to explore and take advantage of the latest advancements in the Android Framework. Committed to delivering robust, user-friendly, and scalable applications. Afast learner with an ability to adapt quickly to new technologies and a strong focus for code quality and best practices.")
         }
 
         Skill.values().forEach {

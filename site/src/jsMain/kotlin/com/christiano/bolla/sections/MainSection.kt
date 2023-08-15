@@ -106,7 +106,7 @@ fun MainText(breakpoint: Breakpoint) {
                     .color(Theme.Primary.rgb)
                     .toAttrs()
             ) {
-                Text("Hello, I'm")
+                Text("Hello, I am")
             }
 
             P(
@@ -130,7 +130,7 @@ fun MainText(breakpoint: Breakpoint) {
                     .color(Theme.Secondary.rgb)
                     .toAttrs()
             ) {
-                Text("Mobile & Web Developer/Designer")
+                Text("Mobile Developer")
             }
 
             P(

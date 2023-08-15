@@ -58,7 +58,7 @@ fun AchievementsContent() {
         }
     }
 
-    SimpleGrid(numColumns = numColumns(base = 1, md = 2, lg = 4)) {
+    SimpleGrid(numColumns = numColumns(base = 1, md = 2, lg = 3)) {
         Achievement.values().forEach {
             AchievementCard(
                 modifier = Modifier

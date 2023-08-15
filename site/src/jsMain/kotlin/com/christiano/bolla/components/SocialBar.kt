@@ -50,38 +50,10 @@ fun SocialBar(row: Boolean = false) {
 @Composable
 private fun SocialLinks(row: Boolean = false) {
     Link(
-        path = Constants.FACEBOOK,
+        path = Constants.GITHUB,
         openExternalLinksStrategy = OpenLinkStrategy.IN_NEW_TAB
     ) {
-        FaFacebook(
-            modifier = SocialLinkStyle.toModifier()
-                .margin(
-                    bottom = if (row) 0.px else 40.px,
-                    right = if (row) 40.px else 0.px
-                ),
-            size = IconSize.LG
-        )
-    }
-
-    Link(
-        path = Constants.TWITTER,
-        openExternalLinksStrategy = OpenLinkStrategy.IN_NEW_TAB
-    ) {
-        FaTwitter(
-            modifier = SocialLinkStyle.toModifier()
-                .margin(
-                    bottom = if (row) 0.px else 40.px,
-                    right = if (row) 40.px else 0.px
-                ),
-            size = IconSize.LG
-        )
-    }
-
-    Link(
-        path = Constants.INSTAGRAM,
-        openExternalLinksStrategy = OpenLinkStrategy.IN_NEW_TAB
-    ) {
-        FaInstagram(
+        FaGithub(
             modifier = SocialLinkStyle.toModifier()
                 .margin(
                     bottom = if (row) 0.px else 40.px,
