@@ -31,8 +31,7 @@ fun ExperienceCard(
 ) {
     SimpleGrid(
         modifier = Modifier
-            .fillMaxWidth()
-            .maxWidth(if (breakpoint >= Breakpoint.MD) 60.percent else 90.percent),
+            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 60.percent else 100.percent),
         numColumns = numColumns(base = 1, md = 2)
     ) {
         ExperienceDescription(active, experience.description)

@@ -25,13 +25,14 @@ import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 
 @Composable
-fun FooterSection() {
+fun FooterSection(modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .backgroundColor(Theme.LighterGray.rgb)
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = 100.px),
+            .padding(topBottom = 50.px)
+            .then(modifier),
         contentAlignment = Alignment.Center
     ) {
         FooterContent()

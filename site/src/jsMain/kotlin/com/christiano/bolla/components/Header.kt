@@ -7,14 +7,14 @@ import com.christiano.bolla.styles.LogoStyle
 import com.christiano.bolla.styles.NavigationItemStyle
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
-import com.varabyte.kobweb.compose.css.BackgroundPosition
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextDecorationLine
+import com.varabyte.kobweb.compose.css.functions.blur
+import com.varabyte.kobweb.compose.css.functions.saturate
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.silk.components.graphics.Image
@@ -27,8 +27,8 @@ import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.jetbrains.compose.web.css.Position
+import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
-import org.jetbrains.compose.web.css.rgb
 import org.jetbrains.compose.web.css.rgba
 
 @Composable
@@ -45,10 +45,12 @@ fun Header(onMenuClicked: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(50.px)
-            .position(Position.Fixed)
+            .top(0.percent)
+            .height(60.px)
+            .position(Position.Sticky)
             .zIndex(1)
-            .backgroundColor(Colors.White)
+            .backgroundColor(rgba(255, 255, 255, 0.65))
+            .backdropFilter(saturate(180.percent), blur(5.px))
             .thenIf((scroll ?: 0.0) >= 50) {
                 Modifier.boxShadow(0.px, 1.px, 5.px, 0.px, Theme.Primary.rgb)
             }
