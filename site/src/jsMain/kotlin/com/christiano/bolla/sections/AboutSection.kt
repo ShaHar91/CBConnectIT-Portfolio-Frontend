@@ -5,11 +5,9 @@ import com.christiano.bolla.components.SectionTitle
 import com.christiano.bolla.components.SkillBar
 import com.christiano.bolla.models.Section
 import com.christiano.bolla.models.Skill
-import com.christiano.bolla.models.Theme
 import com.christiano.bolla.styles.AboutImageStyle
 import com.christiano.bolla.styles.AboutTextStyle
 import com.christiano.bolla.utils.Constants
-import com.christiano.bolla.utils.Constants.LOREM_IPSUM_SHORT
 import com.christiano.bolla.utils.ObserveViewportEntered
 import com.christiano.bolla.utils.Res
 import com.christiano.bolla.utils.animateNumbers
@@ -40,7 +38,7 @@ fun AboutSection() {
         modifier = Modifier
             .id(Section.About.id)
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = 100.px),
+            .padding(topBottom = 50.px),
         contentAlignment = Alignment.Center
     ) {
         AboutContent()
@@ -122,7 +120,6 @@ fun AboutMe() {
                 .fontSize(18.px)
                 .fontWeight(FontWeight.Normal)
                 .fontStyle(FontStyle.Italic)
-                .color(Theme.Secondary.rgb)
                 .toAttrs()
         ) {
             Text("Very skilled Android Developer with over 5 years of experience in developing applications using Java and Kotlin. Someone who has a passion for staying up-to-date with all new technologies, constantly seeking to explore and take advantage of the latest advancements in the Android Framework. Committed to delivering robust, user-friendly, and scalable applications. Afast learner with an ability to adapt quickly to new technologies and a strong focus for code quality and best practices.")

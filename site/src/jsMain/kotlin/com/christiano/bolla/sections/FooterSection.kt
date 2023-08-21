@@ -3,7 +3,6 @@ package com.christiano.bolla.sections
 import androidx.compose.runtime.Composable
 import com.christiano.bolla.components.SocialBar
 import com.christiano.bolla.models.Section
-import com.christiano.bolla.models.Theme
 import com.christiano.bolla.styles.NavigationItemStyle
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
@@ -29,7 +28,6 @@ fun FooterSection(modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .backgroundColor(Theme.LighterGray.rgb)
             .maxWidth(Constants.SECTION_WIDTH.px)
             .padding(topBottom = 50.px)
             .then(modifier),

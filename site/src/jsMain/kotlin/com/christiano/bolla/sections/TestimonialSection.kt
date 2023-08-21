@@ -32,7 +32,7 @@ fun TestimonialSection() {
         modifier = Modifier
             .id(Section.Testimonial.id)
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = 100.px),
+            .padding(topBottom = 50.px),
         contentAlignment = Alignment.Center
     ) {
         TestimonialContent()
@@ -45,7 +45,7 @@ fun TestimonialContent() {
     var selectedPage by remember { mutableStateOf(0) }
     Column(
         modifier = Modifier
-            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 100.percent else 90.percent),
+            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 100.percent else 80.percent),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SectionTitle(

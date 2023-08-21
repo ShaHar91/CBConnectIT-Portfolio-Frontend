@@ -5,31 +5,37 @@ import com.christiano.bolla.utils.Res
 enum class Portfolio(
     val image: String,
     val title: String,
-    val description: String
+    val description: String,
+    val link: String
 ) {
     One(
         image = Res.Image.portfolio1,
-        title = "Kudeo",
-        description = "Web Design"
+        title = "Android Core",
+        description = "Android Library",
+        link = "https://github.com/wisemen-digital/AndroidCore"
     ),
     Two(
         image = Res.Image.portfolio2,
-        title = "Landing Page for NFT",
-        description = "Frontend"
+        title = "Measurements",
+        description = "Android Library",
+        link = "https://github.com/wisemen-digital/Measurements"
     ),
     Three(
         image = Res.Image.portfolio3,
-        title = "NFT Application",
-        description = "Frontend/Backend"
+        title = "Pokédex",
+        description = "Android",
+        link = "https://github.com/ShaHar91/DemoPokedex"
     ),
     Four(
         image = Res.Image.portfolio4,
-        title = "Game Statistics Application",
-        description = "Web/Mobile App"
+        title = "FoodWatcher",
+        description = "Android",
+        link = "https://github.com/ShaHar91/FoodWatcher-Android"
     ),
     Five(
         image = Res.Image.portfolio5,
-        title = "Platform for Online Courses",
-        description = "Web/Mobile App"
+        title = "PoemCollection Backend",
+        description = "Kotlin",
+        link = "https://github.com/ShaHar91/PoemCollection-backend-ktor"
     ),
 }

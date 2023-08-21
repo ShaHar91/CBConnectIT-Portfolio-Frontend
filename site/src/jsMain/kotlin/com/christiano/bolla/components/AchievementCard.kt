@@ -1,6 +1,7 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import com.christiano.bolla.models.Achievement
 import com.christiano.bolla.models.Theme
 import com.christiano.bolla.utils.Constants
@@ -12,6 +13,7 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.graphics.Image
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.P
@@ -27,9 +29,12 @@ fun AchievementCard(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
+        val colorMode by ColorMode.currentState
+
         Image(
             modifier = Modifier
                 .size(70.px)
+//                .color(colorMode.)
                 .margin(right = 20.px),
             src = achievement.icon,
             desc = "Achievement Icon"
@@ -43,7 +48,6 @@ fun AchievementCard(
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontSize(30.px)
                     .fontWeight(FontWeight.Bolder)
-                    .color(Theme.Primary.rgb)
                     .toAttrs()
             ) {
                 Text(
@@ -58,7 +62,6 @@ fun AchievementCard(
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontSize(16.px)
                     .fontWeight(FontWeight.Normal)
-                    .color(Theme.Secondary.rgb)
                     .opacity(50.percent)
                     .toAttrs()
             ) {

@@ -1,6 +1,8 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import com.christiano.bolla.models.Theme
 import com.christiano.bolla.utils.Constants.FONT_FAMILY
 import com.varabyte.kobweb.compose.css.CSSTransition
@@ -12,6 +14,8 @@ import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
+import com.varabyte.kobweb.silk.theme.colors.rememberColorMode
+import com.varabyte.kobweb.silk.theme.toSilkPalette
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
@@ -41,7 +45,6 @@ fun SkillBar(
                     .fontFamily(FONT_FAMILY)
                     .fontSize(18.px)
                     .fontWeight(FontWeight.Normal)
-                    .color(Theme.Secondary.rgb)
                     .toAttrs()
             ) {
                 Text(name)
@@ -53,12 +56,13 @@ fun SkillBar(
                     .fontFamily(FONT_FAMILY)
                     .fontSize(18.px)
                     .fontWeight(FontWeight.Normal)
-                    .color(Theme.Secondary.rgb)
                     .toAttrs()
             ) {
                 Text("$animatedPercentage%")
             }
         }
+
+        val colorMode by rememberColorMode()
 
         Box(
             modifier = Modifier.fillMaxWidth()
@@ -67,14 +71,14 @@ fun SkillBar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(progressBarHeight)
-                    .backgroundColor(Theme.LightGray.rgb)
+                    .backgroundColor(colorMode.toSilkPalette().switch.backgroundOff)
             )
 
             Box(
                 modifier = Modifier
                     .fillMaxWidth(percentage)
                     .height(progressBarHeight)
-                    .backgroundColor(Theme.Primary.rgb)
+                    .backgroundColor(colorMode.toSilkPalette().switch.thumb)
                     .transition(CSSTransition(property = "width", duration = 1.s, delay = 100.ms * index))
             )
         }

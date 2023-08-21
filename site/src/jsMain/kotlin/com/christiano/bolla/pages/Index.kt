@@ -1,7 +1,6 @@
 package com.christiano.bolla.pages
 
 import androidx.compose.runtime.*
-import com.christiano.bolla.components.BackToTopButton
 import com.christiano.bolla.components.Header
 import com.christiano.bolla.components.OverlowMenu
 import com.christiano.bolla.sections.*
@@ -10,16 +9,18 @@ import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.compose.ui.modifiers.fillMaxSize
+import com.varabyte.kobweb.compose.ui.modifiers.gridRow
+import com.varabyte.kobweb.compose.ui.modifiers.gridTemplateRows
 import com.varabyte.kobweb.core.Page
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.fr
-import org.jetbrains.compose.web.css.px
 
 @Page
 @Composable
 fun HomePage() {
     var menuOpened by remember { mutableStateOf(false) }
+    var isChecked by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -37,7 +38,7 @@ fun HomePage() {
                 ServiceSection()
                 PortfolioSection()
                 AchievementsSection()
-//                TestimonialSection() // TODO: something is wrong with this section, using this will make the header behave strange!
+                TestimonialSection()
                 ExperienceSection()
                 ContactSection()
             }

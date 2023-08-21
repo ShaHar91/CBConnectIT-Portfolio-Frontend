@@ -2,8 +2,6 @@ package com.christiano.bolla.sections
 
 import androidx.compose.runtime.*
 import com.christiano.bolla.components.ExperienceCard
-import com.christiano.bolla.components.ExperienceDescription
-import com.christiano.bolla.components.ExperienceDetails
 import com.christiano.bolla.components.SectionTitle
 import com.christiano.bolla.models.Experience
 import com.christiano.bolla.models.Section
@@ -14,8 +12,6 @@ import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.silk.components.layout.SimpleGrid
-import com.varabyte.kobweb.silk.components.layout.numColumns
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import org.jetbrains.compose.web.css.percent
@@ -27,7 +23,7 @@ fun ExperienceSection() {
         modifier = Modifier
             .id(Section.Experience.id)
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = 100.px),
+            .padding(topBottom = 50.px),
         contentAlignment = Alignment.Center
     ) {
         ExperienceContent()

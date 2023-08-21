@@ -19,7 +19,6 @@ object Constants {
 object Res {
     object Image {
         const val about = "about_image.png"
-        const val background = "background.svg"
         const val logo = "logo.svg"
         const val mainImage = "main_image.png"
 

@@ -19,22 +19,26 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.icons.fa.FaBars
+import com.varabyte.kobweb.silk.components.icons.fa.FaMoon
+import com.varabyte.kobweb.silk.components.icons.fa.FaSun
 import com.varabyte.kobweb.silk.components.icons.fa.IconSize
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.toSilkPalette
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.jetbrains.compose.web.css.Position
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
-import org.jetbrains.compose.web.css.rgba
 
 @Composable
 fun Header(onMenuClicked: () -> Unit) {
     val breakpoint = rememberBreakpoint()
     var scroll: Double? by remember { mutableStateOf(null) }
+    var colorMode by ColorMode.currentState
 
     LaunchedEffect(Unit) {
         window.addEventListener(type = "scroll", callback = {
@@ -49,7 +53,7 @@ fun Header(onMenuClicked: () -> Unit) {
             .height(60.px)
             .position(Position.Sticky)
             .zIndex(1)
-            .backgroundColor(rgba(255, 255, 255, 0.65))
+            .backgroundColor(ColorMode.current.toSilkPalette().background.toRgb().copyf(alpha = 0.65f))
             .backdropFilter(saturate(180.percent), blur(5.px))
             .thenIf((scroll ?: 0.0) >= 50) {
                 Modifier.boxShadow(0.px, 1.px, 5.px, 0.px, Theme.Primary.rgb)
@@ -62,6 +66,19 @@ fun Header(onMenuClicked: () -> Unit) {
 
         if (breakpoint > Breakpoint.MD) {
             RightSide()
+        }
+
+        ThemedButton(
+            onClick = {
+                colorMode = colorMode.opposite
+            },
+            BUTTON_MARGIN,
+            shape = ButtonShape.CIRCLE
+        ) {
+            when (colorMode) {
+                ColorMode.DARK -> FaSun()
+                ColorMode.LIGHT -> FaMoon()
+            }
         }
     }
 }

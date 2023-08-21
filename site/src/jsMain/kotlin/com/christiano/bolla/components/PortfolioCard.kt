@@ -35,12 +35,11 @@ import org.jetbrains.compose.web.dom.Text
 @Composable
 fun PortfolioCard(
     modifier: Modifier = Modifier,
-    portfolio: Portfolio,
-    link: String = Constants.WEBSITE
+    portfolio: Portfolio
 ) {
     Link(
         modifier = PortfolioSectionStyle.toModifier().textDecorationLine(TextDecorationLine.None),
-        path = link,
+        path = portfolio.link,
         openExternalLinksStrategy = OpenLinkStrategy.IN_NEW_TAB
     ) {
         Column(
@@ -104,7 +103,7 @@ fun PortfolioCard(
                     .opacity(50.percent)
                     .toAttrs()
             ) {
-                Text(portfolio.title)
+                Text(portfolio.description)
             }
         }
     }

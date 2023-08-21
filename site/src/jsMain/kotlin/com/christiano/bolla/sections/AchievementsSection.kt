@@ -4,7 +4,6 @@ import androidx.compose.runtime.*
 import com.christiano.bolla.components.AchievementCard
 import com.christiano.bolla.models.Achievement
 import com.christiano.bolla.models.Section
-import com.christiano.bolla.models.Theme
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.ObserveViewportEntered
 import com.christiano.bolla.utils.animateNumbers
@@ -26,8 +25,7 @@ fun AchievementsSection() {
             .id(Section.Achievements.id)
             .fillMaxWidth()
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = 100.px)
-            .backgroundColor(Theme.LighterGray.rgb),
+            .padding(topBottom = 50.px),
         contentAlignment = Alignment.Center
     ) {
         AchievementsContent()

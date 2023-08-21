@@ -11,19 +11,20 @@ import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.anyLink
 import com.varabyte.kobweb.silk.components.style.hover
+import com.varabyte.kobweb.silk.theme.toSilkPalette
 import org.jetbrains.compose.web.ExperimentalComposeWebApi
 import org.jetbrains.compose.web.css.*
 
 val NavigationItemStyle by ComponentStyle {
     base {
         Modifier
-            .color(Theme.Secondary.rgb)
+            .color(colorMode.toSilkPalette().link.default)
             .transition(CSSTransition(property = "color", duration = 200.ms))
     }
 
     anyLink {
         Modifier
-            .color(Theme.Secondary.rgb)
+            .color(colorMode.toSilkPalette().link.default)
     }
 
     hover {

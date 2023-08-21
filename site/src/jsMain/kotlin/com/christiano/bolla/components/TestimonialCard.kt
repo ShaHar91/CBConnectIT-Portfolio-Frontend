@@ -2,7 +2,6 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
 import com.christiano.bolla.models.Testimonial
-import com.christiano.bolla.models.Theme
 import com.christiano.bolla.utils.Constants
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -46,7 +45,6 @@ fun TestimonialCard(
                             .fontFamily(Constants.FONT_FAMILY)
                             .fontSize(18.px)
                             .fontWeight(FontWeight.Bold)
-                            .color(Theme.Secondary.rgb)
                             .toAttrs()
                     ) {
                         Text(testimonial.fullName)
@@ -59,7 +57,6 @@ fun TestimonialCard(
                             .fontFamily(Constants.FONT_FAMILY)
                             .fontSize(12.px)
                             .fontWeight(FontWeight.Normal)
-                            .color(Theme.Secondary.rgb)
                             .toAttrs()
                     ) {
                         Text(testimonial.profession)
@@ -76,7 +73,6 @@ fun TestimonialCard(
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontSize(12.px)
                     .fontWeight(FontWeight.Normal)
-                    .color(Theme.Secondary.rgb)
                     .toAttrs()
             ) {
                 Text(testimonial.review)
