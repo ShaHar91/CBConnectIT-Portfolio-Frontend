@@ -24,7 +24,7 @@ fun ServiceSection() {
         modifier = Modifier
             .id(Section.Service.id)
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = 50.px),
+            .padding(topBottom = Constants.SECTION_PADDING.px),
         contentAlignment = Alignment.Center
     ) {
         ServiceContent()
@@ -48,7 +48,7 @@ fun ServiceContent() {
 
         SimpleGrid(
             modifier = Modifier.fillMaxWidth(100.percent),
-            numColumns = numColumns(base = 1, sm = 2, md = 3)
+            numColumns = numColumns(base = 1, md = 2, lg = 3)
         ) {
             Service.values().forEach {
                 ServiceCard(it)

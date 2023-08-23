@@ -59,7 +59,6 @@ fun SectionTitle(
                 .fontFamily(Constants.FONT_FAMILY)
                 .fontSize(25.px)
                 .fontWeight(FontWeight.Normal)
-                .color(Theme.Primary.rgb)
                 .transition(CSSTransition("margin", 500.ms))
                 .toAttrs()
         ) {
@@ -79,7 +78,6 @@ fun SectionTitle(
                 .fontFamily(Constants.FONT_FAMILY)
                 .fontSize(40.px)
                 .fontWeight(FontWeight.Bold)
-                .color(Theme.Secondary.rgb)
                 .transition(CSSTransition("margin", 500.ms))
                 .toAttrs()
         ) {

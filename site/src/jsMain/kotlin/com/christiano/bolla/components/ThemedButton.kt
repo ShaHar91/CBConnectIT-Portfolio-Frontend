@@ -1,6 +1,7 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
+import com.christiano.bolla.models.Theme
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -9,6 +10,7 @@ import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.graphics.lightened
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.forms.Button
+import com.varabyte.kobweb.silk.components.forms.ButtonSize
 import com.varabyte.kobweb.silk.components.forms.ButtonStyle
 import com.varabyte.kobweb.silk.components.style.addVariant
 import com.varabyte.kobweb.silk.components.style.hover
@@ -27,7 +29,7 @@ enum class ButtonShape {
 private fun getButtonModifier(shape: ButtonShape): Modifier {
     return Modifier.padding(0.px).then(
         if (shape == ButtonShape.CIRCLE) {
-            Modifier.size(32.px).borderRadius(50.percent)
+            Modifier.borderRadius(50.percent)
         } else {
             Modifier.padding(12.px).fontWeight(600).borderRadius(8.px)
         }
@@ -35,11 +37,11 @@ private fun getButtonModifier(shape: ButtonShape): Modifier {
 }
 
 val PrimaryButtonVariant by ButtonStyle.addVariant {
-    val backgroundColor = Color.rgb(0, 121, 242)
+    val backgroundColor = Theme.Primary.silkRgb
     base {
         Modifier
             .backgroundColor(backgroundColor)
-            .color(Colors.White)
+//            .color(Colors.White)
     }
 
     hover {
@@ -79,8 +81,9 @@ fun ThemedButton(
 ) {
     Button(
         onClick = { onClick() },
-        modifier.then(getButtonModifier(shape)),
-        if (primary) PrimaryButtonVariant else NormalButtonVariant
+        size = ButtonSize.MD,
+        modifier = modifier.then(getButtonModifier(shape)),
+        variant = if (primary) PrimaryButtonVariant else NormalButtonVariant
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             content()

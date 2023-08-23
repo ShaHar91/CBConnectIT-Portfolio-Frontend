@@ -78,7 +78,7 @@ fun SkillBar(
                 modifier = Modifier
                     .fillMaxWidth(percentage)
                     .height(progressBarHeight)
-                    .backgroundColor(colorMode.toSilkPalette().switch.thumb)
+                    .backgroundColor(Theme.Primary.rgb)
                     .transition(CSSTransition(property = "width", duration = 1.s, delay = 100.ms * index))
             )
         }

@@ -38,7 +38,8 @@ val PortfolioSectionStyle by ComponentStyle {
     }
 
     cssRule(" > #$columnParent > #${portfolioTitle}") {
-        Modifier.color(Theme.Secondary.rgb)
+        Modifier
+//            .color(Theme.Secondary.rgb)
             .translateX(0.percent)
             .transition(
                 CSSTransition(property = "color", duration = 200.ms),
@@ -47,7 +48,8 @@ val PortfolioSectionStyle by ComponentStyle {
     }
 
     cssRule(":hover > #$columnParent > #${portfolioTitle}") {
-        Modifier.color(Theme.Primary.rgb)
+        Modifier
+//            .color(Theme.Primary.rgb)
             .translateX(5.percent)
     }
 

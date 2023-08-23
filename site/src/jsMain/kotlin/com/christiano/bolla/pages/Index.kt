@@ -38,11 +38,20 @@ fun HomePage() {
                 ServiceSection()
                 PortfolioSection()
                 AchievementsSection()
-                TestimonialSection()
+                TestimonialSection()// TODO: Makes the page wider on a smaller screen size (my phone landscape)
                 ExperienceSection()
                 ContactSection()
             }
         }
+
+//        * var showModal by remember { mutableStateOf(true) }
+//        * if (showModal) {
+//        *   Overlay(Modifier.onClick { showModal = false }) {
+//            *     Dialog {
+//            *        // ... your modal content here ...
+//            *     }
+//            *   }
+//        * }
 
         if (menuOpened) {
             OverlowMenu { menuOpened = false }

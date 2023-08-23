@@ -97,7 +97,7 @@ fun PortfolioCard(
                     .fillMaxWidth()
                     .margin(topBottom = 0.px)
                     .fontFamily(Constants.FONT_FAMILY)
-                    .color(Theme.Secondary.rgb)
+//                    .color(Theme.Secondary.rgb)
                     .fontSize(14.px)
                     .fontWeight(FontWeight.Normal)
                     .opacity(50.percent)

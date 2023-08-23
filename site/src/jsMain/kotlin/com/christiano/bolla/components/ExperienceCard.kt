@@ -14,10 +14,14 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.layout.SimpleGrid
 import com.varabyte.kobweb.silk.components.layout.numColumns
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
+import com.varabyte.kobweb.silk.components.text.SpanText
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.toSilkPalette
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
@@ -48,7 +52,10 @@ fun ExperienceDescription(
         modifier = Modifier.fillMaxWidth()
             .margin(topBottom = 14.px)
             .padding(all = 14.px)
-            .backgroundColor(if (active) Theme.Primary.rgb else Theme.LighterGray.rgb)
+            .thenIf(active && ColorMode.current.isLight) {
+                Modifier.color(ColorMode.current.opposite.toSilkPalette().color)
+            }
+            .backgroundColor(if (active) Theme.Primary.rgb else ColorMode.current.toSilkPalette().background.darkened(0.1f))
     ) {
         P(
             attrs = Modifier
@@ -57,7 +64,6 @@ fun ExperienceDescription(
                 .fontSize(14.px)
                 .fontWeight(FontWeight.Normal)
                 .lineHeight(1.6)
-                .color(if (active) Colors.White else Theme.Secondary.rgb)
                 .toAttrs()
         ) {
             Text(description)
@@ -93,7 +99,6 @@ fun ExperienceDetails(
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontSize(20.px)
                     .fontWeight(FontWeight.Bold)
-                    .color(Theme.Secondary.rgb)
                     .toAttrs()
             ) {
                 Text(experience.jobPosition)
@@ -105,7 +110,6 @@ fun ExperienceDetails(
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontSize(14.px)
                     .fontWeight(FontWeight.Normal)
-                    .color(Theme.Secondary.rgb)
                     .toAttrs()
             ) {
                 Text("${experience.from} - ${experience.to}")
@@ -117,7 +121,6 @@ fun ExperienceDetails(
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontSize(14.px)
                     .fontWeight(FontWeight.Normal)
-                    .color(Theme.Primary.rgb)
                     .toAttrs()
             ) {
                 Text(experience.company)
@@ -145,7 +148,7 @@ fun ExperiencNumber(
         Box(
             modifier = Modifier.size(40.px)
                 .border(width = 3.px, style = LineStyle.Solid, Theme.Primary.rgb)
-                .backgroundColor(if (active) Theme.Primary.rgb else Colors.White)
+                .backgroundColor(if (active) Theme.Primary.rgb else ColorMode.current.toSilkPalette().background)
                 .borderRadius(50.percent),
             contentAlignment = Alignment.Center
         ) {

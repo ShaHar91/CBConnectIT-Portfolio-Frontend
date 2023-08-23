@@ -34,7 +34,7 @@ fun PortfolioSection() {
         modifier = Modifier
             .id(Section.Portfolio.id)
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = 50.px),
+            .padding(topBottom = Constants.SECTION_PADDING.px),
         contentAlignment = Alignment.Center
     ) {
         PortfolioContent()

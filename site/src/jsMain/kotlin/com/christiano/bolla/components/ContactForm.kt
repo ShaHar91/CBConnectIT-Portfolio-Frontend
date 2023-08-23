@@ -9,11 +9,14 @@ import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.attrsModifier
-import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
+import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.toSilkPalette
+import org.jetbrains.compose.web.attributes.ButtonType
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.*
@@ -34,6 +37,7 @@ fun ContactForm(breakpoint: Breakpoint) {
         ) {
             Text("Name")
         }
+
         Input(
             type = InputType.Text,
             attrs = InputStyle.toModifier()
@@ -57,10 +61,11 @@ fun ContactForm(breakpoint: Breakpoint) {
             attrs = Modifier
                 .classNames("form-label")
                 .toAttrs(),
-                    forId = "inputEmail"
+            forId = "inputEmail"
         ) {
             Text("Email")
         }
+
         Input(
             type = InputType.Email,
             attrs = InputStyle.toModifier()
@@ -84,10 +89,11 @@ fun ContactForm(breakpoint: Breakpoint) {
             attrs = Modifier
                 .classNames("form-label")
                 .toAttrs(),
-                    forId = "inputMessage"
+            forId = "inputMessage"
         ) {
             Text("Message")
         }
+
         TextArea(
             attrs = InputStyle.toModifier()
                 .id("inputMessage")
@@ -109,15 +115,15 @@ fun ContactForm(breakpoint: Breakpoint) {
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            Button(
-                attrs = MainButtonStyle.toModifier()
+            com.varabyte.kobweb.silk.components.forms.Button(
+                type = ButtonType.Submit,
+                onClick = {},
+                modifier = MainButtonStyle.toModifier()
                     .height(40.px)
                     .border(width = 0.px)
                     .borderRadius(r = 5.px)
-                    .backgroundColor(Theme.Primary.rgb)
-                    .color(Colors.White)
                     .cursor(Cursor.Pointer)
-                    .toAttrs()
+                    .color(ColorMode.current.opposite.toSilkPalette().color), // The color is being used for the Text color!
             ) {
                 Text("Submit")
             }

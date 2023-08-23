@@ -32,7 +32,7 @@ fun TestimonialSection() {
         modifier = Modifier
             .id(Section.Testimonial.id)
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = 50.px),
+            .padding(topBottom = Constants.SECTION_PADDING.px),
         contentAlignment = Alignment.Center
     ) {
         TestimonialContent()
@@ -79,14 +79,14 @@ fun TestimonialCards(
         modifier = Modifier
             .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 90.percent else 100.percent)
             .margin(bottom = 40.px),
-        numColumns = numColumns(base = 1, md = 2)
+        numColumns = numColumns(base = 1, lg = 2)
     ) {
         Box {
             testimonial1.forEachIndexed { index, testimonial ->
                 TestimonialCard(
                     modifier = Modifier
                         .margin(
-                            right = if (breakpoint > Breakpoint.SM) 40.px else 0.px,
+                            right = if (breakpoint > Breakpoint.MD) 40.px else 0.px,
                             bottom = if (breakpoint > Breakpoint.MD) 0.px else 40.px
                         )
                         .visibility(if (index == selectedPage) Visibility.Visible else Visibility.Hidden)
@@ -101,10 +101,10 @@ fun TestimonialCards(
             testimonial2.forEachIndexed { index, testimonial ->
                 TestimonialCard(
                     modifier = Modifier
-                        .margin(
-                            right = if (breakpoint > Breakpoint.SM) 40.px else 0.px,
-                            bottom = if (breakpoint > Breakpoint.MD) 0.px else 40.px
-                        )
+//                        .margin(
+//                           right = 0.px,
+//                            bottom = if (breakpoint > Breakpoint.MD) 0.px else 40.px
+//                        )
                         .visibility(if (index == selectedPage) Visibility.Visible else Visibility.Hidden)
                         .opacity(if (index == selectedPage) 100.percent else 0.percent)
                         .transition(CSSTransition(property = "visibility", duration = 300.ms), CSSTransition(property = "opacity", duration = 300.ms)),

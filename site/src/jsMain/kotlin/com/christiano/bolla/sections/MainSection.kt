@@ -1,9 +1,11 @@
 package com.christiano.bolla.sections
 
 import androidx.compose.runtime.Composable
+import com.christiano.bolla.components.Backdrop
 import com.christiano.bolla.components.SocialBar
 import com.christiano.bolla.models.Section
 import com.christiano.bolla.models.Theme
+import com.christiano.bolla.styles.MainButtonStyle
 import com.christiano.bolla.styles.MainImageStyle
 import com.christiano.bolla.utils.Constants.FONT_FAMILY
 import com.christiano.bolla.utils.Constants.SECTION_WIDTH
@@ -51,23 +53,18 @@ fun MainContent() {
 
     Column(
         modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Bottom,
-            horizontalAlignment = Alignment.CenterHorizontally
+        // SimpleGrid will automatically use a column (horizontal) for bigger devices, or a row (vertical) for smaller devices
+        SimpleGrid(
+            modifier = Modifier.fillMaxWidth(
+                if (breakpoint >= Breakpoint.MD) 80.percent else 90.percent
+            ),
+            numColumns = numColumns(base = 1, md = 2)
         ) {
-            // SimpleGrid will automatically use a column (horizontal) for bigger devices, or a row (vertical) for smaller devices
-            SimpleGrid(
-                modifier = Modifier.fillMaxWidth(
-                    if (breakpoint >= Breakpoint.MD) 80.percent else 90.percent
-                ),
-                numColumns = numColumns(base = 1, md = 2)
-            ) {
-                MainText(breakpoint)
-                MainImage()
-            }
+            MainText(breakpoint)
+            MainImage(breakpoint)
         }
     }
 }
@@ -91,7 +88,6 @@ fun MainText(breakpoint: Breakpoint) {
                     .fontFamily(FONT_FAMILY)
                     .fontSize(if (breakpoint >= Breakpoint.LG) 45.px else 20.px)
                     .fontWeight(FontWeight.Normal)
-                    .color(Theme.Primary.rgb)
                     .toAttrs()
             ) {
                 Text("Hello, I am")
@@ -102,6 +98,7 @@ fun MainText(breakpoint: Breakpoint) {
                     .margin(top = 20.px, bottom = 0.px)
                     .fontFamily(FONT_FAMILY)
                     .fontSize(if (breakpoint >= Breakpoint.LG) 68.px else 40.px)
+                    .color(Theme.Primary.rgb)
                     .fontWeight(FontWeight.Bolder)
                     .toAttrs()
             ) {
@@ -133,7 +130,9 @@ fun MainText(breakpoint: Breakpoint) {
             }
 
             Button(
-                modifier = Modifier.color(ColorMode.current.opposite.toSilkPalette().color),
+                modifier = MainButtonStyle
+                    .toModifier()
+                    .color(ColorMode.current.opposite.toSilkPalette().color), // The color is being used for the Text color!
                 onClick = {
                     ctx.router.tryRoutingTo(Section.Contact.path)
                 }
@@ -145,12 +144,15 @@ fun MainText(breakpoint: Breakpoint) {
 }
 
 @Composable
-fun MainImage() {
-    Column(
-        modifier = Modifier.fillMaxSize(80.percent).fillMaxHeight(),
+fun MainImage(breakpoint: Breakpoint) {
+    Box(
+        modifier = Modifier.fillMaxSize(100.percent).fillMaxHeight(),//.margin(left = if (breakpoint >= Breakpoint.MD) 60.px else 0.px),
+        contentAlignment = Alignment.BottomCenter,
     ) {
+        Backdrop(modifier = Modifier.fillMaxWidth(80.percent).fillMaxHeight(85.percent))
+
         Image(
-            modifier = MainImageStyle.toModifier().fillMaxWidth(),
+            modifier = MainImageStyle.toModifier().fillMaxWidth(80.percent),
             src = Res.Image.mainImage,
             desc = "Main Image"
         )

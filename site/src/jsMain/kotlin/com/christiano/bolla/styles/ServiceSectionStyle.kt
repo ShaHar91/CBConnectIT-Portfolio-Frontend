@@ -42,7 +42,8 @@ val ServiceCardStyle by ComponentStyle {
 
     // This means we are targeting all child elements of type 'P'
     cssRule(" > p") {
-        Modifier.color(Theme.Secondary.rgb)
+        Modifier
+//            .color(Theme.Secondary.rgb)
             .transition(CSSTransition("color", 200.ms))
 
     }

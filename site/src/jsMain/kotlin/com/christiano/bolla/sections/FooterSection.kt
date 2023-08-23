@@ -29,7 +29,7 @@ fun FooterSection(modifier: Modifier = Modifier) {
         modifier = Modifier
             .fillMaxWidth()
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = 50.px)
+            .padding(topBottom = Constants.SECTION_PADDING.px)
             .then(modifier),
         contentAlignment = Alignment.Center
     ) {
