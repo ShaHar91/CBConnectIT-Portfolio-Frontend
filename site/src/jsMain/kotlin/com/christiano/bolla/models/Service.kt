@@ -10,19 +10,19 @@ enum class Service(
     val description: String
 ) {
     Android(
-        icon = Res.Icon.android,
+        icon = Res.Image.android,
         imageDesc = "Android Icon",
         title = "Android Development",
         description = Constants.LOREM_IPSUM_SHORTEST
     ),
     Tutoring(
-        icon = Res.Icon.android,
+        icon = Res.Image.tutoring,
         imageDesc = "Tutoring Icon",
         title = "Tutoring",
         description = Constants.LOREM_IPSUM_SHORTEST
     ),
     Teamwork(
-        icon = Res.Icon.android,
+        icon = Res.Image.teamwork,
         imageDesc = "Teamwork Icon",
         title = "Teamwork",
         description = Constants.LOREM_IPSUM_SHORTEST

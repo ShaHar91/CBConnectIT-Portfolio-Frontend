@@ -15,8 +15,8 @@ import org.jetbrains.compose.web.css.px
 val ServiceCardStyle by ComponentStyle {
     base {
         Modifier
-            .border(width = 2.px, style = LineStyle.Solid, color = Theme.LighterGray.rgb)
-            .backgroundColor(Colors.White)
+//            .border(width = 2.px, style = LineStyle.Solid, color = Theme.LighterGray.rgb)
+//            .backgroundColor(Colors.White)
             .transition(
                 CSSTransition("border", 200.ms),
                 CSSTransition("background", 200.ms)
@@ -25,8 +25,8 @@ val ServiceCardStyle by ComponentStyle {
 
     hover {
         Modifier
-            .border(width = 2.px, style = LineStyle.Solid, color = Theme.Primary.rgb)
-            .backgroundColor(Theme.Primary.rgb)
+//            .border(width = 2.px, style = LineStyle.Solid, color = Theme.Primary.rgb)
+//            .backgroundColor(Theme.Primary.rgb)
     }
 
     // This means we are targeting a child element with the id `iconBox`

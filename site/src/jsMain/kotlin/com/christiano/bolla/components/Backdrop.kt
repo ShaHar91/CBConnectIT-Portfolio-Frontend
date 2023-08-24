@@ -5,18 +5,21 @@ import androidx.compose.runtime.getValue
 import com.varabyte.kobweb.compose.css.functions.LinearGradient
 import com.varabyte.kobweb.compose.css.functions.linearGradient
 import com.varabyte.kobweb.compose.foundation.layout.Box
+import com.varabyte.kobweb.compose.foundation.layout.BoxScope
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundImage
 import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
 import com.varabyte.kobweb.compose.ui.modifiers.boxShadow
+import com.varabyte.kobweb.silk.components.icons.fa.FaAndroid
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.px
 
 @Composable
 fun Backdrop(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    content: @Composable BoxScope.() -> Unit = {}
 ) {
     val colorMode by ColorMode.currentState
 
@@ -36,6 +39,7 @@ fun Backdrop(
                 blurRadius = 10.px,
                 color = if (colorMode.isLight) Colors.DarkGray else Colors.LightSlateGray
             )
-            .then(modifier)
+            .then(modifier),
+        content = content
     )
 }

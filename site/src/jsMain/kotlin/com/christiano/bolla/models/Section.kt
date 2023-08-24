@@ -12,6 +12,6 @@ enum class Section(
     Portfolio("portfolio", "Portfolio", "My Work", "#portfolio"),
     Experience("experience", "Experience", "Work Experience", "#experience"),
     Contact("contact", "Contact me", "Get In Touch", "#contact"),
-    Testimonial("testimonial", "Testimonial", "Happy Customers", "#testimonial"),
+    Testimonial("testimonial", "Testimonial", "What they say", "#testimonial"),
     Achievements("achievements", "Achievements", "Personal Achievements", "#achievements")
 }

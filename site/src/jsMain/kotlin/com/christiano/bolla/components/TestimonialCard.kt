@@ -2,15 +2,20 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
 import com.christiano.bolla.models.Testimonial
+import com.christiano.bolla.models.Theme
 import com.christiano.bolla.utils.Constants
 import com.varabyte.kobweb.compose.css.FontWeight
+import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.foundation.layout.Row
+import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.toSilkPalette
+import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
@@ -18,60 +23,56 @@ import org.jetbrains.compose.web.dom.Text
 @Composable
 fun TestimonialCard(
     modifier: Modifier = Modifier,
-    testimonial: Testimonial,
-    breakpoint: Breakpoint
+    testimonial: Testimonial
 ) {
-    Row(modifier = modifier.maxWidth(500.px)) {
-        Image(
-            modifier = Modifier
-                .margin(right = 20.px)
-                .borderRadius(topLeft = 60.px, topRight = 60.px, bottomLeft = 60.px, bottomRight = 0.px)
-                .maxWidth(if (breakpoint >= Breakpoint.MD) 160.px else 80.px),
-            src = testimonial.image,
-            desc = "Avatar Image"
-        )
+    Backdrop(
+        modifier = modifier.maxWidth(500.px).padding(20.px)
+    ) {
 
-        Column {
-            Row(
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
                 modifier = Modifier
+                    .borderRadius(50.percent)
+                    .maxWidth(80.px),
+                src = testimonial.image,
+                desc = "Avatar Image"
+            )
+
+            P(
+                attrs = Modifier
                     .fillMaxWidth()
-                    .margin(bottom = 10.px)
+                    .margin(top = 10.px)
+                    .fontFamily(Constants.FONT_FAMILY)
+                    .color(Theme.Primary.rgb)
+                    .fontWeight(FontWeight.Bold)
+                    .textAlign(TextAlign.Center)
+                    .toAttrs()
             ) {
-                Column {
-                    P(
-                        attrs = Modifier
-                            .fillMaxWidth()
-                            .margin(topBottom = 0.px)
-                            .fontFamily(Constants.FONT_FAMILY)
-                            .fontSize(18.px)
-                            .fontWeight(FontWeight.Bold)
-                            .toAttrs()
-                    ) {
-                        Text(testimonial.fullName)
-                    }
+                Text(testimonial.fullName)
+            }
 
-                    P(
-                        attrs = Modifier
-                            .fillMaxWidth()
-                            .margin(topBottom = 0.px)
-                            .fontFamily(Constants.FONT_FAMILY)
-                            .fontSize(12.px)
-                            .fontWeight(FontWeight.Normal)
-                            .toAttrs()
-                    ) {
-                        Text(testimonial.profession)
-                    }
-
-                    RatingBar(modifier = Modifier.margin(top = 5.px))
-                }
+            P(
+                attrs = Modifier
+                    .fillMaxWidth()
+                    .textAlign(TextAlign.Center)
+                    .margin(top = 0.px, bottom = 10.px)
+                    .fontFamily(Constants.FONT_FAMILY)
+                    .fontSize(14.px)
+                    .color(ColorMode.current.toSilkPalette().color.darkened(0.5f))
+                    .fontWeight(FontWeight.Normal)
+                    .toAttrs()
+            ) {
+                Text(testimonial.profession)
             }
 
             P(
                 attrs = Modifier
                     .fillMaxWidth()
                     .margin(topBottom = 0.px)
+                    .textAlign(TextAlign.Center)
                     .fontFamily(Constants.FONT_FAMILY)
-                    .fontSize(12.px)
                     .fontWeight(FontWeight.Normal)
                     .toAttrs()
             ) {

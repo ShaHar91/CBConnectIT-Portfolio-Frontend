@@ -36,6 +36,10 @@ object Res {
         const val avatar4 = "avatar4.png"
         const val avatar5 = "avatar5.png"
         const val avatar6 = "avatar6.png"
+
+        const val android = "android_img.png"
+        const val tutoring = "tutoring_img.png"
+        const val teamwork = "teamwork_img.png"
     }
 
     object Icon {
