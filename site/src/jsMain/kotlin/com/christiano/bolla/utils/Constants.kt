@@ -55,6 +55,7 @@ object Res {
         const val design = "design_icon.svg"
         const val business = "business_icon.svg"
         const val seo = "seo_icon.svg"
+        const val experience = "experience.svg"
     }
 }
 

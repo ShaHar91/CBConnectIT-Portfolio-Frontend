@@ -32,7 +32,7 @@ fun TestimonialSection() {
         modifier = Modifier
             .id(Section.Testimonial.id)
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = Constants.SECTION_PADDING.px),
+            .padding(top = Constants.SECTION_PADDING.px),
         contentAlignment = Alignment.Center
     ) {
         TestimonialContent()

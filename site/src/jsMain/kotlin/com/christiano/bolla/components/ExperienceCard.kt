@@ -6,6 +6,7 @@ import com.christiano.bolla.models.Theme
 import com.christiano.bolla.utils.Constants
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.css.FontWeight
+import com.varabyte.kobweb.compose.css.WhiteSpace
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -35,8 +36,8 @@ fun ExperienceCard(
 ) {
     SimpleGrid(
         modifier = Modifier
-            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 60.percent else 100.percent),
-        numColumns = numColumns(base = 1, md = 2)
+            .fillMaxWidth(if (breakpoint > Breakpoint.MD) 60.percent else 100.percent),
+        numColumns = numColumns(base = 1, lg = 2)
     ) {
         ExperienceDescription(active, experience.description)
         ExperienceDetails(breakpoint, active, experience, animatedMargin)
@@ -62,8 +63,9 @@ fun ExperienceDescription(
                 .margin(topBottom = 0.px)
                 .fontFamily(Constants.FONT_FAMILY)
                 .fontSize(14.px)
+                .whiteSpace(WhiteSpace.PreLine)
                 .fontWeight(FontWeight.Normal)
-                .lineHeight(1.6)
+                .lineHeight(1.85)
                 .toAttrs()
         ) {
             Text(description)
@@ -80,10 +82,10 @@ fun ExperienceDetails(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth()
-            .margin(left = if (breakpoint >= Breakpoint.MD) 14.px else 0.px),
+            .margin(left = if (breakpoint > Breakpoint.MD) 14.px else 0.px),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (breakpoint >= Breakpoint.MD) {
+        if (breakpoint > Breakpoint.MD) {
             ExperiencNumber(active, experience)
         }
 

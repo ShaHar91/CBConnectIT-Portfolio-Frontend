@@ -1,6 +1,7 @@
 package com.christiano.bolla.sections
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import com.christiano.bolla.components.Backdrop
 import com.christiano.bolla.components.SocialBar
 import com.christiano.bolla.models.Section
@@ -18,6 +19,7 @@ import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.rememberPageContext
@@ -40,6 +42,7 @@ fun MainSection() {
     Box(
         modifier = Modifier
             .id(Section.Home.id)
+            .padding(top = 40.px)
             .maxWidth(SECTION_WIDTH.px),
         contentAlignment = Alignment.TopCenter
     ) {
@@ -95,7 +98,7 @@ fun MainText(breakpoint: Breakpoint) {
 
             P(
                 attrs = Modifier
-                    .margin(top = 20.px, bottom = 0.px)
+                    .margin(top = 0.px, bottom = 0.px)
                     .fontFamily(FONT_FAMILY)
                     .fontSize(if (breakpoint >= Breakpoint.LG) 68.px else 40.px)
                     .color(Theme.Primary.rgb)
@@ -107,7 +110,7 @@ fun MainText(breakpoint: Breakpoint) {
 
             P(
                 attrs = Modifier
-                    .margin(top = 10.px, bottom = 5.px)
+                    .margin(top = 0.px, bottom = 5.px)
                     .fontFamily(FONT_FAMILY)
                     .fontSize(20.px)
                     .fontWeight(FontWeight.Bold)
@@ -119,10 +122,8 @@ fun MainText(breakpoint: Breakpoint) {
             P(
                 attrs = Modifier
                     .maxWidth(400.px)
-                    .margin(bottom = 25.px)
+                    .margin(bottom = 40.px)
                     .fontFamily(FONT_FAMILY)
-                    .fontSize(15.px)
-                    .fontStyle(FontStyle.Italic)
                     .fontWeight(FontWeight.Normal)
                     .toAttrs()
             ) {
@@ -137,7 +138,7 @@ fun MainText(breakpoint: Breakpoint) {
                     ctx.router.tryRoutingTo(Section.Contact.path)
                 }
             ) {
-                Text("Hire me")
+                Text("Let's chat!")
             }
         }
     }
@@ -149,7 +150,9 @@ fun MainImage(breakpoint: Breakpoint) {
         modifier = Modifier.fillMaxSize(100.percent).fillMaxHeight(),//.margin(left = if (breakpoint >= Breakpoint.MD) 60.px else 0.px),
         contentAlignment = Alignment.BottomCenter,
     ) {
-        Backdrop(modifier = Modifier.fillMaxWidth(80.percent).fillMaxHeight(85.percent))
+        val colorMode by ColorMode.currentState
+
+        Backdrop(colorMode, modifier = Modifier.fillMaxWidth(80.percent).fillMaxHeight(85.percent))
 
         Image(
             modifier = MainImageStyle.toModifier().fillMaxWidth(80.percent),

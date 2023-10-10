@@ -11,6 +11,7 @@ import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
@@ -23,7 +24,7 @@ fun ExperienceSection() {
         modifier = Modifier
             .id(Section.Experience.id)
             .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = Constants.SECTION_PADDING.px),
+            .padding(top = Constants.SECTION_PADDING.px),
         contentAlignment = Alignment.Center
     ) {
         ExperienceContent()
@@ -44,7 +45,7 @@ fun ExperienceContent() {
 
     Column(
         modifier = Modifier
-            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 100.percent else 80.percent),
+            .fillMaxWidth(if (breakpoint > Breakpoint.MD) 100.percent else 80.percent),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SectionTitle(
