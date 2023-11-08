@@ -1,6 +1,7 @@
 package com.christiano.bolla.pages
 
 import androidx.compose.runtime.*
+import com.christiano.bolla.components.BackToTopButton
 import com.christiano.bolla.components.Header
 import com.christiano.bolla.components.OverlowMenu
 import com.christiano.bolla.sections.*
@@ -12,15 +13,16 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxSize
 import com.varabyte.kobweb.compose.ui.modifiers.gridRow
 import com.varabyte.kobweb.compose.ui.modifiers.gridTemplateRows
+import com.varabyte.kobweb.compose.ui.modifiers.margin
 import com.varabyte.kobweb.core.Page
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.fr
+import org.jetbrains.compose.web.css.px
 
 @Page
 @Composable
 fun HomePage() {
     var menuOpened by remember { mutableStateOf(false) }
-    var isChecked by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -34,10 +36,11 @@ fun HomePage() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 MainSection()
-                AboutSection()
+                WhatIDoSection()
+//                AboutSection()
                 ServiceSection()
                 PortfolioSection()
-                AchievementsSection()
+//                AchievementsSection()
                 TestimonialSection()// TODO: Makes the page wider on a smaller screen size (my phone landscape)
                 ExperienceSection()
                 ContactSection()
@@ -52,6 +55,8 @@ fun HomePage() {
 //            *     }
 //            *   }
 //        * }
+
+        BackToTopButton()
 
         if (menuOpened) {
             OverlowMenu { menuOpened = false }

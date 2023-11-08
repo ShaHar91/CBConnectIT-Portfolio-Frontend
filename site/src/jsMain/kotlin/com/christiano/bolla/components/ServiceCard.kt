@@ -1,6 +1,7 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import com.christiano.bolla.models.Service
 import com.christiano.bolla.models.Theme
 import com.christiano.bolla.utils.Constants
@@ -12,6 +13,7 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.graphics.Image
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.P
@@ -19,7 +21,10 @@ import org.jetbrains.compose.web.dom.Text
 
 @Composable
 fun ServiceCard(service: Service) {
+    val colorMode by ColorMode.currentState
+
     Backdrop(
+        colorMode,
         modifier = Modifier
             .maxWidth(300.px)
             .margin(all = 20.px)

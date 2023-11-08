@@ -16,6 +16,7 @@ import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.silk.components.forms.ButtonSize
@@ -122,6 +123,7 @@ fun LeftSide(
 fun RightSide() {
     Row(
         modifier = Modifier
+            .margin(right = 100.px)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.End
     ) {
