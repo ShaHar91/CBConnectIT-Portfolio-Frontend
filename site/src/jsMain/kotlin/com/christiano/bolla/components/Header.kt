@@ -18,6 +18,7 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.thenIf
+import com.varabyte.kobweb.silk.components.forms.ButtonSize
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.icons.fa.FaBars
 import com.varabyte.kobweb.silk.components.icons.fa.FaMoon
@@ -64,7 +65,7 @@ fun Header(onMenuClicked: () -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        LeftSide(breakpoint, onMenuClicked)
+        LeftSide(breakpoint, colorMode, onMenuClicked)
 
         if (breakpoint > Breakpoint.MD) {
             RightSide()
@@ -74,7 +75,8 @@ fun Header(onMenuClicked: () -> Unit) {
             onClick = {
                 colorMode = colorMode.opposite
             },
-            BUTTON_MARGIN,
+            modifier = BUTTON_MARGIN,
+            size = ButtonSize.SM,
             shape = ButtonShape.CIRCLE
         ) {
             when (colorMode) {
@@ -89,6 +91,7 @@ fun Header(onMenuClicked: () -> Unit) {
 @Composable
 fun LeftSide(
     breakpoint: Breakpoint,
+    colorMode: ColorMode,
     onMenuClicked: () -> Unit
 ) {
     Row(
@@ -102,9 +105,14 @@ fun LeftSide(
             )
         }
 
+        val logo = when (colorMode) {
+            ColorMode.DARK -> Res.Image.logoDark
+            ColorMode.LIGHT -> Res.Image.logo
+        }
+
         Image(
-            modifier = LogoStyle.toModifier(),
-            src = Res.Image.logo,
+            modifier = LogoStyle.toModifier().height(50.px),
+            src = logo,
             desc = "Logo Image"
         )
     }

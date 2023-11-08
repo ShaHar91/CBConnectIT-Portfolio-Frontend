@@ -77,11 +77,12 @@ fun ThemedButton(
     text: String? = null,
     shape: ButtonShape = ButtonShape.RECTANGLE,
     primary: Boolean = false,
+    size: ButtonSize = ButtonSize.MD,
     content: @Composable () -> Unit = {}
 ) {
     Button(
         onClick = { onClick() },
-        size = ButtonSize.MD,
+        size = size,
         modifier = modifier.then(getButtonModifier(shape)),
         variant = if (primary) PrimaryButtonVariant else NormalButtonVariant
     ) {
