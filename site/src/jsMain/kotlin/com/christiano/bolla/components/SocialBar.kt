@@ -11,6 +11,7 @@ import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.navigation.OpenLinkStrategy
 import com.varabyte.kobweb.silk.components.icons.fa.FaGithub
 import com.varabyte.kobweb.silk.components.icons.fa.FaLinkedin
@@ -24,9 +25,6 @@ import org.jetbrains.compose.web.css.px
 fun SocialBar(row: Boolean = false) {
     if (row) {
         Row(
-            modifier = Modifier
-                .margin(top = 25.px)
-                .padding(leftRight = 25.px),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -34,9 +32,6 @@ fun SocialBar(row: Boolean = false) {
         }
     } else {
         Column(
-            modifier = Modifier
-                .margin(right = 25.px)
-                .padding(topBottom = 25.px),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -58,20 +53,21 @@ private fun SocialLinks(row: Boolean = false) {
         Backdrop(
             colorMode,
             Modifier.id("socialLink")
-                .size(45.px)
-                .padding(10.px)
-                .margin(
-                    bottom = if (row) 0.px else 20.px,
-                    right = if (row) 20.px else 0.px
-                ),
+                .size(34.px)
+                .padding(10.px),
             borderRadius = 4.px
         ) {
             FaGithub(
                 modifier = Modifier.id("socialIcon"),
-                size = IconSize.LG
+                size = IconSize.SM
             )
         }
     }
+
+    Spacer(Modifier
+        .thenIf(row) { Modifier.width(20.px) }
+        .thenIf(!row) { Modifier.height(20.px) }
+    )
 
     Link(
         modifier = SocialLinkStyle.toModifier()
@@ -82,13 +78,13 @@ private fun SocialLinks(row: Boolean = false) {
         Backdrop(
             colorMode,
             Modifier.id("socialLink")
-                .size(45.px)
+                .size(34.px)
                 .padding(10.px),
             borderRadius = 4.px
         ) {
             FaLinkedin(
                 modifier = Modifier.id("socialIcon"),
-                size = IconSize.LG
+                size = IconSize.SM
             )
         }
     }

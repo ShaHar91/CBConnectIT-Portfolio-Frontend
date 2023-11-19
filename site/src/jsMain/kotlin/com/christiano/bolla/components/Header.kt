@@ -4,9 +4,14 @@ import androidx.compose.runtime.*
 import com.christiano.bolla.models.Section
 import com.christiano.bolla.styles.LogoStyle
 import com.christiano.bolla.styles.NavigationItemStyle
+import com.christiano.bolla.styles.onBackground
 import com.christiano.bolla.styles.primary
+import com.christiano.bolla.svg.darkModeSvg
+import com.christiano.bolla.svg.lightModeSvg
+import com.christiano.bolla.svg.overflowMenuSvg
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.logoImage
+import com.varabyte.kobweb.compose.css.Cursor
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextDecorationLine
 import com.varabyte.kobweb.compose.css.functions.LinearGradient
@@ -22,10 +27,6 @@ import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.forms.ButtonSize
 import com.varabyte.kobweb.silk.components.graphics.Image
-import com.varabyte.kobweb.silk.components.icons.fa.FaBars
-import com.varabyte.kobweb.silk.components.icons.fa.FaMoon
-import com.varabyte.kobweb.silk.components.icons.fa.FaSun
-import com.varabyte.kobweb.silk.components.icons.fa.IconSize
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.overlay.Tooltip
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
@@ -58,7 +59,7 @@ fun Header(onMenuClicked: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(60.px)
+            .height(50.px)
             .top(0.percent) // Make it work with sticky!
             .position(Position.Sticky)
             .zIndex(1)
@@ -88,12 +89,13 @@ fun Header(onMenuClicked: () -> Unit) {
                 // Toggle the color mode
                 colorMode = colorMode.opposite
             },
+            primary = true,
             size = ButtonSize.SM,
             shape = ButtonShape.CIRCLE
         ) {
             when (colorMode) {
-                ColorMode.DARK -> FaSun()
-                ColorMode.LIGHT -> FaMoon()
+                ColorMode.DARK -> lightModeSvg(colorMode.toPalette().background)
+                ColorMode.LIGHT -> darkModeSvg(colorMode.toPalette().background)
             }
         }
         Tooltip(ElementTarget.PreviousSibling, "Toggle color mode")
@@ -110,16 +112,18 @@ fun LeftSide(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (breakpoint <= Breakpoint.MD) {
-            FaBars(
-                modifier = Modifier.onClick { onMenuClicked() },
-                size = IconSize.XL
-            )
+            overflowMenuSvg(
+                modifier = Modifier.cursor(Cursor.Pointer),
+                fill = colorMode.toPalette().onBackground
+            ) {
+                onMenuClicked()
+            }
 
             Div(attrs = Modifier.width(24.px).toAttrs())
         }
 
         Image(
-            modifier = LogoStyle.toModifier().height(50.px),
+            modifier = LogoStyle.toModifier().height(40.px),
             src = logoImage(colorMode),
             alt = "Logo Image"
         )

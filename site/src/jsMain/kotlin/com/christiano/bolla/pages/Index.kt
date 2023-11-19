@@ -4,6 +4,7 @@ import androidx.compose.runtime.*
 import com.christiano.bolla.components.BackToTopButton
 import com.christiano.bolla.components.Header
 import com.christiano.bolla.components.OverlowMenu
+import com.christiano.bolla.sections.FooterSection
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -33,23 +34,6 @@ fun HomePage() {
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(Modifier.height(10000.px).padding(top = 100.px)) {
-                    Button(
-                        modifier = Modifier.margin(top = 100.px),
-                        onClick = {}) {
-                        Text("Hello")
-                    }
-                    Button(
-                        modifier = Modifier.margin(top = 100.px),
-                        onClick = {}) {
-                        Text("Hello")
-                    }
-                    Button(
-                        modifier = Modifier.margin(top = 100.px),
-                        onClick = {}) {
-                        Text("Hello")
-                    }
-                }
 //                MainSection()
 //                WhatIDoSection()
 ////                AboutSection()
@@ -101,6 +85,6 @@ fun PageLayout(title: String, onMenuClicked: () -> Unit, content: @Composable ()
             content()
         }
         // Associate the footer with the row that will get pushed off the bottom of the page if it can't fit.
-//        FooterSection(Modifier.gridRow(2, 3))
+        FooterSection(Modifier.gridRow(2, 3))
     }
 }

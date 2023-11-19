@@ -2,6 +2,8 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
 import com.christiano.bolla.styles.lightColorScheme
+import com.christiano.bolla.styles.primary
+import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -36,7 +38,7 @@ private fun getButtonModifier(shape: ButtonShape): Modifier {
 }
 
 val PrimaryButtonVariant by ButtonStyle.addVariant {
-    val backgroundColor = lightColorScheme.primary
+    val backgroundColor = colorMode.toPalette().primary
     base {
         Modifier
             .backgroundColor(backgroundColor)
@@ -85,7 +87,7 @@ fun ThemedButton(
         modifier = modifier.then(getButtonModifier(shape)),
         variant = if (primary) PrimaryButtonVariant else NormalButtonVariant
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(contentAlignment = Alignment.Center) {
             content()
             if (!text.isNullOrEmpty()) {
                 SpanText(text)
