@@ -1,4 +1,4 @@
-package com.christiano.bolla.tryOut
+package com.christiano.bolla.theme
 
 internal object ColorLightTokens {
     val Background = PaletteTokens.Neutral99

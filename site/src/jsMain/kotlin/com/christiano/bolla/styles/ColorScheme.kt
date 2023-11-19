@@ -1,6 +1,6 @@
-package com.christiano.bolla.models
+package com.christiano.bolla.styles
 
-import com.christiano.bolla.tryOut.ColorScheme
+import com.christiano.bolla.theme.ColorScheme
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.silk.theme.colors.palette.Palette
 import com.varabyte.kobweb.silk.theme.colors.palette.colorMode
@@ -156,10 +156,11 @@ val darkColorScheme = ColorScheme(
     surfaceContainerLowest = DarkColorScheme.Surface.silkRgb,
 )
 
-val Palette.onBackground get() = if (colorMode.isDark) darkColorScheme.onBackground else lightColorScheme.onBackground
 val Palette.primary get() = if (colorMode.isDark) darkColorScheme.primary else lightColorScheme.primary
 val Palette.onPrimary get() = if (colorMode.isDark) darkColorScheme.onPrimary else lightColorScheme.onPrimary
 val Palette.secondaryContainer get() = if (colorMode.isDark) darkColorScheme.secondaryContainer else lightColorScheme.secondaryContainer
 val Palette.onSecondaryContainer get() = if (colorMode.isDark) darkColorScheme.onSecondaryContainer else lightColorScheme.onSecondaryContainer
 val Palette.tertiary get() = if (colorMode.isDark) darkColorScheme.tertiary else lightColorScheme.tertiary
+val Palette.onBackground get() = if (colorMode.isDark) darkColorScheme.onBackground else lightColorScheme.onBackground
+val Palette.surface get() = if (colorMode.isDark) darkColorScheme.surface else lightColorScheme.surface
 val Palette.onSurface get() = if (colorMode.isDark) darkColorScheme.onSurface else lightColorScheme.onSurface

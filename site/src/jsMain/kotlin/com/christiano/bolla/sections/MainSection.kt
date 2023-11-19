@@ -5,8 +5,8 @@ import androidx.compose.runtime.getValue
 import com.christiano.bolla.components.Backdrop
 import com.christiano.bolla.components.SocialBar
 import com.christiano.bolla.models.Section
-import com.christiano.bolla.models.onPrimary
-import com.christiano.bolla.models.primary
+import com.christiano.bolla.styles.onPrimary
+import com.christiano.bolla.styles.primary
 import com.christiano.bolla.styles.MainButtonStyle
 import com.christiano.bolla.styles.MainImageStyle
 import com.christiano.bolla.utils.Constants.FONT_FAMILY

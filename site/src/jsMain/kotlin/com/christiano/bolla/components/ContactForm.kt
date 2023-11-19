@@ -1,7 +1,7 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
-import com.christiano.bolla.models.lightColorScheme
+import com.christiano.bolla.styles.lightColorScheme
 import com.christiano.bolla.styles.InputStyle
 import com.christiano.bolla.styles.MainButtonStyle
 import com.varabyte.kobweb.compose.css.Cursor

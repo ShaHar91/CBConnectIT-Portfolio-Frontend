@@ -2,7 +2,7 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.*
 import com.christiano.bolla.models.Section
-import com.christiano.bolla.models.lightColorScheme
+import com.christiano.bolla.styles.lightColorScheme
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.ObserveViewportEntered
 import com.varabyte.kobweb.compose.css.CSSTransition

@@ -2,9 +2,11 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.*
 import com.christiano.bolla.models.Section
+import com.christiano.bolla.styles.LogoStyle
 import com.christiano.bolla.styles.NavigationItemStyle
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
+import com.christiano.bolla.utils.logoImage
 import com.varabyte.kobweb.compose.css.*
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -96,13 +98,13 @@ fun OverlowMenu(onMenuClosed: () -> Unit) {
                     )
 
                     Image(
-                        modifier = Modifier.size(80.px),
-                        src = Res.Image.logo,
+                        modifier = Modifier.width(110.px),
+                        src = logoImage(ColorMode.current),
                         alt = "Logo Image"
                     )
                 }
 
-                Section.values().dropLast(2).forEach { section ->
+                Section.entries.dropLast(2).forEach { section ->
                     Link(
                         modifier = NavigationItemStyle.toModifier()
                             .padding(bottom = 10.px)

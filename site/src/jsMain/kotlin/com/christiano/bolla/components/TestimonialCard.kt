@@ -3,7 +3,7 @@ package com.christiano.bolla.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.christiano.bolla.models.Testimonial
-import com.christiano.bolla.models.lightColorScheme
+import com.christiano.bolla.styles.lightColorScheme
 import com.christiano.bolla.utils.Constants
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextAlign

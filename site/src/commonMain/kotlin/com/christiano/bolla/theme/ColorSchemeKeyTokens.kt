@@ -1,4 +1,4 @@
-package com.christiano.bolla.tryOut
+package com.christiano.bolla.theme
 
 
 internal enum class ColorSchemeKeyTokens {

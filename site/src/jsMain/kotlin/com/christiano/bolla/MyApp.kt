@@ -3,10 +3,8 @@ package com.christiano.bolla
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import com.christiano.bolla.models.darkColorScheme
-import com.christiano.bolla.models.lightColorScheme
-import com.varabyte.kobweb.compose.ui.graphics.Color
-import com.varabyte.kobweb.compose.ui.graphics.Colors
+import com.christiano.bolla.styles.darkColorScheme
+import com.christiano.bolla.styles.lightColorScheme
 import com.varabyte.kobweb.compose.ui.graphics.lightened
 import com.varabyte.kobweb.compose.ui.modifiers.minHeight
 import com.varabyte.kobweb.core.App
@@ -18,7 +16,6 @@ import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.*
-import com.varabyte.kobweb.silk.theme.colors.shifted
 import kotlinx.browser.localStorage
 import org.jetbrains.compose.web.css.vh
 
@@ -59,63 +56,6 @@ fun updateTheme(ctx: InitSilkContext) {
         darkColorScheme.onBackground,
         darkColorScheme.onBackground
     )
-
-//    ctx.theme.palettes = MutableSilkPalettes(
-//        light = MutableSilkPalette(
-//            background = Theme.Secondary.silkRgb,
-//            color = Colors.Black,
-//            link = MutableSilkPalette.Link(
-//                default = Colors.Black,
-//                visited = Colors.Black
-//            ),
-//            button = MutableSilkPalette.Button(
-//                default = Theme.Primary.silkRgb,
-//                hover = Theme.Primary.silkRgb,
-//                focus = Theme.Primary.silkRgb,
-//                pressed = Theme.Secondary.silkRgb
-//            ),
-//            switch = MutableSilkPalette.Switch(
-//                backgroundOn = Colors.DarkGray,
-//                backgroundOff = Colors.LightGray,
-//                thumb = Theme.Primary.silkRgb
-//            ),
-//            tab = MutableSilkPalette.Tab(
-//                color = Colors.White,
-//                background = Colors.White,
-//                selectedColor = Colors.White,
-//                hover = Colors.White,
-//                pressed = Colors.White,
-//                disabled = Colors.White
-//            )
-//        ),
-//        dark = MutableSilkPalette(
-//            background = Theme.Primary.silkRgb,
-//            color = Colors.White,
-//            link = MutableSilkPalette.Link(
-//                default = Colors.White,
-//                visited = Colors.White
-//            ),
-//            button = MutableSilkPalette.Button(
-//                default = Theme.Secondary.silkRgb,
-//                hover = Theme.Secondary.silkRgb,
-//                focus = Theme.Secondary.silkRgb,
-//                pressed = Theme.Primary.silkRgb
-//            ),
-//            switch = MutableSilkPalette.Switch(
-//                backgroundOn = Colors.Blue,
-//                backgroundOff = Colors.MediumBlue,
-//                thumb = Theme.Primary.silkRgb
-//            ),
-//            tab = MutableSilkPalette.Tab(
-//                color = Colors.White,
-//                background = Colors.White,
-//                selectedColor = Colors.White,
-//                hover = Colors.White,
-//                pressed = Colors.White,
-//                disabled = Colors.Red
-//            )
-//        )
-//    )
 }
 
 @App
@@ -123,6 +63,7 @@ fun updateTheme(ctx: InitSilkContext) {
 fun MyApp(content: @Composable () -> Unit) {
     SilkApp {
         val colorMode by ColorMode.currentState
+
         LaunchedEffect(colorMode) {
             localStorage.setItem(COLOR_MODE_KEY, colorMode.name)
         }

@@ -2,7 +2,7 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import com.christiano.bolla.models.lightColorScheme
+import com.christiano.bolla.styles.lightColorScheme
 import com.christiano.bolla.utils.Constants.FONT_FAMILY
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.css.FontWeight

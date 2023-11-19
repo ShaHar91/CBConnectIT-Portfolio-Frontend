@@ -1,17 +1,14 @@
 package com.christiano.bolla.utils
 
 object Constants {
-    const val WEBSITE = "https://github.com/ShaHar91"
-
     const val LINKEDIN = "https://www.linkedin.com/in/christiano-bolla/"
-//    const val FACEBOOK = "https://www.facebook.com"
-//    const val INSTAGRAM = "https://www.instagram.com"
-//    const val TWITTER = "https://www.twitter.com"
+
     const val GITHUB = "https://github.com/ShaHar91"
     const val SECTION_WIDTH = 1920
     const val FONT_FAMILY = "Roboto"
 
-    const val LOREM_IPSUM_SHORTEST = "Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    const val LOREM_IPSUM_SHORTEST =
+        "Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     const val LOREM_IPSUM_SHORT =
         "Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
@@ -61,10 +58,6 @@ object Res {
 }
 
 object Identifiers {
-
-    object ServiceCard {
-        const val iconBox = "iconBox"
-    }
 
     object PortfolioCards {
         const val scrollableContainer = "scrollableContainer"

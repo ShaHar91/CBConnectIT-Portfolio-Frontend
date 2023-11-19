@@ -1,8 +1,8 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.*
-import com.christiano.bolla.models.onPrimary
-import com.christiano.bolla.models.primary
+import com.christiano.bolla.styles.onPrimary
+import com.christiano.bolla.styles.primary
 import com.christiano.bolla.styles.BackToTopButtonStyle
 import com.varabyte.kobweb.compose.css.Cursor
 import com.varabyte.kobweb.compose.css.Visibility

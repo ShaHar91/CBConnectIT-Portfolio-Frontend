@@ -5,7 +5,7 @@ import com.christiano.bolla.components.SectionTitle
 import com.christiano.bolla.components.TestimonialCard
 import com.christiano.bolla.models.Section
 import com.christiano.bolla.models.Testimonial
-import com.christiano.bolla.models.lightColorScheme
+import com.christiano.bolla.styles.lightColorScheme
 import com.christiano.bolla.utils.Constants
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.css.Cursor

@@ -2,15 +2,16 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.*
 import com.christiano.bolla.models.Section
-import com.christiano.bolla.models.lightColorScheme
 import com.christiano.bolla.styles.LogoStyle
 import com.christiano.bolla.styles.NavigationItemStyle
+import com.christiano.bolla.styles.primary
 import com.christiano.bolla.utils.Constants
-import com.christiano.bolla.utils.Res
+import com.christiano.bolla.utils.logoImage
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextDecorationLine
+import com.varabyte.kobweb.compose.css.functions.LinearGradient
 import com.varabyte.kobweb.compose.css.functions.blur
-import com.varabyte.kobweb.compose.css.functions.saturate
+import com.varabyte.kobweb.compose.css.functions.linearGradient
 import com.varabyte.kobweb.compose.dom.ElementTarget
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Row
@@ -18,6 +19,7 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.thenIf
+import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.forms.ButtonSize
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.icons.fa.FaBars
@@ -37,6 +39,7 @@ import kotlinx.browser.window
 import org.jetbrains.compose.web.css.Position
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.dom.Div
 
 @Composable
 fun Header(onMenuClicked: () -> Unit) {
@@ -50,17 +53,25 @@ fun Header(onMenuClicked: () -> Unit) {
         })
     }
 
+    val backgroundColor = colorMode.toPalette().background
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .top(0.percent)
             .height(60.px)
+            .top(0.percent) // Make it work with sticky!
             .position(Position.Sticky)
             .zIndex(1)
-            .backgroundColor(ColorMode.current.toPalette().background.toRgb().copyf(alpha = 0.65f))
-            .backdropFilter(saturate(180.percent), blur(5.px))
+            .backgroundImage(
+                linearGradient(
+                    LinearGradient.Direction.ToBottom,
+                    backgroundColor,
+                    backgroundColor.toRgb().copyf(alpha = 0.5f)
+                )
+            )
+            .backdropFilter(blur(5.px))
             .thenIf((scroll ?: 0.0) >= 50) {
-                Modifier.boxShadow(0.px, 1.px, 5.px, 0.px, lightColorScheme.primary)
+                Modifier.boxShadow(0.px, 1.px, 5.px, 0.px, colorMode.toPalette().primary)
             }
             .padding(leftRight = 30.px),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -74,9 +85,9 @@ fun Header(onMenuClicked: () -> Unit) {
 
         ThemedButton(
             onClick = {
+                // Toggle the color mode
                 colorMode = colorMode.opposite
             },
-            modifier = BUTTON_MARGIN,
             size = ButtonSize.SM,
             shape = ButtonShape.CIRCLE
         ) {
@@ -100,20 +111,16 @@ fun LeftSide(
     ) {
         if (breakpoint <= Breakpoint.MD) {
             FaBars(
-                modifier = Modifier.margin(right = 15.px)
-                    .onClick { onMenuClicked() },
+                modifier = Modifier.onClick { onMenuClicked() },
                 size = IconSize.XL
             )
-        }
 
-        val logo = when (colorMode) {
-            ColorMode.DARK -> Res.Image.logoDark
-            ColorMode.LIGHT -> Res.Image.logo
+            Div(attrs = Modifier.width(24.px).toAttrs())
         }
 
         Image(
             modifier = LogoStyle.toModifier().height(50.px),
-            src = logo,
+            src = logoImage(colorMode),
             alt = "Logo Image"
         )
     }
@@ -123,16 +130,19 @@ fun LeftSide(
 fun RightSide() {
     Row(
         modifier = Modifier
-            .margin(right = 100.px)
+            .margin(right = 30.px)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.End
     ) {
-        Section.values().take(6).forEach { section ->
+        Section.entries.take(6).forEachIndexed { index, section ->
+            if (index != 0) {
+                Div(attrs = Modifier.width(30.px).toAttrs())
+            }
+
             Link(
                 modifier = NavigationItemStyle.toModifier()
-                    .padding(right = 30.px)
                     .fontFamily(Constants.FONT_FAMILY)
-                    .fontSize(18.px)
+                    .fontSize(16.px)
                     .fontWeight(FontWeight.Normal)
                     .textDecorationLine(TextDecorationLine.None),
                 path = section.path,

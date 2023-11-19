@@ -3,9 +3,8 @@ package com.christiano.bolla.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.christiano.bolla.models.Service
-import com.christiano.bolla.models.lightColorScheme
+import com.christiano.bolla.styles.lightColorScheme
 import com.christiano.bolla.utils.Constants
-import com.christiano.bolla.utils.Identifiers.ServiceCard.iconBox
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -33,7 +32,6 @@ fun ServiceCard(service: Service) {
         Column {
             Box(
                 modifier = Modifier
-                    .id(iconBox)
                     .margin(bottom = 20.px)
                     .border(width = (1).px, style = LineStyle.Solid, color = lightColorScheme.primary)
                     .borderRadius(topLeft = 20.px, topRight = 20.px, bottomLeft = 20.px, bottomRight = 0.px)

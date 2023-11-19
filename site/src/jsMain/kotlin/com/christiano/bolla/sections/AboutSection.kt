@@ -64,7 +64,9 @@ fun AboutContent() {
 
     Column(
         modifier = Modifier
-            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 100.percent else 90.percent)
+            .fillMaxWidth(
+                if (breakpoint >= Breakpoint.MD) 100.percent else 90.percent
+            )
             .maxWidth(1200.px),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -107,7 +109,7 @@ fun AboutMe() {
         distanceFromTop = 300.0
     ) {
         viewportEntered = true
-        Skill.values().forEach { skill ->
+        Skill.entries.forEach { skill ->
             scope.launch {
                 animateNumbers(
                     number = skill.percentage.value.toInt(),

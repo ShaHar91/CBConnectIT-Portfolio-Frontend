@@ -6,12 +6,10 @@ import com.christiano.bolla.models.Section
 import com.christiano.bolla.styles.NavigationItemStyle
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
+import com.christiano.bolla.utils.logoImage
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextDecorationLine
-import com.varabyte.kobweb.compose.foundation.layout.Arrangement
-import com.varabyte.kobweb.compose.foundation.layout.Box
-import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.foundation.layout.Row
+import com.varabyte.kobweb.compose.foundation.layout.*
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
@@ -20,6 +18,7 @@ import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 
@@ -46,7 +45,11 @@ fun FooterContent() {
             .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 100.percent else 90.percent),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(src = Res.Image.logo, alt = "Logo Image", modifier = Modifier.size(100.px))
+        Image(
+            modifier = Modifier.width(110.px).padding(bottom = 25.px),
+            src = logoImage(ColorMode.current),
+            alt = "Logo Image"
+        )
 
         // simple grid can't be used since it only allows up to 5 items
         if (breakpoint > Breakpoint.SM) {

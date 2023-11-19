@@ -4,20 +4,18 @@ import androidx.compose.runtime.*
 import com.christiano.bolla.components.BackToTopButton
 import com.christiano.bolla.components.Header
 import com.christiano.bolla.components.OverlowMenu
-import com.christiano.bolla.sections.*
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.fillMaxSize
-import com.varabyte.kobweb.compose.ui.modifiers.gridRow
-import com.varabyte.kobweb.compose.ui.modifiers.gridTemplateRows
-import com.varabyte.kobweb.compose.ui.modifiers.margin
+import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.Page
+import com.varabyte.kobweb.silk.components.forms.Button
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.fr
 import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.dom.Text
 
 @Page
 @Composable
@@ -35,15 +33,32 @@ fun HomePage() {
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                MainSection()
-                WhatIDoSection()
-//                AboutSection()
-                ServiceSection()
-                PortfolioSection()
-                AchievementsSection()
-                TestimonialSection()// TODO: Makes the page wider on a smaller screen size (my phone landscape)
-                ExperienceSection()
-                ContactSection()
+                Column(Modifier.height(10000.px).padding(top = 100.px)) {
+                    Button(
+                        modifier = Modifier.margin(top = 100.px),
+                        onClick = {}) {
+                        Text("Hello")
+                    }
+                    Button(
+                        modifier = Modifier.margin(top = 100.px),
+                        onClick = {}) {
+                        Text("Hello")
+                    }
+                    Button(
+                        modifier = Modifier.margin(top = 100.px),
+                        onClick = {}) {
+                        Text("Hello")
+                    }
+                }
+//                MainSection()
+//                WhatIDoSection()
+////                AboutSection()
+//                ServiceSection()
+//                PortfolioSection()
+//                AchievementsSection()
+//                TestimonialSection()// TODO: Makes the page wider on a smaller screen size (my phone landscape)
+//                ExperienceSection()
+//                ContactSection()
             }
         }
 
@@ -86,6 +101,6 @@ fun PageLayout(title: String, onMenuClicked: () -> Unit, content: @Composable ()
             content()
         }
         // Associate the footer with the row that will get pushed off the bottom of the page if it can't fit.
-        FooterSection(Modifier.gridRow(2, 3))
+//        FooterSection(Modifier.gridRow(2, 3))
     }
 }

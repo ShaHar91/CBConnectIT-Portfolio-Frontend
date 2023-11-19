@@ -1,7 +1,7 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
-import com.christiano.bolla.models.primary
+import com.christiano.bolla.styles.primary
 import com.christiano.bolla.utils.Res
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
