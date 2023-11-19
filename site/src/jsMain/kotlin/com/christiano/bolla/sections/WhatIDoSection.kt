@@ -5,7 +5,7 @@ import androidx.compose.runtime.getValue
 import com.christiano.bolla.components.Backdrop
 import com.christiano.bolla.components.HighLightCard
 import com.christiano.bolla.components.SectionTitle
-import com.christiano.bolla.models.Section
+import com.christiano.bolla.models.*
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
 import com.varabyte.kobweb.compose.css.FontWeight
@@ -22,7 +22,8 @@ import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.icons.fa.FaAward
 import com.varabyte.kobweb.silk.components.icons.fa.IconSize
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.toSilkPalette
+import com.varabyte.kobweb.silk.theme.colors.palette.color
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.P
@@ -49,15 +50,11 @@ fun WhatIDoSection() {
 fun WhatIDoContent() {
     val colorMode by ColorMode.currentState
 
-    val alwaysDarkMode = colorMode.let {
-        if (it.isDark) it else it.opposite
-    }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .color(alwaysDarkMode.toSilkPalette().color)
-            .backgroundColor(Color.rgb(99, 116, 140))
+            .color(colorMode.toPalette().onSecondaryContainer)
+            .backgroundColor(colorMode.toPalette().secondaryContainer)
             .padding(topBottom = 50.px),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -86,9 +83,9 @@ fun WhatIDoContent() {
 
             val yearsExperience = (current - started).inWholeDays / 365
 
-            HighLightCard(alwaysDarkMode.opposite, "Experience", "$yearsExperience+ years")
-            HighLightCard(alwaysDarkMode.opposite, "Completed", "15+ projects", modifier = Modifier.margin(right = 10.px, left = 10.px))
-            HighLightCard(alwaysDarkMode.opposite, "Something", "Dunno yet")
+            HighLightCard(colorMode, "Experience", "$yearsExperience+ years")
+            HighLightCard(colorMode, "Completed", "15+ projects", modifier = Modifier.margin(right = 10.px, left = 10.px))
+            HighLightCard(colorMode, "Something", "Dunno yet")
         }
     }
 }

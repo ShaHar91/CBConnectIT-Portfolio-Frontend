@@ -40,7 +40,7 @@ fun HomePage() {
 //                AboutSection()
                 ServiceSection()
                 PortfolioSection()
-//                AchievementsSection()
+                AchievementsSection()
                 TestimonialSection()// TODO: Makes the page wider on a smaller screen size (my phone landscape)
                 ExperienceSection()
                 ContactSection()

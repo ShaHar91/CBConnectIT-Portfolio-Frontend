@@ -22,7 +22,8 @@ import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.toSilkPalette
+import com.varabyte.kobweb.silk.theme.colors.palette.background
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -75,7 +76,7 @@ fun OverlowMenu(onMenuClosed: () -> Unit) {
                     .width(if (breakpoint < Breakpoint.MD) 50.percent else 25.percent)
                     .overflow(Overflow.Auto)
                     .scrollBehavior(ScrollBehavior.Smooth)
-                    .backgroundColor(ColorMode.current.toSilkPalette().background)
+                    .backgroundColor(ColorMode.current.toPalette().background)
                     .translateX(tx = translateX)
                     .transition(CSSTransition("translate", 500.ms))
             ) {
@@ -97,7 +98,7 @@ fun OverlowMenu(onMenuClosed: () -> Unit) {
                     Image(
                         modifier = Modifier.size(80.px),
                         src = Res.Image.logo,
-                        desc = "Logo Image"
+                        alt = "Logo Image"
                     )
                 }
 

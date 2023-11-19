@@ -2,7 +2,7 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.*
 import com.christiano.bolla.models.Section
-import com.christiano.bolla.models.Theme
+import com.christiano.bolla.models.lightColorScheme
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.ObserveViewportEntered
 import com.varabyte.kobweb.compose.css.CSSTransition
@@ -88,7 +88,7 @@ fun SectionTitle(
             modifier = Modifier
                 .height(2.px)
                 .width(80.px)
-                .backgroundColor(Theme.Primary.rgb)
+                .backgroundColor(lightColorScheme.primary)
                 .borderRadius(r = 50.px)
         )
     }

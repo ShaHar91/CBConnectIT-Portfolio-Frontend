@@ -2,7 +2,7 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
 import com.christiano.bolla.models.Experience
-import com.christiano.bolla.models.Theme
+import com.christiano.bolla.models.lightColorScheme
 import com.christiano.bolla.utils.Constants
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.css.FontWeight
@@ -20,9 +20,10 @@ import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.layout.SimpleGrid
 import com.varabyte.kobweb.silk.components.layout.numColumns
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
-import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.toSilkPalette
+import com.varabyte.kobweb.silk.theme.colors.palette.background
+import com.varabyte.kobweb.silk.theme.colors.palette.color
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
@@ -54,9 +55,9 @@ fun ExperienceDescription(
             .margin(topBottom = 14.px)
             .padding(all = 14.px)
             .thenIf(active && ColorMode.current.isLight) {
-                Modifier.color(ColorMode.current.opposite.toSilkPalette().color)
+                Modifier.color(ColorMode.current.opposite.toPalette().color)
             }
-            .backgroundColor(if (active) Theme.Primary.rgb else ColorMode.current.toSilkPalette().background.darkened(0.1f))
+            .backgroundColor(if (active) lightColorScheme.primary else ColorMode.current.toPalette().background.darkened(0.1f))
     ) {
         P(
             attrs = Modifier
@@ -144,13 +145,13 @@ fun ExperiencNumber(
         Box(
             modifier = Modifier.fillMaxHeight()
                 .width(3.px)
-                .backgroundColor(Theme.Primary.rgb)
+                .backgroundColor(lightColorScheme.primary)
         )
 
         Box(
             modifier = Modifier.size(40.px)
-                .border(width = 3.px, style = LineStyle.Solid, Theme.Primary.rgb)
-                .backgroundColor(if (active) Theme.Primary.rgb else ColorMode.current.toSilkPalette().background)
+                .border(width = 3.px, style = LineStyle.Solid, lightColorScheme.primary)
+                .backgroundColor(if (active) lightColorScheme.primary else ColorMode.current.toPalette().background)
                 .borderRadius(50.percent),
             contentAlignment = Alignment.Center
         ) {
@@ -160,7 +161,7 @@ fun ExperiencNumber(
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontSize(16.px)
                     .fontWeight(FontWeight.Bold)
-                    .color(if (active) Colors.White else Theme.Primary.rgb)
+                    .color(if (active) Colors.White else lightColorScheme.primary)
                     .toAttrs()
             ) {
                 Text(experience.number)

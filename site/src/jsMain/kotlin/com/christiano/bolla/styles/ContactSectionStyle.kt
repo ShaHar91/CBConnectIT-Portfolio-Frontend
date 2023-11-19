@@ -1,6 +1,6 @@
 package com.christiano.bolla.styles
 
-import com.christiano.bolla.models.Theme
+import com.christiano.bolla.models.lightColorScheme
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.border
@@ -15,15 +15,15 @@ import org.jetbrains.compose.web.css.px
 val InputStyle by ComponentStyle {
     base {
         Modifier
-            .border(width = 2.px, style = LineStyle.Solid, color = Theme.LighterGray.rgb)
+            .border(width = 2.px, style = LineStyle.Solid, color = lightColorScheme.surface)
             .transition(CSSTransition(property = "border", duration = 200.ms))
     }
 
     focus {
-        Modifier.border(width = 2.px, style = LineStyle.Solid, color = Theme.Primary.rgb)
+        Modifier.border(width = 2.px, style = LineStyle.Solid, color = lightColorScheme.primary)
     }
 
     hover {
-        Modifier.border(width = 2.px, style = LineStyle.Solid, color = Theme.Primary.rgb)
+        Modifier.border(width = 2.px, style = LineStyle.Solid, color = lightColorScheme.primary)
     }
 }

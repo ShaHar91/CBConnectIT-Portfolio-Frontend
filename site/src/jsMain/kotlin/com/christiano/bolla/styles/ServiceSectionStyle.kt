@@ -1,6 +1,5 @@
 package com.christiano.bolla.styles
 
-import com.christiano.bolla.models.Theme
 import com.christiano.bolla.utils.Identifiers.ServiceCard.iconBox
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -8,9 +7,7 @@ import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.hover
-import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.ms
-import org.jetbrains.compose.web.css.px
 
 val ServiceCardStyle by ComponentStyle {
     base {

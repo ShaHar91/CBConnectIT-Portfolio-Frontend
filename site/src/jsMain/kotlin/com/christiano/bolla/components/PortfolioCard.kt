@@ -2,7 +2,6 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
 import com.christiano.bolla.models.Portfolio
-import com.christiano.bolla.models.Theme
 import com.christiano.bolla.styles.PortfolioSectionStyle
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Identifiers.PortfolioCard.boxParent
@@ -59,7 +58,7 @@ fun PortfolioCard(
                         .size(300.px)
                         .objectFit(ObjectFit.Cover),
                     src = portfolio.image,
-                    desc = "Portfolio Image"
+                    alt = "Portfolio Image"
                 )
 
                 Box(
@@ -73,7 +72,7 @@ fun PortfolioCard(
                             .id(linkIcon)
                             .size(32.px),
                         src = Res.Icon.link,
-                        desc = "Link icon"
+                        alt = "Link icon"
                     )
                 }
             }

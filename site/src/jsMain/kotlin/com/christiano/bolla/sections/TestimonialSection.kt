@@ -5,7 +5,7 @@ import com.christiano.bolla.components.SectionTitle
 import com.christiano.bolla.components.TestimonialCard
 import com.christiano.bolla.models.Section
 import com.christiano.bolla.models.Testimonial
-import com.christiano.bolla.models.Theme
+import com.christiano.bolla.models.lightColorScheme
 import com.christiano.bolla.utils.Constants
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.css.Cursor
@@ -139,7 +139,7 @@ fun TestimonialNavigation(
                 modifier = Modifier.margin(right = 10.px).cursor(Cursor.Pointer)
                     .size(12.px)
                     .borderRadius(50.px)
-                    .backgroundColor(if (selectedPage == index) Theme.Primary.rgb else Theme.LightGray.rgb)
+                    .backgroundColor(if (selectedPage == index) lightColorScheme.primary else lightColorScheme.surface)
                     .onClick { onNavigate(index) }
             )
         }

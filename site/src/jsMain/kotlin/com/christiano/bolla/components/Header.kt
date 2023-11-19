@@ -2,7 +2,7 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.*
 import com.christiano.bolla.models.Section
-import com.christiano.bolla.models.Theme
+import com.christiano.bolla.models.lightColorScheme
 import com.christiano.bolla.styles.LogoStyle
 import com.christiano.bolla.styles.NavigationItemStyle
 import com.christiano.bolla.utils.Constants
@@ -16,7 +16,6 @@ import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.silk.components.forms.ButtonSize
@@ -31,7 +30,8 @@ import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.toSilkPalette
+import com.varabyte.kobweb.silk.theme.colors.palette.background
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.jetbrains.compose.web.css.Position
@@ -57,10 +57,10 @@ fun Header(onMenuClicked: () -> Unit) {
             .height(60.px)
             .position(Position.Sticky)
             .zIndex(1)
-            .backgroundColor(ColorMode.current.toSilkPalette().background.toRgb().copyf(alpha = 0.65f))
+            .backgroundColor(ColorMode.current.toPalette().background.toRgb().copyf(alpha = 0.65f))
             .backdropFilter(saturate(180.percent), blur(5.px))
             .thenIf((scroll ?: 0.0) >= 50) {
-                Modifier.boxShadow(0.px, 1.px, 5.px, 0.px, Theme.Primary.rgb)
+                Modifier.boxShadow(0.px, 1.px, 5.px, 0.px, lightColorScheme.primary)
             }
             .padding(leftRight = 30.px),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -114,7 +114,7 @@ fun LeftSide(
         Image(
             modifier = LogoStyle.toModifier().height(50.px),
             src = logo,
-            desc = "Logo Image"
+            alt = "Logo Image"
         )
     }
 }

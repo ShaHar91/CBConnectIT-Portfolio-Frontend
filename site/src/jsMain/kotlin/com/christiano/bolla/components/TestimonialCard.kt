@@ -3,7 +3,7 @@ package com.christiano.bolla.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.christiano.bolla.models.Testimonial
-import com.christiano.bolla.models.Theme
+import com.christiano.bolla.models.lightColorScheme
 import com.christiano.bolla.utils.Constants
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextAlign
@@ -14,7 +14,8 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.toSilkPalette
+import com.varabyte.kobweb.silk.theme.colors.palette.color
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.P
@@ -40,7 +41,7 @@ fun TestimonialCard(
                     .borderRadius(50.percent)
                     .maxWidth(80.px),
                 src = testimonial.image,
-                desc = "Avatar Image"
+                alt = "Avatar Image"
             )
 
             P(
@@ -48,7 +49,7 @@ fun TestimonialCard(
                     .fillMaxWidth()
                     .margin(top = 10.px)
                     .fontFamily(Constants.FONT_FAMILY)
-                    .color(Theme.Primary.rgb)
+                    .color(lightColorScheme.primary)
                     .fontWeight(FontWeight.Bold)
                     .textAlign(TextAlign.Center)
                     .toAttrs()
@@ -63,7 +64,7 @@ fun TestimonialCard(
                     .margin(top = 0.px, bottom = 10.px)
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontSize(14.px)
-                    .color(colorMode.toSilkPalette().color.darkened(0.5f))
+                    .color(colorMode.toPalette().color.darkened(0.5f))
                     .fontWeight(FontWeight.Normal)
                     .toAttrs()
             ) {

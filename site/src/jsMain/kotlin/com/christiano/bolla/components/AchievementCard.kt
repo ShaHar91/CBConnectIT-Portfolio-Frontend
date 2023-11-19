@@ -3,7 +3,6 @@ package com.christiano.bolla.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.christiano.bolla.models.Achievement
-import com.christiano.bolla.models.Theme
 import com.christiano.bolla.utils.Constants
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -37,7 +36,7 @@ fun AchievementCard(
 //                .color(colorMode.)
                 .margin(right = 20.px),
             src = achievement.icon,
-            desc = "Achievement Icon"
+            alt = "Achievement Icon"
         )
 
         Column {

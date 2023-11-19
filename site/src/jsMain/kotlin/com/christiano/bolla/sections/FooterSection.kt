@@ -46,7 +46,7 @@ fun FooterContent() {
             .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 100.percent else 90.percent),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(src = Res.Image.logo, desc = "Logo Image", modifier = Modifier.size(100.px))
+        Image(src = Res.Image.logo, alt = "Logo Image", modifier = Modifier.size(100.px))
 
         // simple grid can't be used since it only allows up to 5 items
         if (breakpoint > Breakpoint.SM) {

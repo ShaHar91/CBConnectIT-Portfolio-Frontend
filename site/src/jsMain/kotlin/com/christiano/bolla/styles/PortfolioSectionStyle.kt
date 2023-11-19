@@ -1,6 +1,6 @@
 package com.christiano.bolla.styles
 
-import com.christiano.bolla.models.Theme
+import com.christiano.bolla.models.lightColorScheme
 import com.christiano.bolla.utils.Identifiers.PortfolioCard.boxParent
 import com.christiano.bolla.utils.Identifiers.PortfolioCard.columnParent
 import com.christiano.bolla.utils.Identifiers.PortfolioCard.greenOverlay
@@ -67,11 +67,11 @@ val PortfolioSectionStyle by ComponentStyle {
 
 val PortfolioArrowIconStyle by ComponentStyle {
     base {
-        Modifier.color(Theme.Gray.rgb)
+        Modifier.color(lightColorScheme.surface)
             .transition(CSSTransition(property = "color", duration = 200.ms))
     }
 
     hover {
-        Modifier.color(Theme.Primary.rgb)
+        Modifier.color(lightColorScheme.primary)
     }
 }

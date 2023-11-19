@@ -3,7 +3,7 @@ package com.christiano.bolla.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.christiano.bolla.models.Service
-import com.christiano.bolla.models.Theme
+import com.christiano.bolla.models.lightColorScheme
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Identifiers.ServiceCard.iconBox
 import com.varabyte.kobweb.compose.css.FontWeight
@@ -35,14 +35,14 @@ fun ServiceCard(service: Service) {
                 modifier = Modifier
                     .id(iconBox)
                     .margin(bottom = 20.px)
-                    .border(width = (1).px, style = LineStyle.Solid, color = Theme.Primary.rgb)
+                    .border(width = (1).px, style = LineStyle.Solid, color = lightColorScheme.primary)
                     .borderRadius(topLeft = 20.px, topRight = 20.px, bottomLeft = 20.px, bottomRight = 0.px)
             ) {
                 Image(
                     modifier = Modifier.fillMaxSize()
                         .borderRadius(topLeft = 20.px, topRight = 20.px, bottomLeft = 20.px, bottomRight = 0.px),
                     src = service.icon,
-                    desc = service.imageDesc
+                    alt = service.imageDesc
                 )
             }
 

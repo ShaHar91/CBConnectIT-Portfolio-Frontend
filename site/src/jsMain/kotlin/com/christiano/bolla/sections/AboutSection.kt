@@ -91,7 +91,7 @@ fun AboutImage() {
         Image(
             modifier = AboutImageStyle.toModifier().fillMaxWidth(80.percent),
             src = Res.Image.about,
-            desc = "About Image"
+            alt = "About Image"
         )
     }
 }
@@ -100,7 +100,7 @@ fun AboutImage() {
 fun AboutMe() {
     val scope = rememberCoroutineScope()
     var viewportEntered by remember { mutableStateOf(false) }
-    val animatedPercentage = remember { Skill.values().map { 0 }.toMutableStateList() }
+    val animatedPercentage = remember { Skill.entries.map { 0 }.toMutableStateList() }
 
     ObserveViewportEntered(
         sectionId = Section.About.id,

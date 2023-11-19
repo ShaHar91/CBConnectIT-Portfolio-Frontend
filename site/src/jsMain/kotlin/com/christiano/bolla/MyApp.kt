@@ -3,7 +3,8 @@ package com.christiano.bolla
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import com.christiano.bolla.models.Theme
+import com.christiano.bolla.models.darkColorScheme
+import com.christiano.bolla.models.lightColorScheme
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.graphics.lightened
@@ -16,8 +17,8 @@ import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.colors.MutableSilkPalette
-import com.varabyte.kobweb.silk.theme.toSilkPalette
+import com.varabyte.kobweb.silk.theme.colors.palette.*
+import com.varabyte.kobweb.silk.theme.colors.shifted
 import kotlinx.browser.localStorage
 import org.jetbrains.compose.web.css.vh
 
@@ -28,37 +29,35 @@ fun updateTheme(ctx: InitSilkContext) {
     ctx.config.initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
 
     // Background
-    ctx.theme.palettes.light.background = Color.rgb(237, 240, 243)
-    ctx.theme.palettes.dark.background = Color.rgb(34, 36, 41)
+    ctx.theme.palettes.light.background = lightColorScheme.background
+    ctx.theme.palettes.dark.background = darkColorScheme.background
 
     // Color
-    ctx.theme.palettes.light.color = Colors.Black
-    ctx.theme.palettes.dark.color = Colors.White
-
-    // Link
-    ctx.theme.palettes.light.link = MutableSilkPalette.Link(
-        default = Colors.Black,
-        visited = Colors.Black
-    )
-
-    ctx.theme.palettes.dark.link = MutableSilkPalette.Link(
-        default = Colors.White,
-        visited = Colors.White
-    )
+    ctx.theme.palettes.light.color = lightColorScheme.onBackground
+    ctx.theme.palettes.dark.color = darkColorScheme.onBackground
 
     // Button
-    ctx.theme.palettes.light.button = MutableSilkPalette.Button(
-        default = Theme.Primary.silkRgb,
-        hover = Theme.Primary.silkRgb.lightened(),
-        focus = Theme.Primary.silkRgb.lightened(),
-        pressed = Theme.Primary.silkRgb.darkened()
+    ctx.theme.palettes.light.button.set(
+        default = lightColorScheme.primary,
+        hover = lightColorScheme.primary.darkened(0.08f),
+        focus = lightColorScheme.primary.darkened(0.12f),
+        pressed = lightColorScheme.primary.darkened(0.12f),
+    )
+    ctx.theme.palettes.dark.button.set(
+        default = darkColorScheme.primary,
+        hover = darkColorScheme.primary.lightened(0.08f),
+        focus = darkColorScheme.primary.lightened(0.12f),
+        pressed = darkColorScheme.primary.lightened(0.12f),
     )
 
-    ctx.theme.palettes.dark.button = MutableSilkPalette.Button(
-        default = Theme.Primary.silkRgb,
-        hover = Theme.Primary.silkRgb.lightened(),
-        focus = Theme.Primary.silkRgb.lightened(),
-        pressed = Theme.Primary.silkRgb.darkened()
+    // Link
+    ctx.theme.palettes.light.link.set(
+        lightColorScheme.onBackground,
+        lightColorScheme.onBackground
+    )
+    ctx.theme.palettes.dark.link.set(
+        darkColorScheme.onBackground,
+        darkColorScheme.onBackground
     )
 
 //    ctx.theme.palettes = MutableSilkPalettes(

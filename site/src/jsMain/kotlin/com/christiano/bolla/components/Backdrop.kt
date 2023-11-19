@@ -13,6 +13,7 @@ import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundImage
 import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
 import com.varabyte.kobweb.compose.ui.modifiers.boxShadow
+import com.varabyte.kobweb.compose.ui.modifiers.id
 import com.varabyte.kobweb.silk.components.icons.fa.FaAndroid
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.CSSSizeValue
@@ -34,6 +35,7 @@ fun Backdrop(
 
     Box(
         Modifier
+            .id("parentBox")
             .backgroundImage(gradient)
             .borderRadius(borderRadius)
             .boxShadow(
