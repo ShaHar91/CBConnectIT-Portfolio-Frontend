@@ -2,7 +2,7 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.*
 import com.christiano.bolla.models.Section
-import com.christiano.bolla.styles.lightColorScheme
+import com.christiano.bolla.styles.primary
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.ObserveViewportEntered
 import com.varabyte.kobweb.compose.css.CSSTransition
@@ -14,7 +14,8 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
-import kotlinx.coroutines.delay
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.web.css.ms
 import org.jetbrains.compose.web.css.px
@@ -28,17 +29,18 @@ fun SectionTitle(
     alignment: Alignment.Horizontal = Alignment.Start
 ) {
     val scope = rememberCoroutineScope()
-    var titleMargin by remember { mutableStateOf(50.px) }
-    var subtitleMargin by remember { mutableStateOf(50.px) }
+    var titleMargin by remember { mutableStateOf(150.px) }
+    var subtitleMargin by remember { mutableStateOf(200.px) }
+    var dividerMargin by remember { mutableStateOf(300.px) }
 
     ObserveViewportEntered(
         sectionId = section.id,
         distanceFromTop = 700.0
     ) {
         scope.launch {
-            subtitleMargin = 0.px
-            if (alignment == Alignment.Start) delay(25)
             titleMargin = 0.px
+            subtitleMargin = 0.px
+            dividerMargin = 0.px
         }
     }
 
@@ -55,41 +57,55 @@ fun SectionTitle(
             attrs = Modifier
                 .fillMaxWidth()
                 .textAlign(textAlignment)
-                .margin(top = 0.px, bottom = 0.px, left = titleMargin)
+                .margin(
+                    top = 0.px,
+                    bottom = 0.px,
+                    left = if (alignment != Alignment.End) titleMargin else 0.px,
+                    right = if (alignment == Alignment.End) titleMargin else 0.px,
+                )
                 .fontFamily(Constants.FONT_FAMILY)
-                .fontSize(25.px)
+                .fontSize(16.px)
                 .fontWeight(FontWeight.Normal)
-                .transition(CSSTransition("margin", 500.ms))
+                .transition(CSSTransition("margin", 1000.ms))
                 .toAttrs()
         ) {
             Text(section.title)
         }
+
+        Spacer(Modifier.height(8.px))
 
         P(
             attrs = Modifier
                 .fillMaxWidth()
                 .textAlign(textAlignment)
                 .margin(
-                    left = if (alignment == Alignment.Start) subtitleMargin else 0.px,
+                    left = if (alignment != Alignment.End) subtitleMargin else 0.px,
                     right = if (alignment == Alignment.End) subtitleMargin else 0.px,
                     top = 0.px,
-                    bottom = 10.px
+                    bottom = 0.px
                 )
                 .fontFamily(Constants.FONT_FAMILY)
-                .fontSize(40.px)
+                .fontSize(28.px)
                 .fontWeight(FontWeight.Bold)
-                .transition(CSSTransition("margin", 500.ms))
+                .transition(CSSTransition("margin", 1000.ms))
                 .toAttrs()
         ) {
             Text(section.subtitle)
         }
 
+        Spacer(Modifier.height(8.px))
+
         Box(
             modifier = Modifier
                 .height(2.px)
                 .width(80.px)
-                .backgroundColor(lightColorScheme.primary)
+                .backgroundColor(ColorMode.current.toPalette().primary)
                 .borderRadius(r = 50.px)
+                .margin(
+                    left = if (alignment != Alignment.End) dividerMargin else 0.px,
+                    right = if (alignment == Alignment.End) dividerMargin else 0.px,
+                )
+                .transition(CSSTransition("margin", 1000.ms))
         )
     }
 }
