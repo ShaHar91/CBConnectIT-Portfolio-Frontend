@@ -74,7 +74,7 @@ fun FooterContent() {
 
         Spacer(Modifier.height(25.px))
 
-        SocialBar(true) //TODO: needs to be smaller!! Individual item sizes needs to be adjustable
+        SocialBar(true)
     }
 }
 

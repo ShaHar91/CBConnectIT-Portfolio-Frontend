@@ -1,5 +1,7 @@
 package com.christiano.bolla.styles
 
+import com.christiano.bolla.utils.Identifiers.SocialBar.socialIcon
+import com.christiano.bolla.utils.Identifiers.SocialBar.socialLink
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.color
@@ -48,13 +50,13 @@ val LogoStyle by ComponentStyle {
 }
 
 val SocialLinkStyle by ComponentStyle {
-    cssRule(" > #socialLink > #socialIcon") {
+    cssRule(" > #$socialLink > #$socialIcon") {
         Modifier
             .color(colorMode.toPalette().onSurface)
             .transition(CSSTransition(property = "color", duration = 200.ms))
     }
 
-    cssRule(":hover > #socialLink > #socialIcon"){
+    cssRule(":hover > #$socialLink > #$socialIcon"){
         Modifier.color(colorMode.toPalette().primary)
     }
 }

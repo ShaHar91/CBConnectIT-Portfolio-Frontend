@@ -59,6 +59,11 @@ object Res {
 
 object Identifiers {
 
+    object SocialBar {
+        const val socialLink = "socialLink"
+        const val socialIcon = "socialIcon"
+    }
+
     object PortfolioCards {
         const val scrollableContainer = "scrollableContainer"
     }
