@@ -122,8 +122,7 @@ fun ContactForm(breakpoint: Breakpoint) {
                     .height(40.px)
                     .border(width = 0.px)
                     .borderRadius(r = 5.px)
-                    .cursor(Cursor.Pointer)
-                    .color(ColorMode.current.opposite.toPalette().color), // The color is being used for the Text color!
+                    .cursor(Cursor.Pointer),
             ) {
                 Text("Submit")
             }

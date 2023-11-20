@@ -59,7 +59,7 @@ fun Header(onMenuClicked: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(50.px)
+            .height(60.px)
             .top(0.percent) // Make it work with sticky!
             .position(Position.Sticky)
             .zIndex(1)

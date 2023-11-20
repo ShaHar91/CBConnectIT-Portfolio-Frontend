@@ -28,21 +28,21 @@ import org.jetbrains.compose.web.css.px
 @Composable
 fun SocialBar(
     row: Boolean = false,
-    individualItemSize: CSSSizeValue<CSSUnit.px> = 34.px
+    socialLinkSize: SocialLinkSize = SocialLinkSize.SM,
 ) {
     if (row) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            SocialLinks(row, individualItemSize)
+            SocialLinks(row, socialLinkSize)
         }
     } else {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            SocialLinks(row, individualItemSize)
+            SocialLinks(row, socialLinkSize)
         }
     }
 }
@@ -50,7 +50,7 @@ fun SocialBar(
 @Composable
 private fun SocialLinks(
     row: Boolean = false,
-    individualItemSize: CSSSizeValue<CSSUnit.px> = 34.px
+    socialLinkSize: SocialLinkSize = SocialLinkSize.SM,
 ) {
     val colorMode by ColorMode.currentState
 
@@ -63,13 +63,13 @@ private fun SocialLinks(
         Backdrop(
             colorMode,
             Modifier.id(socialLink)
-                .size(individualItemSize)
+                .size(socialLinkSize.sizeValue)
                 .padding(10.px),
             borderRadius = 4.px
         ) {
             FaGithub(
                 modifier = Modifier.id(socialIcon),
-                size = IconSize.SM
+                size = socialLinkSize.iconSize
             )
         }
     }
@@ -88,14 +88,20 @@ private fun SocialLinks(
         Backdrop(
             colorMode,
             Modifier.id(socialLink)
-                .size(individualItemSize)
+                .size(socialLinkSize.sizeValue)
                 .padding(10.px),
             borderRadius = 4.px
         ) {
             FaLinkedin(
                 modifier = Modifier.id(socialIcon),
-                size = IconSize.SM
+                size = socialLinkSize.iconSize
             )
         }
     }
+}
+
+enum class SocialLinkSize(val sizeValue: CSSSizeValue<CSSUnit.px>, val iconSize: IconSize) {
+    SM(34.px, IconSize.SM),
+    LG(44.px, IconSize.LG),
+    XL(54.px, IconSize.XL)
 }

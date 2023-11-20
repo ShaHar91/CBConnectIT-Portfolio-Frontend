@@ -4,11 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.christiano.bolla.components.Backdrop
 import com.christiano.bolla.components.SocialBar
+import com.christiano.bolla.components.SocialLinkSize
+import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.models.Section
-import com.christiano.bolla.styles.onPrimary
-import com.christiano.bolla.styles.primary
 import com.christiano.bolla.styles.MainButtonStyle
 import com.christiano.bolla.styles.MainImageStyle
+import com.christiano.bolla.styles.primary
 import com.christiano.bolla.utils.Constants.FONT_FAMILY
 import com.christiano.bolla.utils.Constants.SECTION_WIDTH
 import com.christiano.bolla.utils.Res
@@ -41,7 +42,7 @@ fun MainSection() {
     Box(
         modifier = Modifier
             .id(Section.Home.id)
-            .padding(top = 40.px)
+            .fillMaxWidth()
             .maxWidth(SECTION_WIDTH.px),
         contentAlignment = Alignment.TopCenter
     ) {
@@ -56,7 +57,7 @@ fun MainContent() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         // SimpleGrid will automatically use a column (horizontal) for bigger devices, or a row (vertical) for smaller devices
         SimpleGrid(
@@ -79,16 +80,20 @@ fun MainText(breakpoint: Breakpoint) {
     ) {
         val ctx = rememberPageContext()
 
-        if (breakpoint > Breakpoint.MD) {
-            SocialBar()
-        }
+        SocialBar(socialLinkSize = SocialLinkSize.LG)
+
+        Spacer(Modifier.width(50.px))
 
         Column {
+            if (breakpoint > Breakpoint.SM) {
+                Spacer(Modifier.height(50.px))
+            }
+
             P(
                 attrs = Modifier
-                    .margin(top = if (breakpoint <= Breakpoint.SM) 50.px else 0.px, bottom = 0.px)
+                    .margin(top = 0.px, bottom = 0.px)
                     .fontFamily(FONT_FAMILY)
-                    .fontSize(if (breakpoint >= Breakpoint.LG) 45.px else 20.px)
+                    .fontSize(if (breakpoint >= Breakpoint.LG) 36.px else 24.px)
                     .fontWeight(FontWeight.Normal)
                     .toAttrs()
             ) {
@@ -99,7 +104,7 @@ fun MainText(breakpoint: Breakpoint) {
                 attrs = Modifier
                     .margin(top = 0.px, bottom = 0.px)
                     .fontFamily(FONT_FAMILY)
-                    .fontSize(if (breakpoint >= Breakpoint.LG) 68.px else 40.px)
+                    .fontSize(if (breakpoint >= Breakpoint.LG) 56.px else 36.px)
                     .color(ColorMode.current.toPalette().primary)
                     .fontWeight(FontWeight.Bolder)
                     .toAttrs()
@@ -111,7 +116,7 @@ fun MainText(breakpoint: Breakpoint) {
                 attrs = Modifier
                     .margin(top = 0.px, bottom = 5.px)
                     .fontFamily(FONT_FAMILY)
-                    .fontSize(20.px)
+                    .fontSize(22.px)
                     .fontWeight(FontWeight.Bold)
                     .toAttrs()
             ) {
@@ -120,8 +125,8 @@ fun MainText(breakpoint: Breakpoint) {
 
             P(
                 attrs = Modifier
-                    .maxWidth(400.px)
-                    .margin(bottom = 40.px)
+                    .fillMaxWidth()
+                    .margin(top = 0.px, bottom = 0.px)
                     .fontFamily(FONT_FAMILY)
                     .fontWeight(FontWeight.Normal)
                     .toAttrs()
@@ -129,10 +134,10 @@ fun MainText(breakpoint: Breakpoint) {
                 Text("I have been working since 2017 as an Android Developer. Proficient in turning an idea into a fully functioning and UI/UX stunning application")
             }
 
+            Spacer(Modifier.height(40.px))
+
             Button(
-                modifier = MainButtonStyle
-                    .toModifier()
-                    .color(ColorMode.current.toPalette().onPrimary), // The color is being used for the Text color!
+                modifier = MainButtonStyle.toModifier(),
                 onClick = {
                     ctx.router.tryRoutingTo(Section.Contact.path)
                 }
@@ -146,16 +151,22 @@ fun MainText(breakpoint: Breakpoint) {
 @Composable
 fun MainImage(breakpoint: Breakpoint) {
     Box(
-        modifier = Modifier.fillMaxSize(100.percent)
-            .fillMaxHeight(),//.margin(left = if (breakpoint >= Breakpoint.MD) 60.px else 0.px),
-        contentAlignment = Alignment.BottomCenter,
+        modifier = Modifier.fillMaxSize(100.percent),
+        contentAlignment = if (breakpoint < Breakpoint.MD) Alignment.BottomCenter else Alignment.BottomEnd,
     ) {
         val colorMode by ColorMode.currentState
 
-        Backdrop(colorMode, modifier = Modifier.fillMaxWidth(80.percent).fillMaxHeight(85.percent))
+        Backdrop(
+            colorMode, modifier = Modifier
+                .fillMaxWidth(90.percent)
+                .fillMaxHeight(85.percent)
+                .maxWidth(if (breakpoint < Breakpoint.MD) 345.px else 400.px)
+        )
 
         Image(
-            modifier = MainImageStyle.toModifier().fillMaxWidth(80.percent),
+            modifier = MainImageStyle.toModifier()
+                .fillMaxWidth(90.percent)
+                .maxWidth(if (breakpoint < Breakpoint.MD) 345.px else 400.px),
             src = Res.Image.mainImage,
             alt = "Main Image"
         )

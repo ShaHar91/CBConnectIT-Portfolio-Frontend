@@ -4,7 +4,9 @@ import androidx.compose.runtime.*
 import com.christiano.bolla.components.BackToTopButton
 import com.christiano.bolla.components.Header
 import com.christiano.bolla.components.OverlowMenu
+import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.sections.FooterSection
+import com.christiano.bolla.sections.MainSection
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -13,6 +15,8 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.Page
 import com.varabyte.kobweb.silk.components.forms.Button
+import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
+import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.fr
 import org.jetbrains.compose.web.css.px
@@ -22,6 +26,7 @@ import org.jetbrains.compose.web.dom.Text
 @Composable
 fun HomePage() {
     var menuOpened by remember { mutableStateOf(false) }
+    val breakpoint = rememberBreakpoint()
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -34,7 +39,8 @@ fun HomePage() {
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-//                MainSection()
+                Spacer(Modifier.height(if (breakpoint < Breakpoint.MD) 56.px else 12.px))
+                MainSection()
 //                WhatIDoSection()
 ////                AboutSection()
 //                ServiceSection()

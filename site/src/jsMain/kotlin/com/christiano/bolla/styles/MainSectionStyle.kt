@@ -64,6 +64,7 @@ val SocialLinkStyle by ComponentStyle {
 val MainButtonStyle by ComponentStyle {
     base {
         Modifier.width(100.px)
+            .color(colorMode.toPalette().onPrimary)
             .transition(CSSTransition(property = "width", duration = 200.ms))
     }
 
