@@ -5,10 +5,7 @@ import com.christiano.bolla.components.BackToTopButton
 import com.christiano.bolla.components.Header
 import com.christiano.bolla.components.OverlowMenu
 import com.christiano.bolla.components.Spacer
-import com.christiano.bolla.sections.AboutSection
-import com.christiano.bolla.sections.FooterSection
-import com.christiano.bolla.sections.MainSection
-import com.christiano.bolla.sections.ServiceSection
+import com.christiano.bolla.sections.*
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -61,7 +58,10 @@ fun HomePage() {
 
                 ServiceSection()
 
-//                PortfolioSection()
+                Spacer(Modifier.height(spacerHeight))
+
+                PortfolioSection()
+
 //                AchievementsSection()
 //                TestimonialSection()// TODO: Makes the page wider on a smaller screen size (my phone landscape)
 //                ExperienceSection()
