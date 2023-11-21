@@ -3,7 +3,11 @@ package com.christiano.bolla.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.christiano.bolla.models.Service
-import com.christiano.bolla.styles.lightColorScheme
+import com.christiano.bolla.styles.primary
+import com.christiano.bolla.svg.chevronRightSvg
+import com.christiano.bolla.svg.mobileDevelopmentSvg
+import com.christiano.bolla.svg.overflowMenuSvg
+import com.christiano.bolla.svg.tutoringSvg
 import com.christiano.bolla.utils.Constants
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Box
@@ -11,61 +15,68 @@ import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
-import com.varabyte.kobweb.silk.components.graphics.Image
+import com.varabyte.kobweb.silk.components.forms.Button
+import com.varabyte.kobweb.silk.components.forms.ButtonSize
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import org.jetbrains.compose.web.css.LineStyle
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 
 @Composable
-fun ServiceCard(service: Service) {
+fun ServiceCard(service: Service, modifier: Modifier = Modifier, onClick: () -> Unit) {
     val colorMode by ColorMode.currentState
 
-    Backdrop(
-        colorMode,
-        modifier = Modifier
-            .maxWidth(300.px)
-            .margin(all = 20.px)
-            .padding(all = 20.px)
-    ) {
-        Column {
-            Box(
-                modifier = Modifier
-                    .margin(bottom = 20.px)
-                    .border(width = (1).px, style = LineStyle.Solid, color = lightColorScheme.primary)
-                    .borderRadius(topLeft = 20.px, topRight = 20.px, bottomLeft = 20.px, bottomRight = 0.px)
-            ) {
-                Image(
-                    modifier = Modifier.fillMaxSize()
-                        .borderRadius(topLeft = 20.px, topRight = 20.px, bottomLeft = 20.px, bottomRight = 0.px),
-                    src = service.icon,
-                    alt = service.imageDesc
-                )
+    Box(modifier) {
+        Column(Modifier.margin(right = 24.px, bottom = 24.px)) {
+            Column(Modifier.margin(left = 8.px)) {
+                when (service) {
+                    Service.Android -> mobileDevelopmentSvg(colorMode.toPalette().primary)
+                    Service.Tutoring -> tutoringSvg(colorMode.toPalette().primary)
+                    else -> overflowMenuSvg(colorMode.toPalette().primary)
+                }
+
+                Spacer(Modifier.height(10.px))
+
+                P(
+                    attrs = Modifier
+                        .fillMaxWidth()
+                        .margin(top = 0.px, bottom = 0.px)
+                        .fontFamily(Constants.FONT_FAMILY)
+                        .fontSize(22.px)
+                        .fontWeight(FontWeight.Bold)
+                        .toAttrs()
+                ) {
+                    Text(service.title)
+                }
+
+                Spacer(Modifier.height(10.px))
+
+                P(
+                    attrs = Modifier
+                        .fillMaxWidth()
+                        .margin(top = 0.px, bottom = 0.px)
+                        .fontFamily(Constants.FONT_FAMILY)
+                        .fontSize(14.px)
+                        .fontWeight(FontWeight.Normal)
+                        .toAttrs()
+                ) {
+                    Text(service.description)
+                }
             }
 
-            P(
-                attrs = Modifier
-                    .fillMaxWidth()
-                    .margin(top = 0.px, bottom = 10.px)
-                    .fontFamily(Constants.FONT_FAMILY)
-                    .fontSize(18.px)
-                    .fontWeight(FontWeight.Bold)
-                    .toAttrs()
-            ) {
-                Text(service.title)
-            }
+            Spacer(Modifier.height(10.px))
 
-            P(
-                attrs = Modifier
-                    .fillMaxWidth()
-                    .margin(top = 0.px, bottom = 0.px)
-                    .fontFamily(Constants.FONT_FAMILY)
-                    .fontSize(14.px)
-                    .fontWeight(FontWeight.Normal)
-                    .toAttrs()
+            Button(
+                variant = TextPrimaryButtonVariant,
+                size = ButtonSize.SM,
+                onClick = { onClick() }
             ) {
-                Text(service.description)
+                Text("Read more")
+
+                Spacer(Modifier.width(8.px))
+
+                chevronRightSvg(Modifier.size(18.px).margin(top = 2.px))
             }
         }
     }

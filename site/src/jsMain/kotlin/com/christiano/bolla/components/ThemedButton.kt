@@ -1,16 +1,16 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
-import com.christiano.bolla.styles.lightColorScheme
 import com.christiano.bolla.styles.primary
+import com.varabyte.kobweb.compose.css.BackgroundColor
 import com.varabyte.kobweb.compose.foundation.layout.Box
-import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.forms.ButtonSize
 import com.varabyte.kobweb.silk.components.forms.ButtonStyle
+import com.varabyte.kobweb.silk.components.style.active
 import com.varabyte.kobweb.silk.components.style.addVariant
 import com.varabyte.kobweb.silk.components.style.hover
 import com.varabyte.kobweb.silk.components.text.SpanText
@@ -59,6 +59,21 @@ val NormalButtonVariant by ButtonStyle.addVariant {
     }
     hover {
         Modifier.backgroundColor(colorMode.toPalette().background.shifted(colorMode))
+    }
+}
+
+val TextPrimaryButtonVariant by ButtonStyle.addVariant {
+    base {
+        Modifier
+            .padding(leftRight = 8.px)
+            .color(colorMode.toPalette().primary)
+            .backgroundColor(BackgroundColor.Transparent)
+    }
+    hover {
+        Modifier.backgroundColor(colorMode.toPalette().primary.shifted(colorMode.opposite, 0.5f))
+    }
+    active {
+        Modifier.backgroundColor(colorMode.toPalette().primary.shifted(colorMode.opposite, 0.2f))
     }
 }
 

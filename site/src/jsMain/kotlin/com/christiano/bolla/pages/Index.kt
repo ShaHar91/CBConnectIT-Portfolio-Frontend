@@ -8,6 +8,7 @@ import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.sections.AboutSection
 import com.christiano.bolla.sections.FooterSection
 import com.christiano.bolla.sections.MainSection
+import com.christiano.bolla.sections.ServiceSection
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -55,13 +56,18 @@ fun HomePage() {
                 Spacer(Modifier.height(spacerHeight))
 
                 AboutSection()
-////                AboutSection()
-//                ServiceSection()
+
+                Spacer(Modifier.height(spacerHeight))
+
+                ServiceSection()
+
 //                PortfolioSection()
 //                AchievementsSection()
 //                TestimonialSection()// TODO: Makes the page wider on a smaller screen size (my phone landscape)
 //                ExperienceSection()
 //                ContactSection()
+
+                Spacer(Modifier.height(52.px))
             }
         }
 

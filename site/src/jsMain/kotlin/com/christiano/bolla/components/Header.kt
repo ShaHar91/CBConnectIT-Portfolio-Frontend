@@ -113,11 +113,11 @@ fun LeftSide(
     ) {
         if (breakpoint <= Breakpoint.MD) {
             overflowMenuSvg(
-                modifier = Modifier.cursor(Cursor.Pointer),
+                modifier = Modifier.cursor(Cursor.Pointer).onClick {
+                    onMenuClicked()
+                },
                 fill = colorMode.toPalette().onBackground
-            ) {
-                onMenuClicked()
-            }
+            )
 
             Div(attrs = Modifier.width(24.px).toAttrs())
         }

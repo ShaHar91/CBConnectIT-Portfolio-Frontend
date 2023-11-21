@@ -12,14 +12,9 @@ import org.jetbrains.compose.web.css.CSSColorValue
 fun overflowMenuSvg(
     fill: CSSColorValue,
     modifier: Modifier = Modifier,
-    onClick: (() -> Unit)? = null
 ) = Svg(attrs = modifier.toAttrs {
     width(24)
     height(24)
-
-    onClick {
-        onClick?.invoke()
-    }
 }) {
     Path {
         fillRule(SVGFillRule.EvenOdd)

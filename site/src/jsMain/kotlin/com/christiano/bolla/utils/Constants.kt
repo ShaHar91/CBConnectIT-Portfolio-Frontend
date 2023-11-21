@@ -38,6 +38,8 @@ object Res {
         const val android = "android_img.png"
         const val tutoring = "tutoring_img.png"
         const val teamwork = "teamwork_img.png"
+
+        const val services = "services.jpg"
     }
 
     object Icon {

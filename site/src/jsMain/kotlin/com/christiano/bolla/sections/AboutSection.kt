@@ -23,6 +23,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
+import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
@@ -55,7 +56,7 @@ fun AboutContent() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SectionTitle(
-            modifier = Modifier,
+            modifier = Modifier.fillMaxWidth(),
             section = Section.About,
             alignment = Alignment.CenterHorizontally
         )
@@ -64,6 +65,7 @@ fun AboutContent() {
 
         P(
             attrs = Modifier
+                .fillMaxWidth(80.percent)
                 .maxWidth(780.px)
                 .fontFamily(Constants.FONT_FAMILY)
                 .fontSize(16.px)
@@ -71,7 +73,7 @@ fun AboutContent() {
                 .fontWeight(FontWeight.Normal)
                 .toAttrs()
         ) {
-            Text("Skilled Android Developer with over 5 years of experience in developing applications using Java and Kotlin. Someone who has a passion for staying up-to-date with all new technologies, constantly seeking to explore and take advantage of the latest advancements in the Android Framework. Committed to delivering robust, user-friendly, and scalable applications. A fast learner with an ability to adapt quickly to new technologies and a strong focus for code quality and best practices.")
+            Text("Skilled Android Developer with developing applications using Java and Kotlin since 2017. Someone who has a passion for staying up-to-date with all new technologies, constantly seeking to explore and take advantage of the latest advancements in the Android Framework. Committed to delivering robust, user-friendly, and scalable applications. A fast learner with an ability to adapt quickly to new technologies and a strong focus for code quality and best practices.")
         }
 
         Spacer(Modifier.height(36.px))

@@ -11,22 +11,22 @@ enum class Service(
 ) {
     Android(
         icon = Res.Image.android,
-        imageDesc = "Android Icon",
-        title = "Android Development",
-        description = Constants.LOREM_IPSUM_SHORTEST
+        imageDesc = "Mobile Development Icon",
+        title = "Mobile Development",
+        description = "Whether it's a new app or optimizing an existing one, I offer Mobile development expertise. Let's collaborate to make your mobile application a success in the Google Play or App Store."
     ),
     Tutoring(
         icon = Res.Image.tutoring,
         imageDesc = "Tutoring Icon",
         title = "Tutoring",
-        description = Constants.LOREM_IPSUM_SHORTEST
+        description = "Looking to bring your (or your peer’s) skills to the next level, or just need someone to look into a bug/error? Let’s work together to maximize your potential and achieve your aspirations."
     ),
-    Teamwork(
-        icon = Res.Image.teamwork,
-        imageDesc = "Teamwork Icon",
-        title = "Teamwork",
-        description = Constants.LOREM_IPSUM_SHORTEST
-    ),
+//    Teamwork(
+//        icon = Res.Image.teamwork,
+//        imageDesc = "Teamwork Icon",
+//        title = "Teamwork",
+//        description = Constants.LOREM_IPSUM_SHORTEST
+//    ),
 //    IOS(
 //        icon = Res.Icon.ios,
 //        imageDesc = "Apple Icon",
