@@ -66,16 +66,15 @@ fun SectionTitle(
                 attrs = Modifier
                     .fillMaxWidth()
                     .textAlign(textAlignment)
-                    .margin(
-                        top = 0.px,
-                        bottom = 0.px,
+                    .margin(top = 0.px, bottom = 0.px)
+                    .padding(
                         left = if (alignment != Alignment.End) titleMargin else 0.px,
                         right = if (alignment == Alignment.End) titleMargin else 0.px,
                     )
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontSize(16.px)
                     .fontWeight(FontWeight.Normal)
-                    .transition(CSSTransition("margin", 1000.ms))
+                    .transition(CSSTransition("padding", 1000.ms))
                     .toAttrs()
             ) {
                 Text(section.title)
@@ -87,16 +86,15 @@ fun SectionTitle(
                 attrs = Modifier
                     .fillMaxWidth()
                     .textAlign(textAlignment)
-                    .margin(
+                    .margin(top = 0.px, bottom = 0.px)
+                    .padding(
                         left = if (alignment != Alignment.End) subtitleMargin else 0.px,
                         right = if (alignment == Alignment.End) subtitleMargin else 0.px,
-                        top = 0.px,
-                        bottom = 0.px
                     )
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontSize(28.px)
                     .fontWeight(FontWeight.Bold)
-                    .transition(CSSTransition("margin", 1000.ms))
+                    .transition(CSSTransition("padding", 1000.ms))
                     .toAttrs()
             ) {
                 Text(section.subtitle)

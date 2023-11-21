@@ -121,7 +121,7 @@ fun ServiceImage(breakpoint: Breakpoint) {
         modifier = Modifier
             .borderRadius(40.px)
             .width(if (breakpoint >= Breakpoint.MD) 30.percent else 60.percent)
-            .aspectRatio(9, 16)
+            .aspectRatio(18,27)
             .objectFit(ObjectFit.Cover),
         src = Res.Image.services,
         alt = "Services Image"
