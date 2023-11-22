@@ -25,7 +25,10 @@ import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import kotlinx.browser.document
 import kotlinx.browser.window
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.DisplayStyle
@@ -65,7 +68,12 @@ fun TestimonialContent() {
         resizeAllGridItems()
     }
 
-    window.addEventListener("resize", { resizeAllGridItems() })
+    window.addEventListener("resize", {
+        CoroutineScope(Dispatchers.Default).launch {
+            delay(500)
+            resizeAllGridItems()
+        }
+    })
 
     Column(
         modifier = Modifier
