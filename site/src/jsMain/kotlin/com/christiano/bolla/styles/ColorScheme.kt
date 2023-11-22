@@ -164,3 +164,4 @@ val Palette.tertiary get() = if (colorMode.isDark) darkColorScheme.tertiary else
 val Palette.onBackground get() = if (colorMode.isDark) darkColorScheme.onBackground else lightColorScheme.onBackground
 val Palette.surface get() = if (colorMode.isDark) darkColorScheme.surface else lightColorScheme.surface
 val Palette.onSurface get() = if (colorMode.isDark) darkColorScheme.onSurface else lightColorScheme.onSurface
+val Palette.outlineVariant get() = if (colorMode.isDark) darkColorScheme.outlineVariant else lightColorScheme.outlineVariant

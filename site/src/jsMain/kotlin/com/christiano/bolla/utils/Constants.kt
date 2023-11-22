@@ -60,6 +60,11 @@ object Res {
 }
 
 object Identifiers {
+    object TestimonialSectionClasses {
+        const val grid = "grid"
+        const val item = "item"
+        const val content = "content"
+    }
 
     object SocialBar {
         const val socialLink = "socialLink"
@@ -78,5 +83,15 @@ object Identifiers {
 
         const val portfolioTitle = "portfolioTitle"
         const val portfolioDesc = "portfolioDesc"
+    }
+
+    object PropertyName {
+        const val gridRowEnd = "grid-row-end"
+        const val gridAutoRows = "grid-auto-rows"
+        const val gridRowGap = "grid-row-gap"
+    }
+
+    object AttributeName {
+        const val style = "style"
     }
 }

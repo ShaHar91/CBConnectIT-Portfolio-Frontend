@@ -1,14 +1,17 @@
 package com.christiano.bolla.models
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class Project(
     val id: String,
-    val banner_image: String,
+    @SerialName("banner_image")
+    val bannerImage: String,
     val image: String,
     val title: String,
-    val short_description: String,
+    @SerialName("short_description")
+    val shortDescription: String,
     val description: String,
     val links: List<Link>,
     val tags: List<Tag>

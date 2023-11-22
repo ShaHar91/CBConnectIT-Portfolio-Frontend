@@ -62,8 +62,11 @@ fun HomePage() {
 
                 PortfolioSection()
 
+                Spacer(Modifier.height(spacerHeight))
+
+                TestimonialSection()// TODO: Makes the page wider on a smaller screen size (my phone landscape)
+
 //                AchievementsSection()
-//                TestimonialSection()// TODO: Makes the page wider on a smaller screen size (my phone landscape)
 //                ExperienceSection()
 //                ContactSection()
 

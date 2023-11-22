@@ -11,7 +11,9 @@ import com.christiano.bolla.svg.chevronRightSvg
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
 import com.christiano.bolla.utils.maxLines
-import com.varabyte.kobweb.compose.css.*
+import com.varabyte.kobweb.compose.css.BackgroundSize
+import com.varabyte.kobweb.compose.css.Cursor
+import com.varabyte.kobweb.compose.css.UserSelect
 import com.varabyte.kobweb.compose.css.functions.url
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
@@ -76,13 +78,13 @@ fun PortfolioContent() {
             showSeeAllButton = true
         ) {
             //TODO: add navigation!
-            println("See all Portfolio Section")
+            window.alert("See all Portfolio Section")
         }
 
         Box(
             Modifier
                 .borderRadius(20.px)
-                .backgroundImage(url(selectedWork?.banner_image ?: Res.Image.portfolio1))
+                .backgroundImage(url(selectedWork?.bannerImage ?: Res.Image.portfolio1))
                 .backgroundSize(BackgroundSize.Cover)
                 .fillMaxWidth()
         ) {
@@ -147,7 +149,7 @@ fun PortfolioContent() {
                         .color(ColorMode.current.toPalette().onPrimary)
                         .toAttrs()
                 ) {
-                    Text(selectedWork?.short_description ?: "")
+                    Text(selectedWork?.shortDescription ?: "")
                 }
 
                 Spacer(Modifier.height(if (breakpoint >= Breakpoint.MD) 36.px else 24.px))
@@ -191,7 +193,7 @@ fun PortfolioContent() {
                         size = ButtonSize.SM,
                         onClick = {
                             //TODO: add navigation!
-                            println("Navigate to Project details")
+                            window.alert("Navigate to Project details")
                         }
                     ) {
                         Text("Read more")
