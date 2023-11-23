@@ -93,8 +93,8 @@ fun TestimonialContent() {
         }
 
         val widthPercentage = when {
-            breakpoint > Breakpoint.MD -> 33.percent
-            breakpoint == Breakpoint.MD -> 50.percent
+            breakpoint > Breakpoint.MD -> 30.percent
+            breakpoint == Breakpoint.MD -> 48.percent
             else -> 100.percent
         }
 

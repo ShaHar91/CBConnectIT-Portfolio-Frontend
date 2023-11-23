@@ -89,9 +89,30 @@ object Identifiers {
         const val gridRowEnd = "grid-row-end"
         const val gridAutoRows = "grid-auto-rows"
         const val gridRowGap = "grid-row-gap"
+
+        const val transform = "transform"
+        const val padding = "padding"
+        const val margin = "margin"
     }
 
     object AttributeName {
         const val style = "style"
+        const val method ="method"
+        const val autoComplete = "autocomplete"
+        const val placeholder = "placeholder"
+        const val name= "name"
+        const val required = "required"
+        const val data1PasswordIgnore = "data-1p-ignore"
+    }
+
+    object ClassNames {
+        const val formLabel = "form-label"
+        const val formControl = "form-control"
+    }
+
+    object ContactForm {
+        const val inputName= "inputName"
+        const val inputEmail = "inputEmail"
+        const val inputMessage = "inputMessage"
     }
 }

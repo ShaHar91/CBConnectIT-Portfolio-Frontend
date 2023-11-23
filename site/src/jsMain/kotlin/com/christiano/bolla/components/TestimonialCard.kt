@@ -1,6 +1,7 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import com.christiano.bolla.models.Testimonial
 import com.christiano.bolla.styles.outlineVariant
 import com.christiano.bolla.styles.primary
@@ -26,12 +27,14 @@ import org.jetbrains.compose.web.dom.Text
 fun TestimonialCard(
     testimonial: Testimonial
 ) {
+    val colorMode by ColorMode.currentState
+
     Box(
         Modifier
             .classNames(item)
             .fillMaxWidth()
             .borderRadius(12.px)
-            .border(2.px, LineStyle.Solid, ColorMode.current.toPalette().outlineVariant)
+            .border(2.px, LineStyle.Solid, colorMode.toPalette().outlineVariant)
     ) {
         Column(
             Modifier
@@ -55,7 +58,7 @@ fun TestimonialCard(
                         Modifier
                             .fillMaxWidth()
                             .margin(0.px, 0.px)
-                            .color(ColorMode.current.toPalette().primary)
+                            .color(colorMode.toPalette().primary)
                             .fontSize(22.px)
                             .fontWeight(FontWeight.Bold)
                             .toAttrs()

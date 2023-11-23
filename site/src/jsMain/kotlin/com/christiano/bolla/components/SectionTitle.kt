@@ -5,6 +5,8 @@ import com.christiano.bolla.models.Section
 import com.christiano.bolla.styles.primary
 import com.christiano.bolla.svg.chevronRightSvg
 import com.christiano.bolla.utils.Constants
+import com.christiano.bolla.utils.Identifiers.PropertyName.margin
+import com.christiano.bolla.utils.Identifiers.PropertyName.padding
 import com.christiano.bolla.utils.ObserveViewportEntered
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.css.FontWeight
@@ -74,7 +76,7 @@ fun SectionTitle(
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontSize(16.px)
                     .fontWeight(FontWeight.Normal)
-                    .transition(CSSTransition("padding", 1000.ms))
+                    .transition(CSSTransition(padding, 1000.ms))
                     .toAttrs()
             ) {
                 Text(section.title)
@@ -94,7 +96,7 @@ fun SectionTitle(
                     .fontFamily(Constants.FONT_FAMILY)
                     .fontSize(28.px)
                     .fontWeight(FontWeight.Bold)
-                    .transition(CSSTransition("padding", 1000.ms))
+                    .transition(CSSTransition(padding, 1000.ms))
                     .toAttrs()
             ) {
                 Text(section.subtitle)
@@ -112,7 +114,7 @@ fun SectionTitle(
                         left = if (alignment != Alignment.End) dividerMargin else 0.px,
                         right = if (alignment == Alignment.End) dividerMargin else 0.px,
                     )
-                    .transition(CSSTransition("margin", 1000.ms))
+                    .transition(CSSTransition(margin, 1000.ms))
             )
         }
 

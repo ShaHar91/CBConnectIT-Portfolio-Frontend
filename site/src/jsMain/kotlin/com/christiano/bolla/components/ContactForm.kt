@@ -1,9 +1,20 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
-import com.christiano.bolla.styles.lightColorScheme
 import com.christiano.bolla.styles.InputStyle
 import com.christiano.bolla.styles.MainButtonStyle
+import com.christiano.bolla.styles.lightColorScheme
+import com.christiano.bolla.utils.Identifiers.AttributeName.autoComplete
+import com.christiano.bolla.utils.Identifiers.AttributeName.data1PasswordIgnore
+import com.christiano.bolla.utils.Identifiers.AttributeName.method
+import com.christiano.bolla.utils.Identifiers.AttributeName.name
+import com.christiano.bolla.utils.Identifiers.AttributeName.placeholder
+import com.christiano.bolla.utils.Identifiers.AttributeName.required
+import com.christiano.bolla.utils.Identifiers.ClassNames.formControl
+import com.christiano.bolla.utils.Identifiers.ClassNames.formLabel
+import com.christiano.bolla.utils.Identifiers.ContactForm.inputEmail
+import com.christiano.bolla.utils.Identifiers.ContactForm.inputMessage
+import com.christiano.bolla.utils.Identifiers.ContactForm.inputName
 import com.varabyte.kobweb.compose.css.Cursor
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -13,27 +24,34 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
-import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.colors.palette.color
-import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.attributes.ButtonType
 import org.jetbrains.compose.web.attributes.InputType
+import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.*
 
 @Composable
 fun ContactForm(breakpoint: Breakpoint) {
+    val maxWidth = when {
+        breakpoint > Breakpoint.MD -> 700.px
+        breakpoint == Breakpoint.MD -> 570.px
+        else -> 490.px
+    }
+
     Form(
         action = "https://formspree.io/f/maygebgo", // the navigation after this form is filled in
-        attrs = Modifier.attrsModifier {
-            attr("method", "POST")
-        }.toAttrs()
+        attrs = Modifier
+            .fillMaxWidth(80.percent)
+            .maxWidth(maxWidth)
+            .attrsModifier {
+                attr(method, "POST")
+            }.toAttrs()
     ) {
         Label(
             attrs = Modifier
-                .classNames("form-label")
+                .classNames(formLabel)
                 .toAttrs(),
-            forId = "inputName"
+            forId = inputName
         ) {
             Text("Name")
         }
@@ -41,27 +59,28 @@ fun ContactForm(breakpoint: Breakpoint) {
         Input(
             type = InputType.Text,
             attrs = InputStyle.toModifier()
-                .id("inputName")
-                .width(if (breakpoint >= Breakpoint.MD) 500.px else 250.px)
-                .margin(bottom = 10.px)
+                .id(inputName)
+                .fillMaxWidth()
                 .backgroundColor(lightColorScheme.surface)
                 .boxShadow(0.px, 0.px, 0.px, 0.px, null) // overrides the default behaviour of the bootstrap
-                .classNames("form-control")
+                .classNames(formControl)
                 .attrsModifier {
-                    attr("autocomplete", "off")
-                    attr("placeholder", "Full Name")
-                    attr("name", "name")
-                    attr("required", "true")
-                    attr("data-1p-ignore", "") // Add this so 1Password will ignore this field
+                    attr(autoComplete, "off")
+                    attr(placeholder, "Full Name")
+                    attr(name, "name")
+                    attr(required, "true")
+                    attr(data1PasswordIgnore, "") // Add this so 1Password will ignore this field
                 }
                 .toAttrs()
         )
 
+        Spacer(Modifier.height(16.px))
+
         Label(
             attrs = Modifier
-                .classNames("form-label")
+                .classNames(formLabel)
                 .toAttrs(),
-            forId = "inputEmail"
+            forId = inputEmail
         ) {
             Text("Email")
         }
@@ -69,47 +88,49 @@ fun ContactForm(breakpoint: Breakpoint) {
         Input(
             type = InputType.Email,
             attrs = InputStyle.toModifier()
-                .id("inputEmail")
-                .width(if (breakpoint >= Breakpoint.MD) 500.px else 250.px)
+                .id(inputEmail)
+                .fillMaxWidth()
                 .backgroundColor(lightColorScheme.surface)
                 .boxShadow(0.px, 0.px, 0.px, 0.px, null) // overrides the default behaviour of the bootstrap
-                .margin(bottom = 10.px)
-                .classNames("form-control")
+                .classNames(formControl)
                 .attrsModifier {
-                    attr("autocomplete", "off")
-                    attr("placeholder", "Email Address")
-                    attr("name", "email")
-                    attr("required", "true")
-                    attr("data-1p-ignore", "") // Add this so 1Password will ignore this field
+                    attr(autoComplete, "off")
+                    attr(placeholder, "Email Address")
+                    attr(name, "email")
+                    attr(required, "true")
+                    attr(data1PasswordIgnore, "") // Add this so 1Password will ignore this field
                 }
                 .toAttrs()
         )
 
+        Spacer(Modifier.height(16.px))
+
         Label(
             attrs = Modifier
-                .classNames("form-label")
+                .classNames(formLabel)
                 .toAttrs(),
-            forId = "inputMessage"
+            forId = inputMessage
         ) {
             Text("Message")
         }
 
         TextArea(
             attrs = InputStyle.toModifier()
-                .id("inputMessage")
-                .margin(bottom = 20.px)
-                .width(if (breakpoint >= Breakpoint.MD) 500.px else 250.px)
+                .id(inputMessage)
+                .fillMaxWidth()
                 .backgroundColor(lightColorScheme.surface)
-                .classNames("form-control")
+                .classNames(formControl)
                 .boxShadow(0.px, 0.px, 0.px, 0.px, null) // overrides the default behaviour of the bootstrap
                 .height(150.px)
                 .attrsModifier {
-                    attr("placeholder", "Your Message")
-                    attr("name", "message")
-                    attr("required", "true")
+                    attr(placeholder, "Your Message")
+                    attr(name, "message")
+                    attr(required, "true")
                 }
                 .toAttrs()
         )
+
+        Spacer(Modifier.height(24.px))
 
         Box(
             modifier = Modifier.fillMaxWidth(),
