@@ -95,7 +95,7 @@ fun TestimonialContent() {
                 .fillMaxWidth(),
             section = Section.Testimonial,
             alignment = Alignment.CenterHorizontally,
-            showSeeAllButton = true
+//            showSeeAllButton = true
         ) {
             //TODO: add navigation
             window.alert("See all testimonials")

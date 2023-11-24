@@ -1,9 +1,7 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
-import com.christiano.bolla.styles.InputStyle
-import com.christiano.bolla.styles.MainButtonStyle
-import com.christiano.bolla.styles.lightColorScheme
+import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.Identifiers.AttributeName.autoComplete
 import com.christiano.bolla.utils.Identifiers.AttributeName.data1PasswordIgnore
 import com.christiano.bolla.utils.Identifiers.AttributeName.method
@@ -24,6 +22,8 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.attributes.ButtonType
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.css.percent
@@ -61,7 +61,8 @@ fun ContactForm(breakpoint: Breakpoint) {
             attrs = InputStyle.toModifier()
                 .id(inputName)
                 .fillMaxWidth()
-                .backgroundColor(lightColorScheme.surface)
+                .backgroundColor(ColorMode.current.toPalette().surface)
+                .color(ColorMode.current.toPalette().onSurface)
                 .boxShadow(0.px, 0.px, 0.px, 0.px, null) // overrides the default behaviour of the bootstrap
                 .classNames(formControl)
                 .attrsModifier {
@@ -90,7 +91,8 @@ fun ContactForm(breakpoint: Breakpoint) {
             attrs = InputStyle.toModifier()
                 .id(inputEmail)
                 .fillMaxWidth()
-                .backgroundColor(lightColorScheme.surface)
+                .backgroundColor(ColorMode.current.toPalette().surface)
+                .color(ColorMode.current.toPalette().onSurface)
                 .boxShadow(0.px, 0.px, 0.px, 0.px, null) // overrides the default behaviour of the bootstrap
                 .classNames(formControl)
                 .attrsModifier {
@@ -118,7 +120,8 @@ fun ContactForm(breakpoint: Breakpoint) {
             attrs = InputStyle.toModifier()
                 .id(inputMessage)
                 .fillMaxWidth()
-                .backgroundColor(lightColorScheme.surface)
+                .backgroundColor(ColorMode.current.toPalette().surface)
+                .color(ColorMode.current.toPalette().onSurface)
                 .classNames(formControl)
                 .boxShadow(0.px, 0.px, 0.px, 0.px, null) // overrides the default behaviour of the bootstrap
                 .height(150.px)

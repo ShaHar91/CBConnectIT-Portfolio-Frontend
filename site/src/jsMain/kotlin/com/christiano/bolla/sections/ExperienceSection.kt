@@ -56,7 +56,7 @@ fun ExperienceContent() {
                 .fillMaxWidth(),
             section = Section.Experience,
             alignment = Alignment.CenterHorizontally,
-            showSeeAllButton = true
+//            showSeeAllButton = true
         ) {
             //TODO: add navigation
             window.alert("See all experiences")
