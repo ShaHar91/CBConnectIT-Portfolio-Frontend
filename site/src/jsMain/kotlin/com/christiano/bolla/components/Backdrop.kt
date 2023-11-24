@@ -8,6 +8,7 @@ import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.BoxScope
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.attrsModifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundImage
@@ -38,12 +39,13 @@ fun Backdrop(
             .id("parentBox")
             .backgroundImage(gradient)
             .borderRadius(borderRadius)
-            .boxShadow(
-                offsetY = (-0.5).px,
-                offsetX = (-0.5).px,
-                blurRadius = 10.px,
-                color = if (colorMode.isLight) Colors.DarkGray.copy(alpha = 100) else Colors.White.copy(alpha = 100)
-            )
+            .attrsModifier {
+                style {
+                    // TODO: replace this when this ticket is fixed "https://github.com/varabyte/kobweb/issues/247"
+                    // "elevation Light 2 ----- Material 3
+                    property("box-shadow", "rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(0, 0, 0, 0.15) 0px 2px 6px 2px")
+                }
+            }
             .then(modifier),
         contentAlignment = Alignment.Center,
         content = content

@@ -41,7 +41,7 @@ kotlin {
             dependencies {
                 implementation(compose.runtime)
                 implementation(libs.kotlinx.serialization.json)
-            }
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1") }
         }
 
         val jsMain by getting {

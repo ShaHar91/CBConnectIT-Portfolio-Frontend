@@ -2,6 +2,7 @@ package com.christiano.bolla.sections
 
 import androidx.compose.runtime.*
 import com.christiano.bolla.components.SectionTitle
+import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.components.TestimonialCard
 import com.christiano.bolla.models.Section
 import com.christiano.bolla.models.Testimonial
@@ -23,6 +24,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import kotlinx.browser.document
 import kotlinx.browser.window
 import kotlinx.coroutines.CoroutineScope
@@ -54,6 +56,13 @@ fun TestimonialSection() {
     }
 }
 
+private fun recalculateGridItems() {
+    CoroutineScope(Dispatchers.Default).launch {
+        delay(100)
+        resizeAllGridItems()
+    }
+}
+
 @Composable
 fun TestimonialContent() {
     val breakpoint = rememberBreakpoint()
@@ -69,10 +78,11 @@ fun TestimonialContent() {
     }
 
     window.addEventListener("resize", {
-        CoroutineScope(Dispatchers.Default).launch {
-            delay(500)
-            resizeAllGridItems()
-        }
+        recalculateGridItems()
+    })
+    // A custom event listener, so we can listen to this change in order to recalculate grid item size for the testimonials
+    window.addEventListener("update-color-mode", {
+        recalculateGridItems()
     })
 
     Column(
@@ -82,8 +92,7 @@ fun TestimonialContent() {
     ) {
         SectionTitle(
             modifier = Modifier
-                .fillMaxWidth()
-                .margin(bottom = 25.px),
+                .fillMaxWidth(),
             section = Section.Testimonial,
             alignment = Alignment.CenterHorizontally,
             showSeeAllButton = true
@@ -97,6 +106,8 @@ fun TestimonialContent() {
             breakpoint == Breakpoint.MD -> 48.percent
             else -> 100.percent
         }
+
+        Spacer(Modifier.height(25.px))
 
         Div(
             Modifier

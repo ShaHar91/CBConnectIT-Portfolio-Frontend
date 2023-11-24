@@ -68,8 +68,13 @@ fun HomePage() {
 
                 Spacer(Modifier.height(spacerHeight))
 
-//                AchievementsSection()
-//                ExperienceSection()
+//                AchievementsContent()
+//
+//                Spacer(Modifier.height(spacerHeight))
+
+                ExperienceSection()
+
+                Spacer(Modifier.height(spacerHeight))
 
                 ContactSection()
 

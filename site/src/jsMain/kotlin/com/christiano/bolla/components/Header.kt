@@ -41,6 +41,7 @@ import org.jetbrains.compose.web.css.Position
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.Div
+import org.w3c.dom.events.Event
 
 @Composable
 fun Header(onMenuClicked: () -> Unit) {
@@ -88,6 +89,8 @@ fun Header(onMenuClicked: () -> Unit) {
             onClick = {
                 // Toggle the color mode
                 colorMode = colorMode.opposite
+                // Trigger a custom event, so we can listen to this change in order to recalculate grid item size for the testimonials
+                window.dispatchEvent(Event("update-color-mode"))
             },
             primary = true,
             size = ButtonSize.SM,

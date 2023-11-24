@@ -1,37 +1,56 @@
 package com.christiano.bolla.models
 
-import com.christiano.bolla.utils.Constants
+import androidx.compose.runtime.Composable
+import com.christiano.bolla.svg.phoneAndroidSvg
+import com.christiano.bolla.svg.tvAndroidSvg
+import com.varabyte.kobweb.compose.ui.Modifier
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toJSDate
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import org.jetbrains.compose.web.css.CSSColorValue
 
-enum class Experience(
-    val number: String,
+@Serializable
+data class Experience(
+    val id: String,
+    @SerialName("job_position")
     val jobPosition: String,
+    @SerialName("short_description")
+    val shortDescription: String,
     val description: String,
     val company: String,
     val from: String,
-    val to: String
+    val to: String,
+    @SerialName("tech_stack")
+    val techStack: List<TechStack>
 ) {
-    First(
-        number = "01",
-        jobPosition = "Android Developer",
-        description = "Engaged in the creation and management of more than 15 projects. Employed Material design libraries for impressive app visuals. Incorporated external libraries for handling RESTful API requests, ensuring smooth data exchange. Utilized an internal Room database for cached startup, maintaining a clear division between remote and local data. Proficient with hardware components and establishing Bluetooth connections for enhanced functionality. Managed a Core library for all projects, boosting code reusability and efficiency. Strongly inclined towards MVVM pattern and best practices, making use of official Android libraries to optimize framework potential.",
-        company = "Wisemen (formerly Appwise)",
-        from = "May 2017",
-        to = "October 2023"
-    ),
-    Second(
-        number = "02",
-        jobPosition = "Android (TV) Developer",
-        description = "Developed and maintained white labelled Android and Android TV applications with well over 300k downloads spread over the different labels. Worked in a Scrum environment to deliver incremental updates with new features and bug fixes",
-        company = "Zappware",
-        from = "2018",
-        to = "2020"
-    ),
-    Third(
-        number = "03",
-        jobPosition = "Freelancer",
-        description = Constants.LOREM_IPSUM_SHORT,
-        company = "Netflix",
-        from = "March 2020",
-        to = "December 2020"
-    )
+
+    val formattedDate: String
+        get() = run {
+            val localeOptions = dateLocaleOptions {
+                month = "short"
+                year = "numeric"
+            }
+
+            val fromDateFormatted = LocalDateTime.parse(from).toInstant(TimeZone.UTC).toJSDate().toLocaleString("en", localeOptions)
+            val toDateFormatted = LocalDateTime.parse(to).toInstant(TimeZone.UTC).toJSDate().toLocaleString("en", localeOptions)
+
+            "$fromDateFormatted - $toDateFormatted"
+        }
+}
+
+enum class TechStack {
+    Android,
+    AndroidTV;
+
+    @Composable
+    fun techStackSvg(
+        fill: CSSColorValue,
+        modifier: Modifier = Modifier,
+    ) = when (this) {
+        Android -> phoneAndroidSvg(fill, modifier)
+        AndroidTV -> tvAndroidSvg(fill, modifier)
+    }
 }
