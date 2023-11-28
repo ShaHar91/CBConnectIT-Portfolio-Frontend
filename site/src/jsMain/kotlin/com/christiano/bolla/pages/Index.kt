@@ -37,9 +37,11 @@ fun HomePage() {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        PageLayout("Home", {
-            menuOpened = true
-        }) {
+        PageLayout("Home",
+            onMenuClicked = {
+                menuOpened = true
+            }
+        ) {
             Column(
                 Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
@@ -100,7 +102,7 @@ fun HomePage() {
 }
 
 @Composable
-fun PageLayout(title: String, onMenuClicked: () -> Unit, content: @Composable () -> Unit) {
+fun PageLayout(title: String, showMenu: Boolean = true, onMenuClicked: () -> Unit, content: @Composable () -> Unit) {
     LaunchedEffect(title) {
         document.title = "Kobweb - $title"
     }
@@ -117,10 +119,10 @@ fun PageLayout(title: String, onMenuClicked: () -> Unit, content: @Composable ()
             modifier = Modifier.fillMaxSize().align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Header { onMenuClicked() }
+            Header(showMenu) { onMenuClicked() }
             content()
         }
         // Associate the footer with the row that will get pushed off the bottom of the page if it can't fit.
-        FooterSection(Modifier.gridRow(2, 3))
+        FooterSection(showMenu, Modifier.gridRow(2, 3))
     }
 }

@@ -26,7 +26,7 @@ import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.px
 
 @Composable
-fun FooterSection(modifier: Modifier = Modifier) {
+fun FooterSection(showMenu: Boolean, modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -35,12 +35,12 @@ fun FooterSection(modifier: Modifier = Modifier) {
             .then(modifier),
         contentAlignment = Alignment.Center
     ) {
-        FooterContent()
+        FooterContent(showMenu)
     }
 }
 
 @Composable
-fun FooterContent() {
+fun FooterContent(showMenu: Boolean) {
     val breakpoint = rememberBreakpoint()
 
     Column(
@@ -55,20 +55,22 @@ fun FooterContent() {
 
         Spacer(Modifier.height(25.px))
 
-        // simple grid can't be used since it only allows up to 5 items
-        if (breakpoint > Breakpoint.SM) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                FooterMenu()
-            }
-        } else {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                FooterMenu(row = false)
+        if (showMenu) {
+            // simple grid can't be used since it only allows up to 5 items
+            if (breakpoint > Breakpoint.SM) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    FooterMenu()
+                }
+            } else {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    FooterMenu(row = false)
+                }
             }
         }
 

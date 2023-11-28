@@ -39,6 +39,7 @@ fun ServicePage() {
     ) {
         PageLayout(
             "Services",
+            false,
             {
                 menuOpened = true
             }) {

@@ -46,7 +46,10 @@ import org.jetbrains.compose.web.dom.Div
 import org.w3c.dom.events.Event
 
 @Composable
-fun Header(onMenuClicked: () -> Unit) {
+fun Header(
+    showMenu: Boolean = true,
+    onMenuClicked: () -> Unit
+) {
     val breakpoint = rememberBreakpoint()
     var scroll: Double? by remember { mutableStateOf(null) }
     var colorMode by ColorMode.currentState
@@ -81,9 +84,9 @@ fun Header(onMenuClicked: () -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        LeftSide(breakpoint, colorMode, onMenuClicked)
+        LeftSide(showMenu, breakpoint, colorMode, onMenuClicked)
 
-        if (breakpoint > Breakpoint.MD) {
+        if (breakpoint > Breakpoint.MD && showMenu) {
             RightSide()
         }
 
@@ -109,6 +112,7 @@ fun Header(onMenuClicked: () -> Unit) {
 
 @Composable
 fun LeftSide(
+    showMenu: Boolean,
     breakpoint: Breakpoint,
     colorMode: ColorMode,
     onMenuClicked: () -> Unit
@@ -118,7 +122,7 @@ fun LeftSide(
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (breakpoint <= Breakpoint.MD) {
+        if (breakpoint <= Breakpoint.MD && showMenu) {
             overflowMenuSvg(
                 modifier = Modifier.cursor(Cursor.Pointer).onClick {
                     onMenuClicked()

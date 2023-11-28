@@ -56,9 +56,12 @@ fun ServicesPage() {
         modifier = Modifier.fillMaxSize(),
     ) {
         PageLayout(
-            "Services", {
+            "Services",
+            false,
+            {
                 menuOpened = true
-            }) {
+            }
+        ) {
             Column(
                 Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
