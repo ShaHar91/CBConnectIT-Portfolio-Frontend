@@ -3,7 +3,7 @@ package com.christiano.bolla.pages
 import androidx.compose.runtime.*
 import com.christiano.bolla.components.BackToTopButton
 import com.christiano.bolla.components.OverlowMenu
-import com.christiano.bolla.components.ServiceCard
+import com.christiano.bolla.components.ServiceTypeCard
 import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.models.Service
 import com.christiano.bolla.models.TechnologyStacks
@@ -25,6 +25,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.Page
+import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
@@ -71,7 +72,7 @@ fun ServicesPage() {
                 ServicesPageList(breakpoint, services)
 
                 Spacer(Modifier.height(68.px))
-                
+
                 ServicesPageTechnologyStacks(breakpoint)
 
                 Spacer(Modifier.height(68.px))
@@ -151,7 +152,7 @@ private fun ServicesPageHeader(breakpoint: Breakpoint, services: List<Service>) 
                         Spacer(Modifier.height(50.px))
                     }
 
-                    ServiceCard(service)
+                    ServiceTypeCard(service)
                 }
             }
         }
@@ -166,10 +167,7 @@ private fun ServicesPageHeader(breakpoint: Breakpoint, services: List<Service>) 
                     Spacer(Modifier.width(100.px))
                 }
 
-                ServiceCard(
-                    service,
-                    Modifier.weight(1)
-                )
+                ServiceTypeCard(service)
             }
         }
     }
@@ -177,6 +175,8 @@ private fun ServicesPageHeader(breakpoint: Breakpoint, services: List<Service>) 
 
 @Composable
 private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
+    val pageContext = rememberPageContext()
+
     services.forEachIndexed { index, service ->
         val leftAligned = index % 2 == 0
 
@@ -187,6 +187,8 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
         Box(
             Modifier
                 .fillMaxWidth()
+                .id(service.type.id)
+                .scrollMargin(top = 60.px)
                 .thenIf(leftAligned.not()) {
                     Modifier.backgroundColor(ColorMode.current.toPalette().secondaryContainer)
                         .color(ColorMode.current.toPalette().onSecondaryContainer)
@@ -229,7 +231,7 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
                 Button(
                     modifier = MainButtonStyle.toModifier(),
                     onClick = {
-                        //TODO: add navigation!!
+                        pageContext.router.navigateTo("/services/${service.id}")
                     }
                 ) {
                     Text("Learn more")

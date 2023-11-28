@@ -112,7 +112,7 @@ fun ServiceContent() {
                         modifier = Modifier.fillMaxWidth(if (breakpoint >= Breakpoint.MD) 50.percent else 100.percent),
                         service = it
                     ) {
-                        pageContext.router.navigateTo("/services/10265")
+                        pageContext.router.navigateTo("/services/${it.id}")
                     }
                 }
             }
