@@ -1,8 +1,8 @@
 package com.christiano.bolla.sections
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import com.christiano.bolla.components.SectionTitle
-import com.christiano.bolla.components.ServiceCard
+import com.christiano.bolla.components.MainServiceCard
 import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.models.Section
 import com.christiano.bolla.models.Service
@@ -14,12 +14,17 @@ import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
+import com.varabyte.kobweb.compose.http.http
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
+import kotlinx.browser.window
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.*
 
 @Composable
@@ -27,6 +32,7 @@ fun ServiceSection() {
     Box(
         modifier = Modifier
             .id(Section.Service.id)
+            .scrollMargin(60.px)
             .fillMaxWidth()
             .maxWidth(Constants.SECTION_WIDTH.px),
         contentAlignment = Alignment.Center
@@ -38,6 +44,13 @@ fun ServiceSection() {
 @Composable
 fun ServiceContent() {
     val breakpoint = rememberBreakpoint()
+    val pageContext = rememberPageContext()
+    var services by remember { mutableStateOf<List<Service>>(emptyList()) }
+
+    LaunchedEffect(Unit) {
+        val responseText = window.http.get("services.json").decodeToString()
+        services = Json.decodeFromString<List<Service>>(responseText)
+    }
 
     @Composable
     fun ContentWrapper(content: @Composable () -> Unit) {
@@ -81,8 +94,7 @@ fun ServiceContent() {
                 alignment = Alignment.Start,
                 showSeeAllButton = true
             ) {
-                //TODO: Add navigation!!
-                println("Service section details!")
+                pageContext.router.navigateTo("/services")
             }
 
             Spacer(Modifier.height(36.px))
@@ -95,13 +107,12 @@ fun ServiceContent() {
                     .flexWrap(FlexWrap.Wrap)
                     .justifyContent(JustifyContent.SpaceAround)
             ) {
-                Service.entries.forEach {
-                    ServiceCard(
+                services.forEach {
+                    MainServiceCard(
                         modifier = Modifier.fillMaxWidth(if (breakpoint >= Breakpoint.MD) 50.percent else 100.percent),
                         service = it
                     ) {
-                        //TODO: Add navigation!!
-                        println("${it.title} Service 'Read more' clicked")
+                        pageContext.router.navigateTo("/services/10265")
                     }
                 }
             }
@@ -121,7 +132,7 @@ fun ServiceImage(breakpoint: Breakpoint) {
         modifier = Modifier
             .borderRadius(40.px)
             .width(if (breakpoint >= Breakpoint.MD) 30.percent else 60.percent)
-            .aspectRatio(18,27)
+            .aspectRatio(18, 27)
             .objectFit(ObjectFit.Cover),
         src = Res.Image.services,
         alt = "Services Image"

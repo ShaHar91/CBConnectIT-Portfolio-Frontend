@@ -165,3 +165,7 @@ val Palette.onBackground get() = if (colorMode.isDark) darkColorScheme.onBackgro
 val Palette.surface get() = if (colorMode.isDark) darkColorScheme.surface else lightColorScheme.surface
 val Palette.onSurface get() = if (colorMode.isDark) darkColorScheme.onSurface else lightColorScheme.onSurface
 val Palette.outlineVariant get() = if (colorMode.isDark) darkColorScheme.outlineVariant else lightColorScheme.outlineVariant
+val Palette.inverseSurface get() = if (colorMode.isDark) darkColorScheme.inverseSurface else lightColorScheme.inverseSurface
+val Palette.inverseOnSurface get() = if (colorMode.isDark) darkColorScheme.inverseOnSurface else lightColorScheme.inverseOnSurface
+val Palette.surfaceVariant get() = if (colorMode.isDark) darkColorScheme.surfaceVariant else lightColorScheme.surfaceVariant
+val Palette.onSurfaceVariant get() = if (colorMode.isDark) darkColorScheme.onSurfaceVariant else lightColorScheme.onSurfaceVariant

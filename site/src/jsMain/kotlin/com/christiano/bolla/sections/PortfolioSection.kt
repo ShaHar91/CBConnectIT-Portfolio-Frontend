@@ -44,6 +44,7 @@ fun PortfolioSection() {
     Box(
         modifier = Modifier
             .id(Section.Portfolio.id)
+            .scrollMargin(60.px)
             .fillMaxWidth()
             .maxWidth(Constants.SECTION_WIDTH.px),
         contentAlignment = Alignment.Center

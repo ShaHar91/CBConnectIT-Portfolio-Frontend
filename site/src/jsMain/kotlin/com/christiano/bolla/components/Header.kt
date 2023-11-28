@@ -25,6 +25,7 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.compose.ui.toAttrs
+import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.forms.ButtonSize
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.navigation.Link
@@ -40,6 +41,7 @@ import kotlinx.browser.window
 import org.jetbrains.compose.web.css.Position
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.Div
 import org.w3c.dom.events.Event
 
@@ -111,6 +113,8 @@ fun LeftSide(
     colorMode: ColorMode,
     onMenuClicked: () -> Unit
 ) {
+    val ctx = rememberPageContext()
+
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -125,11 +129,18 @@ fun LeftSide(
             Div(attrs = Modifier.width(24.px).toAttrs())
         }
 
-        Image(
-            modifier = LogoStyle.toModifier().height(40.px),
-            src = logoImage(colorMode),
-            alt = "Logo Image"
-        )
+        A("/",
+            attrs = {
+                onClick {
+                    ctx.router.navigateTo("/")
+                }
+            }) {
+            Image(
+                modifier = LogoStyle.toModifier().height(40.px),
+                src = logoImage(colorMode),
+                alt = "Logo Image"
+            )
+        }
     }
 }
 
