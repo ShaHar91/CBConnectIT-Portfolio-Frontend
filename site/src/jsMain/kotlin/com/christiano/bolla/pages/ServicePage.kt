@@ -8,6 +8,7 @@ import com.christiano.bolla.models.Service
 import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
+import com.christiano.bolla.utils.markdownParagraph
 import com.varabyte.kobweb.compose.css.BackgroundSize
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.functions.url
@@ -26,7 +27,6 @@ import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
-import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
@@ -103,16 +103,17 @@ fun ServicePage() {
 
                         Spacer(Modifier.height(12.px))
 
-                        P(
-                            Modifier
-                                .color(ColorMode.current.toPalette().onPrimary)
-                                .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 85.percent)
-                                .margin(topBottom = 0.px)
-                                .fontSize(22.px)
-                                .toAttrs()
-                        ) {
-                            //TODO/ new lines are not being used correctly...
-                            Text(service?.bannerDescription ?: "")
+                        if (service != null) {
+                            P(
+                                Modifier
+                                    .color(ColorMode.current.toPalette().onPrimary)
+                                    .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 85.percent)
+                                    .margin(topBottom = 0.px)
+                                    .fontSize(22.px)
+                                    .toAttrs {
+                                        markdownParagraph(service!!.bannerDescription)
+                                    }
+                            )
                         }
                     }
                 }
@@ -162,10 +163,10 @@ fun ServicePage() {
                                 attrs = Modifier
                                     .fontSize(22.px)
                                     .fontFamily(Constants.FONT_FAMILY)
-                                    .toAttrs()
-                            ) {
-                                Text(subService.description)
-                            }
+                                    .toAttrs {
+                                        markdownParagraph(subService.description)
+                                    }
+                            )
 
                             Spacer(Modifier.height(24.px))
 

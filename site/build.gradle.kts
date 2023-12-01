@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kobweb.application)
-//    alias(libs.plugins.kobwebx.markdown)
+    alias(libs.plugins.kobwebx.markdown)
 }
 
 group = "com.christiano.bolla"
@@ -50,7 +50,9 @@ kotlin {
                 implementation(libs.kobweb.core)
                 implementation(libs.kobweb.silk.core)
                 implementation(libs.kobweb.silk.icons.fa)
-//                implementation(libs.kobwebx.markdown)
+                implementation(libs.kobwebx.markdown)
+
+                implementation(npm("marked", "4.3.0"))
             }
         }
 //        val jvmMain by getting {

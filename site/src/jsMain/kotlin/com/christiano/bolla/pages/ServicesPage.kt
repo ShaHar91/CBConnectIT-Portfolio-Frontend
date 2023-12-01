@@ -10,6 +10,7 @@ import com.christiano.bolla.models.TechnologyStacks
 import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
+import com.christiano.bolla.utils.markdownParagraph
 import com.varabyte.kobweb.compose.css.BackgroundSize
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextAlign
@@ -141,11 +142,10 @@ private fun ServicesPageHeader(breakpoint: Breakpoint, services: List<Service>) 
                     .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 100.percent)
                     .margin(topBottom = 0.px)
                     .fontSize(22.px)
-                    .toAttrs()
-            ) {
-                //TODO/ new lines are not being used correctly...
-                Text("Over the years, my knowledge and repertoire has grown and I can be deployed in multiple areas. I am always willing to learn and strive to push my limits. Besides implementing an existing idea, I also like to think along with the customer for new ideas and features.\n\nMy services include, but do not limit, to the following:")
-            }
+                    .toAttrs {
+                        markdownParagraph("Over the years, my knowledge and repertoire has grown and I can be deployed in multiple areas. I am always willing to learn and strive to push my limits. Besides implementing an existing idea, I also like to think along with the customer for new ideas and features.\n\nMy services include, but do not limit, to the following:")
+                    }
+            )
 
             if (breakpoint <= Breakpoint.MD) {
                 Spacer(Modifier.height(68.px))
@@ -224,10 +224,10 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
                     attrs = Modifier
                         .fontSize(22.px)
                         .fontFamily(Constants.FONT_FAMILY)
-                        .toAttrs()
-                ) {
-                    Text(service.shortDescription)
-                }
+                        .toAttrs {
+                            markdownParagraph(service.shortDescription)
+                        }
+                )
 
                 Spacer(Modifier.height(24.px))
 
