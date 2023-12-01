@@ -2,9 +2,9 @@
   {
     "id": "1",
     "image": "https://raw.githubusercontent.com/ShaHar91/Portfolio/master/public/android_img.png",
-    "title": "Android Development",
+    "title": "Mobile development",
     "short_description": "Whether it's a new app or optimizing an existing one, I offer Android development expertise. Let's collaborate to make your mobile application a success in the Google Play Store.",
-    "description": "Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "description": "Our specialty is in the development of top class mobile applications that draw the audience. In the right combination of usability and design, the most popular application are addictive. We strive to provide end-to-end solutions that are user-centric and robust.\n\nIn the right combination of usability and design, the most popular application are addictive. We strive to provide end-to-end solutions that are user-centric and robust.\nLearn More",
     "banner_description": "Started my career with the Android Framework but I am not a stranger of trying new things. Dabbled quiet a bit with Ionic and Xamarin in the early days of my career but quickly focussed on Native Development. \n\nTo keep consitency between Android and iOS on some projects, I also checked out some Swift code and am able to understand quiet a bit about the project setup.\n\nAlso interested in checking out the \"newer kids on the block\" like Flutter and KMP to see what the benefits of both platforms/frameworks are and to make an educated decission when setting up a new project.",
     "type": "Mobile",
     "sub_services": [
@@ -52,8 +52,8 @@
     "image": "https://raw.githubusercontent.com/ShaHar91/Portfolio/master/public/android_img.png",
     "title": "Web Development",
     "short_description": "From concept to deployment, I offer web development expertise to transform your online ideas into reality. Let's collaborate to create a user-friendly and feature-rich website that meets your needs.",
-    "description": "Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "banner_description": "Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "description": "Description - From concept to deployment, I offer web development expertise to transform your online ideas into reality. Let's collaborate to create a user-friendly and feature-rich website that meets your needs.",
+    "banner_description": "Banner Description - Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "Web",
     "sub_services": [
       {
@@ -71,8 +71,8 @@
     "image": "https://raw.githubusercontent.com/ShaHar91/Portfolio/master/public/tutoring_img.png",
     "title": "Tutoring",
     "short_description": "Looking to bring your (or your peer's) skills to the next level, or just need someone to look into a bug/error? Let's work together to maximize your potential and achieve your aspirations.",
-    "description": "Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "banner_description": "Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "description": "Description - Looking to bring your (or your peer's) skills to the next level, or just need someone to look into a bug/error? Let's work together to maximize your potential and achieve your aspirations.",
+    "banner_description": "Banner Description - Looking to bring your (or your peer's) skills to the next level, or just need someone to look into a bug/error? Let's work together to maximize your potential and achieve your aspirations.",
     "type": "Tutoring",
     "extra_info": "Lorum ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   }

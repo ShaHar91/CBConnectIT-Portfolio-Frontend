@@ -60,7 +60,7 @@ fun PortfolioContent() {
     var selectedWork by remember { mutableStateOf<Project?>(null) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("works.json").decodeToString()
+        val responseText = window.http.get("/api/works.json").decodeToString()
 
         works = Json.decodeFromString<List<Project>>(responseText)
         selectedWork = works.first()

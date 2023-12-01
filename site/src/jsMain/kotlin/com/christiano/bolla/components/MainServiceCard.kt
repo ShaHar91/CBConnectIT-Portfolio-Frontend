@@ -54,7 +54,7 @@ fun MainServiceCard(service: Service, modifier: Modifier = Modifier, onClick: ()
                         .fontWeight(FontWeight.Normal)
                         .toAttrs()
                 ) {
-                    Text(service.description)
+                    Text(service.shortDescription)
                 }
             }
 

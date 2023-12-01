@@ -48,7 +48,7 @@ fun ServicePage() {
     var service by remember { mutableStateOf<Service?>(null) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("/services.json").decodeToString()
+        val responseText = window.http.get("/api/services.json").decodeToString()
         val response = Json.decodeFromString<List<Service>>(responseText)
         println("serviceId: $serviceId, serviceName: $response")
         println("${response.find { it.id == serviceId }}")

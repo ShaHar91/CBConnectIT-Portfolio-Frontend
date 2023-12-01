@@ -49,7 +49,7 @@ fun ServicesPage() {
     var services by remember { mutableStateOf<List<Service>>(emptyList()) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("/services.json").decodeToString()
+        val responseText = window.http.get("/api/services.json").decodeToString()
         services = Json.decodeFromString<List<Service>>(responseText)
     }
 

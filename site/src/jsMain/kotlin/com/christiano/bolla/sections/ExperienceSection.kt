@@ -41,7 +41,7 @@ fun ExperienceContent() {
     var experiences by remember { mutableStateOf(emptyList<Experience>()) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("experiences.json").decodeToString()
+        val responseText = window.http.get("/api/experiences.json").decodeToString()
         experiences = Json.decodeFromString(responseText)
     }
 

@@ -40,9 +40,9 @@ data class SubService(
 )
 
 enum class ServiceType(val image: String, val id: String, val path: String) {
-    Mobile(Res.Icon.servicesMobile, "mobile", "#mobile"),
-    Web(Res.Icon.servicesMobile, "web", "#web"),
-    Tutoring(Res.Icon.servicesTutoring, "tutoring", "#tutoring");
+    Mobile(Res.Image.servicesMobile, "mobile", "#mobile"),
+    Web(Res.Image.servicesMobile, "web", "#web"),
+    Tutoring(Res.Image.servicesTutoring, "tutoring", "#tutoring");
 
     @Composable
     fun getServiceTypeIcon(
