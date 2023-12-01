@@ -4,6 +4,10 @@ build
 out
 kotlin-js-store
 
+site/.kobweb/*
+!site/.kobweb/conf.yaml
+!site/.kobweb/site
+
 # IntelliJ ignores
 *.iml
 /*.ipr
