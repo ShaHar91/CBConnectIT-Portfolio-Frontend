@@ -48,7 +48,7 @@ fun ServicesPage() {
     var services by remember { mutableStateOf<List<Service>>(emptyList()) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("services.json").decodeToString()
+        val responseText = window.http.get("/services.json").decodeToString()
         services = Json.decodeFromString<List<Service>>(responseText)
     }
 
@@ -122,7 +122,7 @@ private fun ServicesPageHeader(breakpoint: Breakpoint, services: List<Service>) 
             P(
                 Modifier
                     .color(ColorMode.current.toPalette().onPrimary)
-                    .maxWidth(if (breakpoint >= Breakpoint.MD) 50.percent else 100.percent)
+                    .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 100.percent)
                     .margin(topBottom = 0.px)
                     .fontSize(32.px)
                     .fontWeight(FontWeight.Bold)
@@ -138,7 +138,7 @@ private fun ServicesPageHeader(breakpoint: Breakpoint, services: List<Service>) 
             P(
                 Modifier
                     .color(ColorMode.current.toPalette().onPrimary)
-                    .maxWidth(if (breakpoint >= Breakpoint.MD) 50.percent else 100.percent)
+                    .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 100.percent)
                     .margin(topBottom = 0.px)
                     .fontSize(22.px)
                     .toAttrs()
