@@ -11,9 +11,7 @@ import com.christiano.bolla.svg.chevronRightSvg
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
 import com.christiano.bolla.utils.maxLines
-import com.varabyte.kobweb.compose.css.BackgroundSize
-import com.varabyte.kobweb.compose.css.Cursor
-import com.varabyte.kobweb.compose.css.UserSelect
+import com.varabyte.kobweb.compose.css.*
 import com.varabyte.kobweb.compose.css.functions.url
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
@@ -87,6 +85,7 @@ fun PortfolioContent() {
                 .borderRadius(20.px)
                 .backgroundImage(url(selectedWork?.bannerImage ?: Res.Image.portfolio1))
                 .backgroundSize(BackgroundSize.Cover)
+                .backgroundPosition(BackgroundPosition.of(CSSPosition(50.percent, 50.percent)))
                 .fillMaxWidth()
         ) {
             Box(

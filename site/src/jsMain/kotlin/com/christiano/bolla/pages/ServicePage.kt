@@ -9,7 +9,9 @@ import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
 import com.christiano.bolla.utils.markdownParagraph
+import com.varabyte.kobweb.compose.css.BackgroundPosition
 import com.varabyte.kobweb.compose.css.BackgroundSize
+import com.varabyte.kobweb.compose.css.CSSPosition
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.functions.url
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
@@ -73,6 +75,7 @@ fun ServicePage() {
                     Modifier
                         .backgroundImage(url(service?.image ?: Res.Image.servicesBanner))
                         .backgroundSize(BackgroundSize.Cover)
+                        .backgroundPosition(BackgroundPosition.of(CSSPosition(50.percent, 50.percent)))
                         .fillMaxWidth(),
                     contentAlignment = Alignment.Center
                 ) {

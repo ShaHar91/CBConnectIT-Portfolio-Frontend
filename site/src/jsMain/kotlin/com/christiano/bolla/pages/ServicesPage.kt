@@ -11,9 +11,7 @@ import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
 import com.christiano.bolla.utils.markdownParagraph
-import com.varabyte.kobweb.compose.css.BackgroundSize
-import com.varabyte.kobweb.compose.css.FontWeight
-import com.varabyte.kobweb.compose.css.TextAlign
+import com.varabyte.kobweb.compose.css.*
 import com.varabyte.kobweb.compose.css.functions.url
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
@@ -38,6 +36,8 @@ import kotlinx.browser.window
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.css.AlignItems
+import org.jetbrains.compose.web.css.JustifyContent
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 
@@ -106,6 +106,7 @@ private fun ServicesPageHeader(breakpoint: Breakpoint, services: List<Service>) 
         Modifier
             .backgroundImage(url(Res.Image.servicesBanner))
             .backgroundSize(BackgroundSize.Cover)
+            .backgroundPosition(BackgroundPosition.of(CSSPosition(50.percent, 50.percent)))
             .fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
