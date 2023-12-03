@@ -104,7 +104,7 @@ fun ServicesPage() {
 private fun ServicesPageHeader(breakpoint: Breakpoint, services: List<Service>) {
     Box(
         Modifier
-            .backgroundImage(url(Res.Image.servicesBanner))
+            .backgroundImage(url(Res.Image.servicesBanner)) // TODO: correct image, should not come from the backend!!
             .backgroundSize(BackgroundSize.Cover)
             .backgroundPosition(BackgroundPosition.of(CSSPosition(50.percent, 50.percent)))
             .fillMaxWidth(),

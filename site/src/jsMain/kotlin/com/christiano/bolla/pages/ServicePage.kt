@@ -5,6 +5,7 @@ import com.christiano.bolla.components.BackToTopButton
 import com.christiano.bolla.components.OverlowMenu
 import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.models.Service
+import com.christiano.bolla.models.SubService
 import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
@@ -52,8 +53,6 @@ fun ServicePage() {
     LaunchedEffect(Unit) {
         val responseText = window.http.get("/api/services.json").decodeToString()
         val response = Json.decodeFromString<List<Service>>(responseText)
-        println("serviceId: $serviceId, serviceName: $response")
-        println("${response.find { it.id == serviceId }}")
         service = response.find { it.id == serviceId }
     }
 
@@ -65,141 +64,35 @@ fun ServicePage() {
             false,
             {
                 menuOpened = true
-            }) {
+            }
+        ) {
             Column(
                 Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Box(
-                    Modifier
-                        .backgroundImage(url(service?.image ?: Res.Image.servicesBanner))
-                        .backgroundSize(BackgroundSize.Cover)
-                        .backgroundPosition(BackgroundPosition.of(CSSPosition(50.percent, 50.percent)))
-                        .fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Box(
-                        Modifier
-                            .fillMaxSize()
-                            .backgroundColor(ColorMode.current.toPalette().primary.toRgb().copy(alpha = 210))
-                    )
+                ServiceBanner(service, breakpoint)
 
-                    Column(
-                        Modifier
-                            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 80.percent else 90.percent)
-                            .margin(topBottom = if (breakpoint >= Breakpoint.MD) 108.px else 56.px),
-                    ) {
-                        P(
-                            Modifier
-                                .color(ColorMode.current.toPalette().onPrimary)
-                                .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 85.percent)
-                                .margin(topBottom = 0.px)
-                                .fontSize(32.px)
-                                .fontWeight(FontWeight.Bold)
-                                .toAttrs()
-                        ) {
-                            Text(
-                                service?.title ?: ""
-                            )
-                        }
+                val subServices = service?.subServices
+                if (subServices.isNullOrEmpty().not()) {
+                    Spacer(Modifier.height(68.px))
 
-                        Spacer(Modifier.height(12.px))
-
-                        if (service != null) {
-                            P(
-                                Modifier
-                                    .color(ColorMode.current.toPalette().onPrimary)
-                                    .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 85.percent)
-                                    .margin(topBottom = 0.px)
-                                    .fontSize(22.px)
-                                    .toAttrs {
-                                        markdownParagraph(service!!.bannerDescription)
-                                    }
-                            )
-                        }
-                    }
+                    SubServices(subServices!!, breakpoint)
                 }
 
-                Spacer(Modifier.height(68.px))
+                val extraInfo = service?.extraInfo
+                if (extraInfo.isNullOrEmpty().not()) {
+                    Spacer(Modifier.height(68.px))
 
-                service?.subServices?.forEachIndexed { index, subService ->
-                    val leftAligned = index % 2 == 0
-
-                    if (index != 0) {
-                        Spacer(Modifier.height(68.px))
-                    }
-
-                    Box(
-                        Modifier
-                            .fillMaxWidth()
-                            .scrollMargin(top = 60.px)
-                            .thenIf(leftAligned.not()) {
-                                Modifier.backgroundColor(ColorMode.current.toPalette().secondaryContainer)
-                                    .color(ColorMode.current.toPalette().onSecondaryContainer)
-                            }
-                            .display(DisplayStyle.Flex)
-                            .flexDirection(if (breakpoint > Breakpoint.MD) FlexDirection.Row else FlexDirection.Column)
-                            .alignItems(AlignItems.Center)
-                            .padding(topBottom = 50.px, leftRight = 10.percent)
-                    ) {
-                        if (leftAligned && breakpoint > Breakpoint.MD) {
-                            Image(subService.image ?: "", Modifier.width(350.px))
-
-                            Spacer(Modifier.width(100.px))
-                        }
-
-                        Column(Modifier.fillMaxWidth()) {
-                            P(
-                                attrs = Modifier
-                                    .fontSize(32.px)
-                                    .fontWeight(FontWeight.Bold)
-                                    .fontFamily(Constants.FONT_FAMILY)
-                                    .toAttrs()
-                            ) {
-                                Text(subService.title)
+                    P(
+                        attrs = Modifier
+                            .fontSize(22.px)
+                            .fontFamily(Constants.FONT_FAMILY)
+                            .toAttrs {
+                                markdownParagraph(extraInfo!!)
                             }
 
-                            Spacer(Modifier.height(24.px))
-
-                            P(
-                                attrs = Modifier
-                                    .fontSize(22.px)
-                                    .fontFamily(Constants.FONT_FAMILY)
-                                    .toAttrs {
-                                        markdownParagraph(subService.description)
-                                    }
-                            )
-
-                            Spacer(Modifier.height(24.px))
-
-                            Button(
-                                modifier = MainButtonStyle.toModifier(),
-                                onClick = {
-                                    //TODO: navigate to projects list!
-                                }
-                            ) {
-                                Text("Learn more")
-                            }
-                        }
-
-
-                        if (leftAligned.not() || breakpoint <= Breakpoint.MD) {
-                            Spacer(Modifier
-                                .width(100.px)
-                                .thenIf(breakpoint <= Breakpoint.MD) {
-                                    Modifier.height(40.px)
-                                })
-
-                            Image(
-                                subService.image ?: "",
-                                Modifier.maxWidth(350.px)
-                                    .thenIf(breakpoint <= Breakpoint.MD) {
-                                        Modifier.fillMaxWidth(90.percent)
-                                    }
-                            )
-                        }
-                    }
+                    )
                 }
             }
         }
@@ -217,6 +110,142 @@ fun ServicePage() {
 
         if (menuOpened) {
             OverlowMenu { menuOpened = false }
+        }
+    }
+}
+
+@Composable
+fun ServiceBanner(service: Service?, breakpoint: Breakpoint) {
+    Box(
+        Modifier
+            .backgroundImage(url(service?.image ?: Res.Image.servicesBanner))
+            .backgroundSize(BackgroundSize.Cover)
+            .backgroundPosition(BackgroundPosition.of(CSSPosition(50.percent, 50.percent)))
+            .fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            Modifier
+                .fillMaxSize()
+                .backgroundColor(ColorMode.current.toPalette().primary.toRgb().copy(alpha = 210))
+        )
+
+        Column(
+            Modifier
+                .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 80.percent else 90.percent)
+                .margin(topBottom = if (breakpoint >= Breakpoint.MD) 108.px else 56.px),
+        ) {
+            P(
+                Modifier
+                    .color(ColorMode.current.toPalette().onPrimary)
+                    .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 85.percent)
+                    .margin(topBottom = 0.px)
+                    .fontSize(32.px)
+                    .fontWeight(FontWeight.Bold)
+                    .toAttrs()
+            ) {
+                Text(
+                    service?.title ?: ""
+                )
+            }
+
+            Spacer(Modifier.height(12.px))
+
+            if (service != null) {
+                P(
+                    Modifier
+                        .color(ColorMode.current.toPalette().onPrimary)
+                        .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 85.percent)
+                        .margin(topBottom = 0.px)
+                        .fontSize(22.px)
+                        .toAttrs {
+                            markdownParagraph(service.bannerDescription)
+                        }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun SubServices(subServices: List<SubService>, breakpoint: Breakpoint) {
+    subServices.forEachIndexed { index, subService ->
+        val leftAligned = index % 2 == 0
+
+        if (index != 0) {
+            Spacer(Modifier.height(68.px))
+        }
+
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .scrollMargin(top = 60.px)
+                .thenIf(leftAligned.not()) {
+                    Modifier.backgroundColor(ColorMode.current.toPalette().secondaryContainer)
+                        .color(ColorMode.current.toPalette().onSecondaryContainer)
+                }
+                .display(DisplayStyle.Flex)
+                .flexDirection(if (breakpoint > Breakpoint.MD) FlexDirection.Row else FlexDirection.Column)
+                .alignItems(AlignItems.Center)
+                .padding(topBottom = 50.px, leftRight = 10.percent)
+        ) {
+            if (leftAligned && breakpoint > Breakpoint.MD) {
+                Image(subService.image ?: "", Modifier.width(275.px))
+
+                Spacer(Modifier.width(100.px))
+            }
+
+            Column(Modifier.fillMaxWidth()) {
+                P(
+                    attrs = Modifier
+                        .fontSize(32.px)
+                        .fontWeight(FontWeight.Bold)
+                        .fontFamily(Constants.FONT_FAMILY)
+                        .toAttrs()
+                ) {
+                    Text(subService.title)
+                }
+
+                Spacer(Modifier.height(24.px))
+
+                P(
+                    attrs = Modifier
+                        .fontSize(22.px)
+                        .fontFamily(Constants.FONT_FAMILY)
+                        .toAttrs {
+                            markdownParagraph(subService.description)
+                        }
+                )
+
+                //TODO: uncomment this when the actual project filter is available!
+//                Spacer(Modifier.height(24.px))
+//
+//                Button(
+//                    modifier = MainButtonStyle.toModifier(),
+//                    onClick = {
+//                        //TODO: navigate to projects list!
+//                    }
+//                ) {
+//                    Text("Learn more")
+//                }
+            }
+
+
+            if (leftAligned.not() || breakpoint <= Breakpoint.MD) {
+                Spacer(Modifier
+                    .width(100.px)
+                    .thenIf(breakpoint <= Breakpoint.MD) {
+                        Modifier.height(40.px)
+                    })
+
+                Image(
+                    subService.image ?: "",
+                    Modifier.maxWidth(250.px)
+                        .thenIf(breakpoint <= Breakpoint.MD) {
+                            Modifier.fillMaxWidth(90.percent)
+                        }
+                )
+            }
         }
     }
 }

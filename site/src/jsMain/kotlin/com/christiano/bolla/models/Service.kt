@@ -41,7 +41,7 @@ data class SubService(
 
 enum class ServiceType(val image: String, val id: String, val path: String) {
     Mobile(Res.Image.servicesMobile, "mobile", "#mobile"),
-    Web(Res.Image.servicesMobile, "web", "#web"),
+    Web(Res.Image.servicesWeb, "web", "#web"),
     Tutoring(Res.Image.servicesTutoring, "tutoring", "#tutoring");
 
     @Composable

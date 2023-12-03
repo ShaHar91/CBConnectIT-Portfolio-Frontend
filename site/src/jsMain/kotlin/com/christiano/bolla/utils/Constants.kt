@@ -31,6 +31,7 @@ object Res {
         const val servicesBanner = "/images/img_services_banner.jpg"
 
         const val servicesMobile = "/images/img_services_mobile.svg"
+        const val servicesWeb = "/images/img_services_web.svg"
         const val servicesTutoring = "/images/img_services_tutoring.svg"
     }
 
@@ -44,7 +45,7 @@ object Res {
             const val angular = "/icons/techStack/angular.svg"
             const val firebase = "/icons/techStack/firebase.svg"
             const val java = "/icons/techStack/java.svg"
-            const val kobweb = "/icons/techStack/kobweb.png"
+            const val kobweb = "/icons/techStack/kobweb.svg"
             const val kotlin = "/icons/techStack/kotlin.svg"
             const val mysql = "/icons/techStack/mysql.svg"
             const val node = "/icons/techStack/node.svg"

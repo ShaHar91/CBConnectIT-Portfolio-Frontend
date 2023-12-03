@@ -51,3 +51,13 @@ kobweb run --env prod --notty
 Kobweb also supports exporting to a static layout which is compatible with static hosting providers, such as GitHub
 Pages, Netlify, Firebase, any presumably all the others. You can read more about that approach here:
 https://bitspittle.dev/blog/2022/staticdeploy
+
+To export as a static site, use this command:
+```bash
+kobweb export --layout static
+```
+
+After that open the Firebase CLI tool and run this command to actually host it on firebase:
+```bash
+firebase serve --only hosting
+```
