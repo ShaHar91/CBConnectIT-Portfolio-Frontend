@@ -62,6 +62,6 @@ enum class ServiceSubType {
     iOS,
     KMP,
     Flutter,
-    Placeholder
+    Kobweb
 }
 
