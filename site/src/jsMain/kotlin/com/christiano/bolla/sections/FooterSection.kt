@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import com.christiano.bolla.components.SocialBar
 import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.models.Section
+import com.christiano.bolla.models.Social
 import com.christiano.bolla.styles.NavigationItemStyle
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.logoImage
@@ -76,7 +77,11 @@ fun FooterContent(showMenu: Boolean) {
 
         Spacer(Modifier.height(25.px))
 
-        SocialBar(true)
+        SocialBar(
+            row = true,
+            links = Social.entries.map { com.christiano.bolla.models.Link(it.type, it.link) },
+            itemGap = 20.px
+        )
     }
 }
 

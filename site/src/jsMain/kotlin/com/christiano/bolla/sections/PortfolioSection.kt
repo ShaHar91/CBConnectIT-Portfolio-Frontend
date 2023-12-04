@@ -23,6 +23,7 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.compose.ui.toAttrs
+import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.forms.ButtonSize
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
@@ -56,6 +57,7 @@ fun PortfolioContent() {
 
     var works by remember { mutableStateOf(emptyList<Project>()) }
     var selectedWork by remember { mutableStateOf<Project?>(null) }
+    val pageContext = rememberPageContext()
 
     LaunchedEffect(Unit) {
         val responseText = window.http.get("/api/works.json").decodeToString()
@@ -76,8 +78,7 @@ fun PortfolioContent() {
             Section.Portfolio,
             showSeeAllButton = true
         ) {
-            //TODO: add navigation!
-            window.alert("See all Portfolio Section")
+            pageContext.router.navigateTo("/projects")
         }
 
         Box(
@@ -111,8 +112,6 @@ fun PortfolioContent() {
                         .gap(12.px)
                         .margin(bottom = 8.px)
                 ) {
-                    //TODO: add click event, add hover/click/focus variant!
-
                     works.forEach { project ->
                         P(
                             ProjectNameStyle.toModifier()
@@ -188,6 +187,7 @@ fun PortfolioContent() {
                         modifier = Modifier
                             .border(1.px, LineStyle.Solid, ColorMode.current.toPalette().onPrimary)
                             .borderRadius(6.px)
+                            .visibility(Visibility.Hidden)
                             .color(ColorMode.current.toPalette().onPrimary),
                         variant = TextPrimaryButtonVariant,
                         size = ButtonSize.SM,

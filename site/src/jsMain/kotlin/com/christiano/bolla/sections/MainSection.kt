@@ -7,6 +7,7 @@ import com.christiano.bolla.components.SocialBar
 import com.christiano.bolla.components.SocialLinkSize
 import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.models.Section
+import com.christiano.bolla.models.Social
 import com.christiano.bolla.styles.MainButtonStyle
 import com.christiano.bolla.styles.MainImageStyle
 import com.christiano.bolla.styles.primary
@@ -81,7 +82,11 @@ fun MainText(breakpoint: Breakpoint) {
     ) {
         val ctx = rememberPageContext()
 
-        SocialBar(socialLinkSize = SocialLinkSize.LG)
+        SocialBar(
+            socialLinkSize = SocialLinkSize.LG,
+            links = Social.entries.map { com.christiano.bolla.models.Link(it.type, it.link) },
+            itemGap = 20.px
+        )
 
         Spacer(Modifier.width(50.px))
 

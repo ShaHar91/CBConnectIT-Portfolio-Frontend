@@ -86,6 +86,7 @@ fun ServicePage() {
 
                     P(
                         attrs = Modifier
+                            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 80.percent else 90.percent)
                             .fontSize(22.px)
                             .fontFamily(Constants.FONT_FAMILY)
                             .toAttrs {
@@ -210,7 +211,7 @@ fun SubServices(subServices: List<SubService>, breakpoint: Breakpoint) {
 
                 P(
                     attrs = Modifier
-                        .fontSize(22.px)
+                        .fontSize(18.px)
                         .fontFamily(Constants.FONT_FAMILY)
                         .toAttrs {
                             markdownParagraph(subService.description)

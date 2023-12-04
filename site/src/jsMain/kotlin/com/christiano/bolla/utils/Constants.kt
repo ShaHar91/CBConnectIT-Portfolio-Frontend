@@ -1,9 +1,9 @@
 package com.christiano.bolla.utils
 
 object Constants {
-    const val LINKEDIN = "https://www.linkedin.com/in/christiano-bolla/"
+    const val LINKED_IN_LINK_PERSONAL = "https://www.linkedin.com/in/christiano-bolla/"
+    const val GITHUB_LINK_PERSONAL = "https://github.com/ShaHar91"
 
-    const val GITHUB = "https://github.com/ShaHar91"
     const val SECTION_WIDTH = 1920
     const val FONT_FAMILY = "Roboto"
 
