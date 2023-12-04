@@ -3,32 +3,43 @@ package com.christiano.bolla.pages
 import androidx.compose.runtime.*
 import com.christiano.bolla.components.*
 import com.christiano.bolla.models.Project
-import com.christiano.bolla.styles.onSecondaryContainer
-import com.christiano.bolla.styles.secondaryContainer
+import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.markdownParagraph
-import com.varabyte.kobweb.compose.css.FontWeight
+import com.varabyte.kobweb.compose.css.*
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
+import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.http.http
-import com.varabyte.kobweb.compose.ui.Alignment
-import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.*
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.compose.ui.thenIf
-import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.Page
+import com.varabyte.kobweb.silk.components.forms.Checkbox
 import com.varabyte.kobweb.silk.components.graphics.Image
+import com.varabyte.kobweb.silk.components.icons.fa.FaArrowDown
+import com.varabyte.kobweb.silk.components.layout.SimpleGrid
+import com.varabyte.kobweb.silk.components.layout.numColumns
+import com.varabyte.kobweb.silk.components.navigation.Link
+import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
+import com.varabyte.kobweb.silk.components.style.hover
+import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
+import com.varabyte.kobweb.silk.theme.colors.shifted
+import com.varabyte.kobweb.silk.theme.shapes.RectF
+import com.varabyte.kobweb.silk.theme.shapes.clip
 import kotlinx.browser.window
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.dom.*
-import org.jetbrains.compose.web.dom.H3
+import org.jetbrains.compose.web.css.AlignItems
+import org.jetbrains.compose.web.dom.H1
+import org.jetbrains.compose.web.dom.P
+import org.jetbrains.compose.web.dom.Text
 
 @Page("/projects")
 @Composable
@@ -36,6 +47,7 @@ fun ProjectsPage() {
     var menuOpened by remember { mutableStateOf(false) }
     val breakpoint = rememberBreakpoint()
     var projects by remember { mutableStateOf<List<Project>>(emptyList()) }
+    var showDropDownMenu by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         val responseText = window.http.get("/api/works.json").decodeToString()
@@ -58,12 +70,8 @@ fun ProjectsPage() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                H1(
-                    attrs = Modifier
-                        .fillMaxWidth()
-                        .toAttrs()
-                ) {
-                    Text("Projects")
+                TitleAndDropDown(breakpoint, showDropDownMenu, projects) {
+                    showDropDownMenu = it
                 }
 
                 ProjectsList(breakpoint, projects)
@@ -86,6 +94,102 @@ fun ProjectsPage() {
         }
     }
 }
+
+@Composable
+fun TitleAndDropDown(breakpoint: Breakpoint, showDropDownMenu: Boolean, projects: List<Project>, toggleDropDownMenu: (Boolean) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(topBottom = 50.px, leftRight = 10.percent),
+        horizontalAlignment = Alignment.Start
+    ) {
+        H1(
+            attrs = Modifier
+                .fillMaxWidth()
+                .toAttrs()
+        ) {
+            Text("Projects")
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(if (breakpoint >= Breakpoint.SM) 60.percent else 100.percent)
+                .position(Position.Relative)
+                .display(DisplayStyle.InlineBlock),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            Row(
+                modifier = ProjectTagLinkStyle.toModifier()
+                    .padding(leftRight = 16.px, topBottom = 10.px)
+                    .borderRadius(50.px)
+                    .border(2.px, LineStyle.Solid, ColorMode.current.toPalette().surfaceVariant)
+                    .cursor(Cursor.Pointer)
+                    .onClick {
+                        toggleDropDownMenu(!showDropDownMenu)
+                    },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("Pick a category")
+
+                //TODO: show down or up arrow depending on the boolean!!
+                FaArrowDown()
+            }
+
+            Box(
+                modifier = Modifier
+                    .display(if (showDropDownMenu) DisplayStyle.Flex else DisplayStyle.None)
+                    .margin(top = 8.px)
+                    .position(Position.Absolute)
+                    .backgroundColor(ColorMode.current.toPalette().surfaceVariant)
+                    .borderRadius(16.px)
+                    .color(ColorMode.current.toPalette().onSurfaceVariant)
+                    .boxShadow(0.px, 8.px, 16.px, 0.px, Colors.Black.copyf(alpha = 0.2f))
+                    .zIndex(1)
+            ) {
+                SimpleGrid(
+                    numColumns = numColumns(1, 2, 3),
+                    modifier = Modifier
+                        .clip(RectF(16.px))
+                ) {
+                    projects.flatMap { item -> item.tags }.toSet().forEach {
+                        Link(
+                            "",
+                            modifier = ProjectTagLinkStyle.toModifier()
+                                .minWidth(175.px)
+                                .padding(topBottom = 12.px, leftRight = 16.px)
+                                .textDecorationLine(TextDecorationLine.None)
+                        ) {
+                            Checkbox(
+                                modifier = Modifier
+                                    .fontSize(12.px),
+                                checked = false,
+                                onCheckedChange = {
+                                    //TODO: update the selection of the items and also reload the items in the list!!
+                                }
+                            ) {
+                                Text(it.name)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+val ProjectTagLinkStyle by ComponentStyle {
+    base {
+        Modifier
+            .transition(CSSTransition(property = "background", duration = 200.ms))
+    }
+
+    hover {
+        Modifier
+            .backgroundColor(colorMode.toPalette().onSurfaceVariant.toRgb().copyf(alpha = 0.2f))
+    }
+}
+
 
 @Composable
 private fun ProjectsList(breakpoint: Breakpoint, projects: List<Project>) {
