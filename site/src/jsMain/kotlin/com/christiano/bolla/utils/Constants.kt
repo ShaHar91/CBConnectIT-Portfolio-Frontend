@@ -55,6 +55,10 @@ object Res {
 }
 
 object Identifiers {
+    object ProjectsPage {
+        const val dropBtn = "dropBtn"
+    }
+
     object TestimonialSectionClasses {
         const val grid = "grid"
         const val item = "item"

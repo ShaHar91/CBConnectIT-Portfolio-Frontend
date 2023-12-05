@@ -24,12 +24,9 @@ fun AttrsScope<HTMLParagraphElement>.markdownParagraph(
     breaks: Boolean = false,
     vararg classes: String,
 ) {
-    ref {
-        if (classes.isNotEmpty()) it.classList.add(*classes)
+    if (classes.isNotEmpty()) classes(*classes)
 
-        val textToParse = if (breaks) text.replace("\n", "<br>") else text
-        it.innerHTML = parse(textToParse)
+    val textToParse = if (breaks) text.replace("\n", "<br>") else text
 
-        onDispose {}
-    }
+    this.prop({ htmlParagraphElement: HTMLParagraphElement, s: String -> htmlParagraphElement.innerHTML = s }, parse(textToParse))
 }
