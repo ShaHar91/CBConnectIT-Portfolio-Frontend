@@ -24,10 +24,9 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.Page
+import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.forms.Checkbox
 import com.varabyte.kobweb.silk.components.graphics.Image
-import com.varabyte.kobweb.silk.components.icons.fa.FaArrowDown
-import com.varabyte.kobweb.silk.components.icons.fa.FaArrowUp
 import com.varabyte.kobweb.silk.components.icons.fa.FaChevronDown
 import com.varabyte.kobweb.silk.components.icons.fa.FaChevronUp
 import com.varabyte.kobweb.silk.components.layout.SimpleGrid
@@ -54,11 +53,13 @@ import org.w3c.dom.HTMLElement
 @Page("/projects")
 @Composable
 fun ProjectsPage() {
+    val ctx = rememberPageContext()
     var menuOpened by remember { mutableStateOf(false) }
     val breakpoint = rememberBreakpoint()
     var projects by remember { mutableStateOf<List<Project>>(emptyList()) }
     var showDropDownMenu by remember { mutableStateOf(false) }
-    var filterTags by remember { mutableStateOf<List<Tag>>(emptyList()) }
+    val queryTagIds = ctx.route.params.filterKeys { it.startsWith("tag") }.values.toList()
+    var filterTags by remember { mutableStateOf<List<String>>(queryTagIds) }
 
     //TODO: Other pages should be able to link to this page with filterTags available from the get-go,
 
@@ -93,17 +94,17 @@ fun ProjectsPage() {
 
                 TitleAndDropDown(breakpoint, showDropDownMenu, projects, filterTags, {
                     val tempFilterTags = filterTags.toMutableList()
-                    if (tempFilterTags.contains(it)) {
-                        tempFilterTags.remove(it)
+                    if (tempFilterTags.contains(it.id)) {
+                        tempFilterTags.remove(it.id)
                     } else {
-                        tempFilterTags.add(it)
+                        tempFilterTags.add(it.id)
                     }
                     filterTags = tempFilterTags
                 }) {
                     showDropDownMenu = it
                 }
 
-                ProjectsList(breakpoint, projects.filter { it.tags.any { tag -> if (filterTags.isNotEmpty()) tag in filterTags else true } })
+                ProjectsList(breakpoint, projects.filter { it.tags.any { tag -> if (filterTags.isNotEmpty()) tag.id in filterTags else true } })
             }
         }
 
@@ -125,88 +126,95 @@ fun ProjectsPage() {
 }
 
 @Composable
-fun TitleAndDropDown(breakpoint: Breakpoint, showDropDownMenu: Boolean, projects: List<Project>, filterTags: List<Tag>, toggleFilterTag: (tag: Tag) -> Unit, toggleDropDownMenu: (Boolean) -> Unit) {
-    Column(
-        modifier = Modifier
+fun TitleAndDropDown(breakpoint: Breakpoint, showDropDownMenu: Boolean, projects: List<Project>, filterTags: List<String>, toggleFilterTag: (tag: Tag) -> Unit, toggleDropDownMenu: (Boolean) -> Unit) {
+    Box(
+        Modifier
             .fillMaxWidth()
-            .padding(topBottom = 50.px, leftRight = 10.percent),
-        horizontalAlignment = Alignment.Start
+            .maxWidth(Constants.SECTION_WIDTH.px),
+        contentAlignment = Alignment.TopCenter
     ) {
-        H1(
-            attrs = Modifier
-                .fillMaxWidth()
-                .toAttrs()
-        ) {
-            Text("Projects")
-        }
-
-        Spacer(Modifier.height(8.px))
-
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxWidth(if (breakpoint >= Breakpoint.SM) 60.percent else 100.percent)
-                .position(Position.Relative)
-                .display(DisplayStyle.InlineBlock),
-            contentAlignment = Alignment.CenterStart
+                .fillMaxWidth()
+                .padding(topBottom = 50.px, leftRight = 10.percent),
+            horizontalAlignment = Alignment.Start
         ) {
-            Row(
-                modifier = ProjectTagLinkStyle.toModifier()
-                    .id(Identifiers.ProjectsPage.dropBtn)
-                    .padding(leftRight = 16.px, topBottom = 10.px)
-                    .borderRadius(50.px)
-                    .border(2.px, LineStyle.Solid, ColorMode.current.toPalette().surfaceVariant)
-                    .cursor(Cursor.Pointer)
-                    .onClick {
-                        toggleDropDownMenu(!showDropDownMenu)
-                    },
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+            H1(
+                attrs = Modifier
+                    .fillMaxWidth()
+                    .toAttrs()
             ) {
-                Text("Pick a category")
-
-                if (showDropDownMenu) {
-                    FaChevronUp()
-                } else {
-                    FaChevronDown()
-                }
+                Text("Projects")
             }
+
+            Spacer(Modifier.height(8.px))
 
             Box(
                 modifier = Modifier
-                    .display(if (showDropDownMenu) DisplayStyle.Flex else DisplayStyle.None)
-                    .margin(top = 8.px)
-                    .position(Position.Absolute)
-                    .backgroundColor(ColorMode.current.toPalette().surfaceVariant)
-                    .borderRadius(16.px)
-                    .color(ColorMode.current.toPalette().onSurfaceVariant)
-                    .boxShadow(0.px, 8.px, 16.px, 0.px, Colors.Black.copyf(alpha = 0.2f))
-                    .zIndex(1)
+                    .fillMaxWidth(if (breakpoint >= Breakpoint.SM) 60.percent else 100.percent)
+                    .position(Position.Relative)
+                    .display(DisplayStyle.InlineBlock),
+                contentAlignment = Alignment.CenterStart
             ) {
-                SimpleGrid(
-                    numColumns = numColumns(1, 2, 3),
-                    modifier = Modifier
-                        .clip(RectF(16.px))
+                Row(
+                    modifier = ProjectTagLinkStyle.toModifier()
+                        .id(Identifiers.ProjectsPage.dropBtn)
+                        .padding(leftRight = 16.px, topBottom = 10.px)
+                        .borderRadius(50.px)
+                        .border(2.px, LineStyle.Solid, ColorMode.current.toPalette().surfaceVariant)
+                        .cursor(Cursor.Pointer)
+                        .onClick {
+                            toggleDropDownMenu(!showDropDownMenu)
+                        },
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    projects.flatMap { item -> item.tags }.toSet().forEach { tag ->
-                        Link(
-                            "",
-                            modifier = ProjectTagLinkStyle.toModifier()
-                                .minWidth(175.px)
-                                .padding(topBottom = 12.px, leftRight = 16.px)
-                                .textDecorationLine(TextDecorationLine.None)
-                                .onClick {
-                                    toggleFilterTag(tag)
-                                }
-                        ) {
-                            Checkbox(
-                                modifier = Modifier
-                                    .fontSize(12.px),
-                                checked = filterTags.contains(tag),
-                                onCheckedChange = {
-                                    toggleFilterTag(tag)
-                                }
+                    Text("Pick a category")
+
+                    if (showDropDownMenu) {
+                        FaChevronUp()
+                    } else {
+                        FaChevronDown()
+                    }
+                }
+
+                Box(
+                    modifier = Modifier
+                        .display(if (showDropDownMenu) DisplayStyle.Flex else DisplayStyle.None)
+                        .margin(top = 8.px)
+                        .position(Position.Absolute)
+                        .backgroundColor(ColorMode.current.toPalette().surfaceVariant)
+                        .borderRadius(16.px)
+                        .color(ColorMode.current.toPalette().onSurfaceVariant)
+                        .boxShadow(0.px, 8.px, 16.px, 0.px, Colors.Black.copyf(alpha = 0.2f))
+                        .zIndex(1)
+                ) {
+                    SimpleGrid(
+                        numColumns = numColumns(1, 2, 3),
+                        modifier = Modifier
+                            .clip(RectF(16.px))
+                    ) {
+                        projects.flatMap { item -> item.tags }.toSet().forEach { tag ->
+                            Link(
+                                "",
+                                modifier = ProjectTagLinkStyle.toModifier()
+                                    .minWidth(175.px)
+                                    .padding(topBottom = 12.px, leftRight = 16.px)
+                                    .textDecorationLine(TextDecorationLine.None)
+                                    .onClick {
+                                        toggleFilterTag(tag)
+                                    }
                             ) {
-                                Text(tag.name)
+                                Checkbox(
+                                    modifier = Modifier
+                                        .fontSize(12.px),
+                                    checked = filterTags.contains(tag.id),
+                                    onCheckedChange = {
+                                        toggleFilterTag(tag)
+                                    }
+                                ) {
+                                    Text(tag.name)
+                                }
                             }
                         }
                     }
@@ -239,76 +247,89 @@ private fun ProjectsList(breakpoint: Breakpoint, projects: List<Project>) {
         }
 
         Box(
-            modifier = Modifier
+            Modifier
                 .fillMaxWidth()
                 .thenIf(leftAligned.not()) {
                     Modifier.backgroundColor(ColorMode.current.toPalette().secondaryContainer)
                         .color(ColorMode.current.toPalette().onSecondaryContainer)
-                }
-                .display(DisplayStyle.Flex)
-                .flexDirection(if (breakpoint > Breakpoint.MD) FlexDirection.Row else FlexDirection.Column)
-                .alignItems(AlignItems.Center)
-                .padding(topBottom = 50.px, leftRight = 10.percent)
+                },
+            contentAlignment = Alignment.TopCenter
         ) {
-            if (leftAligned && breakpoint > Breakpoint.MD) {
-                ProjectImageWithLinks(breakpoint, project)
-
-                Spacer(Modifier.width(100.px))
-            }
-
-            Column(
-                Modifier.fillMaxWidth()
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .maxWidth(Constants.SECTION_WIDTH.px),
+                contentAlignment = Alignment.TopCenter
             ) {
-                P(
-                    attrs = Modifier
-                        .fontSize(32.px)
-                        .fontWeight(FontWeight.Bold)
-                        .fontFamily(Constants.FONT_FAMILY)
-                        .toAttrs()
-                ) {
-                    Text(project.title)
-                }
-
-                P(
-                    attrs = Modifier
-                        .fontSize(18.px)
-                        .fontFamily(Constants.FONT_FAMILY)
-                        .toAttrs {
-                            markdownParagraph(project.description)
-                        }
-                )
-
                 Box(
-                    Modifier
+                    modifier = Modifier
                         .fillMaxWidth()
                         .display(DisplayStyle.Flex)
-                        .flexDirection(FlexDirection.Row)
-                        .flexWrap(FlexWrap.Wrap)
-                        .gap(12.px)
+                        .flexDirection(if (breakpoint > Breakpoint.MD) FlexDirection.Row else FlexDirection.Column)
+                        .alignItems(AlignItems.Center)
+                        .padding(topBottom = 50.px, leftRight = 10.percent)
                 ) {
-                    project.tags.forEach {
+                    if (leftAligned && breakpoint > Breakpoint.MD) {
+                        ProjectImageWithLinks(breakpoint, project)
+
+                        Spacer(Modifier.width(100.px))
+                    }
+
+                    Column(
+                        Modifier.fillMaxWidth()
+                    ) {
                         P(
-                            Modifier
-                                .padding(topBottom = 4.px, leftRight = 6.px)
-                                .margin(topBottom = 0.px)
-                                .backgroundColor(if (leftAligned) ColorMode.current.toPalette().secondaryContainer else ColorMode.current.toPalette().inversePrimary)
-                                .color(ColorMode.current.toPalette().onSecondaryContainer)
-                                .fontSize(11.px)
-                                .borderRadius(6.px)
+                            attrs = Modifier
+                                .fontSize(32.px)
+                                .fontWeight(FontWeight.Bold)
+                                .fontFamily(Constants.FONT_FAMILY)
                                 .toAttrs()
-                        ) { Text(it.name) }
+                        ) {
+                            Text(project.title)
+                        }
+
+                        P(
+                            attrs = Modifier
+                                .fontSize(18.px)
+                                .fontFamily(Constants.FONT_FAMILY)
+                                .toAttrs {
+                                    markdownParagraph(project.description)
+                                }
+                        )
+
+                        Box(
+                            Modifier
+                                .fillMaxWidth()
+                                .display(DisplayStyle.Flex)
+                                .flexDirection(FlexDirection.Row)
+                                .flexWrap(FlexWrap.Wrap)
+                                .gap(12.px)
+                        ) {
+                            project.tags.forEach {
+                                P(
+                                    Modifier
+                                        .padding(topBottom = 4.px, leftRight = 6.px)
+                                        .margin(topBottom = 0.px)
+                                        .backgroundColor(if (leftAligned) ColorMode.current.toPalette().secondaryContainer else ColorMode.current.toPalette().inversePrimary)
+                                        .color(ColorMode.current.toPalette().onSecondaryContainer)
+                                        .fontSize(11.px)
+                                        .borderRadius(6.px)
+                                        .toAttrs()
+                                ) { Text(it.name) }
+                            }
+                        }
+                    }
+
+                    if (leftAligned.not() || breakpoint <= Breakpoint.MD) {
+                        Spacer(Modifier
+                            .width(100.px)
+                            .thenIf(breakpoint <= Breakpoint.MD) {
+                                Modifier.height(100.px)
+                            })
+
+                        ProjectImageWithLinks(breakpoint, project)
                     }
                 }
-            }
-
-            if (leftAligned.not() || breakpoint <= Breakpoint.MD) {
-                Spacer(Modifier
-                    .width(100.px)
-                    .thenIf(breakpoint <= Breakpoint.MD) {
-                        Modifier.height(100.px)
-                    })
-
-                ProjectImageWithLinks(breakpoint, project)
             }
         }
     }

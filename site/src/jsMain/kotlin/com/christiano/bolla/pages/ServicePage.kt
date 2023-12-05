@@ -9,6 +9,7 @@ import com.christiano.bolla.models.SubService
 import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
+import com.christiano.bolla.utils.joinToStringIndexed
 import com.christiano.bolla.utils.markdownParagraph
 import com.varabyte.kobweb.compose.css.BackgroundPosition
 import com.varabyte.kobweb.compose.css.BackgroundSize
@@ -84,16 +85,23 @@ fun ServicePage() {
                 if (extraInfo.isNullOrEmpty().not()) {
                     Spacer(Modifier.height(68.px))
 
-                    P(
-                        attrs = Modifier
-                            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 80.percent else 90.percent)
-                            .fontSize(22.px)
-                            .fontFamily(Constants.FONT_FAMILY)
-                            .toAttrs {
-                                markdownParagraph(extraInfo!!)
-                            }
+                    Box(
+                        Modifier
+                            .fillMaxWidth()
+                            .maxWidth(Constants.SECTION_WIDTH.px),
+                        contentAlignment = Alignment.TopCenter
+                    ) {
+                        P(
+                            attrs = Modifier
+                                .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 80.percent else 90.percent)
+                                .fontSize(22.px)
+                                .fontFamily(Constants.FONT_FAMILY)
+                                .toAttrs {
+                                    markdownParagraph(extraInfo!!)
+                                }
 
-                    )
+                        )
+                    }
                 }
             }
         }
@@ -131,38 +139,46 @@ fun ServiceBanner(service: Service?, breakpoint: Breakpoint) {
                 .backgroundColor(ColorMode.current.toPalette().primary.toRgb().copy(alpha = 210))
         )
 
-        Column(
+        Box(
             Modifier
-                .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 80.percent else 90.percent)
-                .margin(topBottom = if (breakpoint >= Breakpoint.MD) 108.px else 56.px),
+                .fillMaxWidth()
+                .maxWidth(Constants.SECTION_WIDTH.px),
+            contentAlignment = Alignment.TopCenter
         ) {
-            P(
+
+            Column(
                 Modifier
-                    .color(ColorMode.current.toPalette().onPrimary)
-                    .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 85.percent)
-                    .margin(topBottom = 0.px)
-                    .fontSize(32.px)
-                    .fontWeight(FontWeight.Bold)
-                    .toAttrs()
+                    .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 80.percent else 90.percent)
+                    .margin(topBottom = if (breakpoint >= Breakpoint.MD) 108.px else 56.px),
             ) {
-                Text(
-                    service?.title ?: ""
-                )
-            }
-
-            Spacer(Modifier.height(12.px))
-
-            if (service != null) {
                 P(
                     Modifier
                         .color(ColorMode.current.toPalette().onPrimary)
                         .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 85.percent)
                         .margin(topBottom = 0.px)
-                        .fontSize(22.px)
-                        .toAttrs {
-                            markdownParagraph(service.bannerDescription)
-                        }
-                )
+                        .fontSize(32.px)
+                        .fontWeight(FontWeight.Bold)
+                        .toAttrs()
+                ) {
+                    Text(
+                        service?.title ?: ""
+                    )
+                }
+
+                Spacer(Modifier.height(12.px))
+
+                if (service != null) {
+                    P(
+                        Modifier
+                            .color(ColorMode.current.toPalette().onPrimary)
+                            .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 85.percent)
+                            .margin(topBottom = 0.px)
+                            .fontSize(22.px)
+                            .toAttrs {
+                                markdownParagraph(service.bannerDescription)
+                            }
+                    )
+                }
             }
         }
     }
@@ -170,6 +186,8 @@ fun ServiceBanner(service: Service?, breakpoint: Breakpoint) {
 
 @Composable
 fun SubServices(subServices: List<SubService>, breakpoint: Breakpoint) {
+    val ctx = rememberPageContext()
+
     subServices.forEachIndexed { index, subService ->
         val leftAligned = index % 2 == 0
 
@@ -180,72 +198,87 @@ fun SubServices(subServices: List<SubService>, breakpoint: Breakpoint) {
         Box(
             Modifier
                 .fillMaxWidth()
-                .scrollMargin(top = 60.px)
                 .thenIf(leftAligned.not()) {
                     Modifier.backgroundColor(ColorMode.current.toPalette().secondaryContainer)
                         .color(ColorMode.current.toPalette().onSecondaryContainer)
-                }
-                .display(DisplayStyle.Flex)
-                .flexDirection(if (breakpoint > Breakpoint.MD) FlexDirection.Row else FlexDirection.Column)
-                .alignItems(AlignItems.Center)
-                .padding(topBottom = 50.px, leftRight = 10.percent)
+                },
+            contentAlignment = Alignment.TopCenter
         ) {
-            if (leftAligned && breakpoint > Breakpoint.MD) {
-                Image(subService.image ?: "", Modifier.width(275.px))
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .maxWidth(Constants.SECTION_WIDTH.px),
+                contentAlignment = Alignment.TopCenter
+            ) {
 
-                Spacer(Modifier.width(100.px))
-            }
-
-            Column(Modifier.fillMaxWidth()) {
-                P(
-                    attrs = Modifier
-                        .fontSize(32.px)
-                        .fontWeight(FontWeight.Bold)
-                        .fontFamily(Constants.FONT_FAMILY)
-                        .toAttrs()
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .scrollMargin(top = 60.px)
+                        .display(DisplayStyle.Flex)
+                        .flexDirection(if (breakpoint > Breakpoint.MD) FlexDirection.Row else FlexDirection.Column)
+                        .alignItems(AlignItems.Center)
+                        .padding(topBottom = 50.px, leftRight = 10.percent)
                 ) {
-                    Text(subService.title)
+                    if (leftAligned && breakpoint > Breakpoint.MD) {
+                        Image(subService.image ?: "", Modifier.width(275.px))
+
+                        Spacer(Modifier.width(100.px))
+                    }
+
+                    Column(Modifier.fillMaxWidth()) {
+                        P(
+                            attrs = Modifier
+                                .fontSize(32.px)
+                                .fontWeight(FontWeight.Bold)
+                                .fontFamily(Constants.FONT_FAMILY)
+                                .toAttrs()
+                        ) {
+                            Text(subService.title)
+                        }
+
+                        Spacer(Modifier.height(24.px))
+
+                        P(
+                            attrs = Modifier
+                                .fontSize(18.px)
+                                .fontFamily(Constants.FONT_FAMILY)
+                                .toAttrs {
+                                    markdownParagraph(subService.description)
+                                }
+                        )
+
+                        Spacer(Modifier.height(24.px))
+
+                        Button(
+                            modifier = MainButtonStyle.toModifier(),
+                            onClick = {
+                                // Keeping it like this for the possible support of multiple tags per sub-service
+                                val tagsQuery = listOf(subService.tag).joinToStringIndexed("&") { index, tag -> "tag$index=${tag.id}" }
+                                ctx.router.navigateTo("/projects?$tagsQuery")
+                            }
+                        ) {
+                            Text("Learn more")
+                        }
+                    }
+
+
+                    if (leftAligned.not() || breakpoint <= Breakpoint.MD) {
+                        Spacer(Modifier
+                            .width(100.px)
+                            .thenIf(breakpoint <= Breakpoint.MD) {
+                                Modifier.height(40.px)
+                            })
+
+                        Image(
+                            subService.image ?: "",
+                            Modifier.maxWidth(250.px)
+                                .thenIf(breakpoint <= Breakpoint.MD) {
+                                    Modifier.fillMaxWidth(90.percent)
+                                }
+                        )
+                    }
                 }
-
-                Spacer(Modifier.height(24.px))
-
-                P(
-                    attrs = Modifier
-                        .fontSize(18.px)
-                        .fontFamily(Constants.FONT_FAMILY)
-                        .toAttrs {
-                            markdownParagraph(subService.description)
-                        }
-                )
-
-                //TODO: uncomment this when the actual project filter is available!
-//                Spacer(Modifier.height(24.px))
-//
-//                Button(
-//                    modifier = MainButtonStyle.toModifier(),
-//                    onClick = {
-//                        //TODO: navigate to projects list!
-//                    }
-//                ) {
-//                    Text("Learn more")
-//                }
-            }
-
-
-            if (leftAligned.not() || breakpoint <= Breakpoint.MD) {
-                Spacer(Modifier
-                    .width(100.px)
-                    .thenIf(breakpoint <= Breakpoint.MD) {
-                        Modifier.height(40.px)
-                    })
-
-                Image(
-                    subService.image ?: "",
-                    Modifier.maxWidth(250.px)
-                        .thenIf(breakpoint <= Breakpoint.MD) {
-                            Modifier.fillMaxWidth(90.percent)
-                        }
-                )
             }
         }
     }

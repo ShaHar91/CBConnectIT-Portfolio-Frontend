@@ -116,62 +116,76 @@ private fun ServicesPageHeader(breakpoint: Breakpoint, services: List<Service>) 
                 .backgroundColor(ColorMode.current.toPalette().primary.toRgb().copy(alpha = 210))
         )
 
-        Column(
-            Modifier
-                .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 80.percent else 90.percent)
-                .margin(topBottom = if (breakpoint >= Breakpoint.MD) 108.px else 56.px),
+        Box(
+            Modifier.fillMaxWidth().maxWidth(Constants.SECTION_WIDTH.px),
+            contentAlignment = Alignment.TopCenter
         ) {
-            P(
+            Column(
                 Modifier
-                    .color(ColorMode.current.toPalette().onPrimary)
-                    .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 100.percent)
-                    .margin(topBottom = 0.px)
-                    .fontSize(32.px)
-                    .fontWeight(FontWeight.Bold)
-                    .toAttrs()
+                    .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 80.percent else 90.percent)
+                    .margin(topBottom = if (breakpoint >= Breakpoint.MD) 108.px else 56.px)
             ) {
-                Text(
-                    "My Services"
+                P(
+                    Modifier
+                        .color(ColorMode.current.toPalette().onPrimary)
+                        .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 100.percent)
+                        .margin(topBottom = 0.px)
+                        .fontSize(32.px)
+                        .fontWeight(FontWeight.Bold)
+                        .toAttrs()
+                ) {
+                    Text(
+                        "My Services"
+                    )
+                }
+
+                Spacer(Modifier.height(12.px))
+
+                P(
+                    Modifier
+                        .color(ColorMode.current.toPalette().onPrimary)
+                        .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 100.percent)
+                        .margin(topBottom = 0.px)
+                        .fontSize(22.px)
+                        .toAttrs {
+                            markdownParagraph("Over the years, my knowledge and repertoire has grown and I can be deployed in multiple areas. I am always willing to learn and strive to push my limits. Besides implementing an existing idea, I also like to think along with the customer for new ideas and features.\n\nMy services include, but do not limit, to the following:")
+                        }
                 )
-            }
 
-            Spacer(Modifier.height(12.px))
+                if (breakpoint <= Breakpoint.MD) {
+                    Spacer(Modifier.height(68.px))
 
-            P(
-                Modifier
-                    .color(ColorMode.current.toPalette().onPrimary)
-                    .maxWidth(if (breakpoint > Breakpoint.MD) 65.percent else 100.percent)
-                    .margin(topBottom = 0.px)
-                    .fontSize(22.px)
-                    .toAttrs {
-                        markdownParagraph("Over the years, my knowledge and repertoire has grown and I can be deployed in multiple areas. I am always willing to learn and strive to push my limits. Besides implementing an existing idea, I also like to think along with the customer for new ideas and features.\n\nMy services include, but do not limit, to the following:")
+                    services.forEachIndexed { index, service ->
+                        if (index != 0) {
+                            Spacer(Modifier.height(50.px))
+                        }
+
+                        ServiceTypeCard(service)
                     }
-            )
-
-            if (breakpoint <= Breakpoint.MD) {
-                Spacer(Modifier.height(68.px))
-
-                services.forEachIndexed { index, service ->
-                    if (index != 0) {
-                        Spacer(Modifier.height(50.px))
-                    }
-
-                    ServiceTypeCard(service)
                 }
             }
         }
     }
 
     if (breakpoint > Breakpoint.MD) {
-        Row(
-            Modifier.margin(leftRight = 144.px).margin(top = (-50).px).fillMaxWidth(80.percent)
+        Box(
+            Modifier.fillMaxWidth().maxWidth(Constants.SECTION_WIDTH.px),
+            contentAlignment = Alignment.TopCenter
         ) {
-            services.forEachIndexed { index, service ->
-                if (index != 0) {
-                    Spacer(Modifier.width(100.px))
-                }
+            Row(
+                Modifier
+                    .margin(leftRight = 144.px)
+                    .margin(top = (-50).px)
+                    .fillMaxWidth(80.percent)
+                    .maxWidth(Constants.SECTION_WIDTH.px)
+            ) {
+                services.forEachIndexed { index, service ->
+                    if (index != 0) {
+                        Spacer(Modifier.width(100.px))
+                    }
 
-                ServiceTypeCard(service)
+                    ServiceTypeCard(service)
+                }
             }
         }
     }
@@ -191,72 +205,85 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
         Box(
             Modifier
                 .fillMaxWidth()
-                .id(service.type.id)
-                .scrollMargin(top = 60.px)
                 .thenIf(leftAligned.not()) {
                     Modifier.backgroundColor(ColorMode.current.toPalette().secondaryContainer)
                         .color(ColorMode.current.toPalette().onSecondaryContainer)
-                }
-                .display(DisplayStyle.Flex)
-                .flexDirection(if (breakpoint > Breakpoint.MD) FlexDirection.Row else FlexDirection.Column)
-                .alignItems(AlignItems.Center)
-                .padding(topBottom = 50.px, leftRight = 10.percent)
+                },
+            contentAlignment = Alignment.TopCenter
         ) {
-            if (leftAligned && breakpoint > Breakpoint.MD) {
-                Image(service.type.image, Modifier.width(350.px))
-
-                Spacer(Modifier.width(100.px))
-            }
-
-            Column(Modifier.fillMaxWidth()) {
-                P(
-                    attrs = Modifier
-                        .fontSize(32.px)
-                        .fontWeight(FontWeight.Bold)
-                        .fontFamily(Constants.FONT_FAMILY)
-                        .toAttrs()
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .maxWidth(Constants.SECTION_WIDTH.px),
+                contentAlignment = Alignment.TopCenter
+            ) {
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .id(service.type.id)
+                        .scrollMargin(top = 60.px)
+                        .display(DisplayStyle.Flex)
+                        .flexDirection(if (breakpoint > Breakpoint.MD) FlexDirection.Row else FlexDirection.Column)
+                        .alignItems(AlignItems.Center)
+                        .padding(topBottom = 50.px, leftRight = 10.percent)
                 ) {
-                    Text(service.title)
-                }
+                    if (leftAligned && breakpoint > Breakpoint.MD) {
+                        Image(service.type.image, Modifier.width(350.px))
 
-                Spacer(Modifier.height(24.px))
-
-                P(
-                    attrs = Modifier
-                        .fontSize(22.px)
-                        .fontFamily(Constants.FONT_FAMILY)
-                        .toAttrs {
-                            markdownParagraph(service.shortDescription)
-                        }
-                )
-
-                Spacer(Modifier.height(24.px))
-
-                Button(
-                    modifier = MainButtonStyle.toModifier(),
-                    onClick = {
-                        pageContext.router.navigateTo("/services/${service.id}")
+                        Spacer(Modifier.width(100.px))
                     }
-                ) {
-                    Text("Learn more")
-                }
-            }
 
-
-            if (leftAligned.not() || breakpoint <= Breakpoint.MD) {
-                Spacer(Modifier
-                    .width(100.px)
-                    .thenIf(breakpoint <= Breakpoint.MD) {
-                        Modifier.height(40.px)
-                    })
-
-                Image(
-                    service.type.image,
-                    Modifier.maxWidth(350.px)
-                        .thenIf(breakpoint <= Breakpoint.MD) {
-                            Modifier.fillMaxWidth(90.percent)
+                    Column(Modifier.fillMaxWidth()) {
+                        P(
+                            attrs = Modifier
+                                .fontSize(32.px)
+                                .fontWeight(FontWeight.Bold)
+                                .fontFamily(Constants.FONT_FAMILY)
+                                .toAttrs()
+                        ) {
+                            Text(service.title)
                         }
-                )
+
+                        Spacer(Modifier.height(24.px))
+
+                        P(
+                            attrs = Modifier
+                                .fontSize(22.px)
+                                .fontFamily(Constants.FONT_FAMILY)
+                                .toAttrs {
+                                    markdownParagraph(service.shortDescription)
+                                }
+                        )
+
+                        Spacer(Modifier.height(24.px))
+
+                        Button(
+                            modifier = MainButtonStyle.toModifier(),
+                            onClick = {
+                                pageContext.router.navigateTo("/services/${service.id}")
+                            }
+                        ) {
+                            Text("Learn more")
+                        }
+                    }
+
+
+                    if (leftAligned.not() || breakpoint <= Breakpoint.MD) {
+                        Spacer(Modifier
+                            .width(100.px)
+                            .thenIf(breakpoint <= Breakpoint.MD) {
+                                Modifier.height(40.px)
+                            })
+
+                        Image(
+                            service.type.image,
+                            Modifier.maxWidth(350.px)
+                                .thenIf(breakpoint <= Breakpoint.MD) {
+                                    Modifier.fillMaxWidth(90.percent)
+                                }
+                        )
+                    }
+                }
             }
         }
     }
@@ -264,35 +291,42 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
 
 @Composable
 private fun ServicesPageTechnologyStacks(breakpoint: Breakpoint) {
-    Column(
-        modifier = Modifier.fillMaxWidth(
-            if (breakpoint >= Breakpoint.MD) 70.percent else 90.percent
-        ),
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .maxWidth(Constants.SECTION_WIDTH.px),
+        contentAlignment = Alignment.TopCenter
     ) {
-        P(
-            attrs =
-            Modifier
-                .fillMaxWidth()
-                .textAlign(TextAlign.Center)
-                .fontWeight(FontWeight.Bold)
-                .fontSize(if (breakpoint < Breakpoint.MD) 32.px else 45.px)
-                .toAttrs()
+        Column(
+            modifier = Modifier.fillMaxWidth(
+                if (breakpoint >= Breakpoint.MD) 70.percent else 90.percent
+            ),
         ) {
-            Text("Technology Stacks")
-        }
+            P(
+                attrs =
+                Modifier
+                    .fillMaxWidth()
+                    .textAlign(TextAlign.Center)
+                    .fontWeight(FontWeight.Bold)
+                    .fontSize(if (breakpoint < Breakpoint.MD) 32.px else 45.px)
+                    .toAttrs()
+            ) {
+                Text("Technology Stacks")
+            }
 
-        Spacer(Modifier.height(40.px))
+            Spacer(Modifier.height(40.px))
 
-        Box(
-            Modifier
-                .display(DisplayStyle.Flex)
-                .flexDirection(FlexDirection.Row)
-                .flexWrap(FlexWrap.Wrap)
-                .justifyContent(JustifyContent.Center)
-                .gap(60.px)
-        ) {
-            TechnologyStacks.entries.forEach {
-                Image(it.icon, modifier = Modifier.size(if (breakpoint < Breakpoint.MD) 58.px else 114.px))
+            Box(
+                Modifier
+                    .display(DisplayStyle.Flex)
+                    .flexDirection(FlexDirection.Row)
+                    .flexWrap(FlexWrap.Wrap)
+                    .justifyContent(JustifyContent.Center)
+                    .gap(60.px)
+            ) {
+                TechnologyStacks.entries.forEach {
+                    Image(it.icon, modifier = Modifier.size(if (breakpoint < Breakpoint.MD) 58.px else 114.px))
+                }
             }
         }
     }
