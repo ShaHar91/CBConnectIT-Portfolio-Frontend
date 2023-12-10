@@ -5,14 +5,8 @@ import com.christiano.bolla.components.*
 import com.christiano.bolla.models.Project
 import com.christiano.bolla.models.Tag
 import com.christiano.bolla.styles.*
-import com.christiano.bolla.utils.Constants
-import com.christiano.bolla.utils.Identifiers
-import com.christiano.bolla.utils.Res
-import com.christiano.bolla.utils.markdownParagraph
-import com.varabyte.kobweb.compose.css.CSSTransition
-import com.varabyte.kobweb.compose.css.Cursor
-import com.varabyte.kobweb.compose.css.FontWeight
-import com.varabyte.kobweb.compose.css.TextDecorationLine
+import com.christiano.bolla.utils.*
+import com.varabyte.kobweb.compose.css.*
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -46,8 +40,10 @@ import kotlinx.browser.window
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.css.AlignItems
 import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.P
+import org.jetbrains.compose.web.dom.Span
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.HTMLElement
 
@@ -58,6 +54,7 @@ fun ProjectsPage() {
     var menuOpened by remember { mutableStateOf(false) }
     val breakpoint = rememberBreakpoint()
     var projects by remember { mutableStateOf<List<Project>>(emptyList()) }
+    var tags by remember { mutableStateOf<List<Tag>>(emptyList()) }
     var showDropDownMenu by remember { mutableStateOf(false) }
     val queryTagIds = ctx.route.params.filterKeys { it.startsWith(Identifiers.PathParams.Tag) }.values.toList()
     var filterTags by remember { mutableStateOf(queryTagIds) }
@@ -73,6 +70,9 @@ fun ProjectsPage() {
     LaunchedEffect(Unit) {
         val responseText = window.http.get("/api/works.json").decodeToString()
         projects = Json.decodeFromString<List<Project>>(responseText)
+
+        val responseTagText = window.http.get("/api/tags.json").decodeToString()
+        tags = Json.decodeFromString<List<Tag>>(responseTagText).sortedBy { it.name }
     }
 
     Box(
@@ -90,8 +90,7 @@ fun ProjectsPage() {
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                TitleAndDropDown(breakpoint, showDropDownMenu, projects, filterTags, {
+                TitleAndDropDown(breakpoint, showDropDownMenu, tags, filterTags, {
                     val tempFilterTags = filterTags.toMutableList()
                     if (tempFilterTags.contains(it.id)) {
                         tempFilterTags.remove(it.id)
@@ -125,7 +124,14 @@ fun ProjectsPage() {
 }
 
 @Composable
-fun TitleAndDropDown(breakpoint: Breakpoint, showDropDownMenu: Boolean, projects: List<Project>, filterTags: List<String>, toggleFilterTag: (tag: Tag) -> Unit, toggleDropDownMenu: (Boolean) -> Unit) {
+fun TitleAndDropDown(
+    breakpoint: Breakpoint,
+    showDropDownMenu: Boolean,
+    tags: List<Tag>,
+    filterTags: List<String>,
+    toggleFilterTag: (tag: Tag) -> Unit,
+    toggleDropDownMenu: (Boolean) -> Unit
+) {
     Box(
         Modifier
             .fillMaxWidth()
@@ -168,7 +174,23 @@ fun TitleAndDropDown(breakpoint: Breakpoint, showDropDownMenu: Boolean, projects
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(Res.String.PickCategory)
+                    val format = if (filterTags.isEmpty()) {
+                        Res.String.All
+                    } else {
+                        tags.filter { filterTags.contains(it.id) }.joinToString(", ") { it.name }
+                    }
+
+                    Span(
+                        attrs = Modifier
+                            .id(Identifiers.ProjectsPage.dropBtn)
+                            .maxLines(1)
+                            .margin(top = 0.px, bottom = 0.px, left = 0.px, right = 24.px)
+                            .userSelect(UserSelect.None)
+                            .cursor(Cursor.Pointer)
+                            .toAttrs()
+                    ) {
+                        Text(Res.String.FilterCategories.format(format))
+                    }
 
                     if (showDropDownMenu) {
                         FaChevronUp()
@@ -193,7 +215,7 @@ fun TitleAndDropDown(breakpoint: Breakpoint, showDropDownMenu: Boolean, projects
                         modifier = Modifier
                             .clip(RectF(16.px))
                     ) {
-                        projects.flatMap { item -> item.tags }.toSet().forEach { tag ->
+                        tags.forEach { tag ->
                             Link(
                                 "",
                                 modifier = ProjectTagLinkStyle.toModifier()
@@ -238,6 +260,20 @@ val ProjectTagLinkStyle by ComponentStyle {
 
 @Composable
 private fun ProjectsList(breakpoint: Breakpoint, projects: List<Project>) {
+    if (projects.isEmpty()) {
+        Box(
+            modifier = Modifier.fillMaxSize().padding(leftRight = 10.percent),
+            contentAlignment = Alignment.Center
+        ) {
+            Span(
+                Modifier
+                    .fontSize(32.px)
+                    .textAlign(TextAlign.Center)
+                    .toAttrs()
+            ) { Text("No projects found for this filter.") }
+        }
+    }
+
     projects.forEachIndexed { index, project ->
         val leftAligned = index % 2 == 0
 

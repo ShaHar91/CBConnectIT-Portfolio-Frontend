@@ -58,6 +58,8 @@ object Res {
         const val DocumentTitle = "{0} | C.B. Connect I.T"
         const val Projects = "Projects"
         const val PickCategory = "Pick a category"
+        const val FilterCategories = "Categories: {0}"
+        const val All = "All"
         const val ServiceDocumentTitle = "Services"
         const val SubServicesDocumentTitle = "Services: {0}"
 
