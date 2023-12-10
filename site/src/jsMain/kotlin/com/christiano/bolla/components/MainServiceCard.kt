@@ -6,6 +6,7 @@ import com.christiano.bolla.models.Service
 import com.christiano.bolla.styles.primary
 import com.christiano.bolla.svg.chevronRightSvg
 import com.christiano.bolla.utils.Constants
+import com.christiano.bolla.utils.Res
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -65,7 +66,7 @@ fun MainServiceCard(service: Service, modifier: Modifier = Modifier, onClick: ()
                 size = ButtonSize.SM,
                 onClick = { onClick() }
             ) {
-                Text("Read more")
+                Text(Res.String.ReadMore)
 
                 Spacer(Modifier.width(8.px))
 

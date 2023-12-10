@@ -7,6 +7,7 @@ import com.christiano.bolla.models.Tag
 import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Identifiers
+import com.christiano.bolla.utils.Res
 import com.christiano.bolla.utils.markdownParagraph
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.css.Cursor
@@ -58,10 +59,8 @@ fun ProjectsPage() {
     val breakpoint = rememberBreakpoint()
     var projects by remember { mutableStateOf<List<Project>>(emptyList()) }
     var showDropDownMenu by remember { mutableStateOf(false) }
-    val queryTagIds = ctx.route.params.filterKeys { it.startsWith("tag") }.values.toList()
-    var filterTags by remember { mutableStateOf<List<String>>(queryTagIds) }
-
-    //TODO: Other pages should be able to link to this page with filterTags available from the get-go,
+    val queryTagIds = ctx.route.params.filterKeys { it.startsWith(Identifiers.PathParams.Tag) }.values.toList()
+    var filterTags by remember { mutableStateOf(queryTagIds) }
 
     window.onclick = {
         val targetIsNotDropDown = (it.target as? HTMLElement)?.id != Identifiers.ProjectsPage.dropBtn
@@ -80,7 +79,7 @@ fun ProjectsPage() {
         modifier = Modifier.fillMaxSize(),
     ) {
         PageLayout(
-            "Projects",
+            Res.String.Projects,
             false,
             {
                 menuOpened = true
@@ -144,7 +143,7 @@ fun TitleAndDropDown(breakpoint: Breakpoint, showDropDownMenu: Boolean, projects
                     .fillMaxWidth()
                     .toAttrs()
             ) {
-                Text("Projects")
+                Text(Res.String.Projects)
             }
 
             Spacer(Modifier.height(8.px))
@@ -169,7 +168,7 @@ fun TitleAndDropDown(breakpoint: Breakpoint, showDropDownMenu: Boolean, projects
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Pick a category")
+                    Text(Res.String.PickCategory)
 
                     if (showDropDownMenu) {
                         FaChevronUp()

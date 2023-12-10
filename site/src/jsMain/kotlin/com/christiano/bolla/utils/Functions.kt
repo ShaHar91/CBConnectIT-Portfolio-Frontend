@@ -34,17 +34,6 @@ fun ObserveViewportEntered(
     }
 }
 
-suspend fun animateNumbers(
-    number: Int,
-    delay: Long = 10L,
-    onUpdate: (Int) -> Unit
-) {
-    (0..number).forEach {
-        delay(delay)
-        onUpdate(it)
-    }
-}
-
 fun logoImage(colorMode: ColorMode) = when (colorMode) {
     ColorMode.DARK -> Res.Image.logoDark
     ColorMode.LIGHT -> Res.Image.logo

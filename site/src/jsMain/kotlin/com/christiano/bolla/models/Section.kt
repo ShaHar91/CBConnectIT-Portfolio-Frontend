@@ -1,17 +1,19 @@
 package com.christiano.bolla.models
 
+import com.christiano.bolla.utils.Res
+
 enum class Section(
     val id: String,
     val title: String,
     val subtitle: String,
     val path: String
 ) {
-    Home("home", "Home", "", "/#home"),
-    About("about", "About me", "Why Hire Me?", "/#about"),
-    Service("service", "Service", "I'm Good at", "/#service"),
-    Portfolio("portfolio", "Portfolio", "My Work", "/#portfolio"),
-    Experience("experience", "Experience", "Work Experience", "/#experience"),
-    Contact("contact", "Contact me", "Get In Touch", "/#contact"),
-    Testimonial("testimonial", "Testimonial", "What they say", "/#testimonial"),
-    Achievements("achievements", "Achievements", "Personal Achievements", "/#achievements")
+    Home("home", Res.String.Home, "", "/#home"),
+    About("about", Res.String.AboutMe, Res.String.AboutMeSubtitle, "/#about"),
+    Service("service", Res.String.Service, Res.String.ServiceSubtitle, "/#service"),
+    Portfolio("portfolio", Res.String.Portfolio, Res.String.PortfolioSubtitle, "/#portfolio"),
+    Experience("experience", Res.String.Experience, Res.String.ExperienceSubtitle, "/#experience"),
+    Contact("contact", Res.String.ContactMe, Res.String.ContactMeSubtitle, "/#contact"),
+    Testimonial("testimonial", Res.String.Testimonial, Res.String.TestimonialsSubtitle, "/#testimonial"),
+    Achievements("achievements", Res.String.Achievements, Res.String.AchievementsSubtitle, "/#achievements")
 }

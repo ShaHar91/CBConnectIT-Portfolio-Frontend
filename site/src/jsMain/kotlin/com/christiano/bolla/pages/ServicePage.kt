@@ -7,10 +7,7 @@ import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.models.Service
 import com.christiano.bolla.models.SubService
 import com.christiano.bolla.styles.*
-import com.christiano.bolla.utils.Constants
-import com.christiano.bolla.utils.Res
-import com.christiano.bolla.utils.joinToStringIndexed
-import com.christiano.bolla.utils.markdownParagraph
+import com.christiano.bolla.utils.*
 import com.varabyte.kobweb.compose.css.BackgroundPosition
 import com.varabyte.kobweb.compose.css.BackgroundSize
 import com.varabyte.kobweb.compose.css.CSSPosition
@@ -41,13 +38,13 @@ import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 
-@Page("/services/{serviceId}")
+@Page("/services/{${Identifiers.PathParams.ServiceId}}")
 @Composable
 fun ServicePage() {
     var menuOpened by remember { mutableStateOf(false) }
     val breakpoint = rememberBreakpoint()
     val ctx = rememberPageContext()
-    val serviceId = ctx.route.params.getValue("serviceId")
+    val serviceId = ctx.route.params.getValue(Identifiers.PathParams.ServiceId)
 
     var service by remember { mutableStateOf<Service?>(null) }
 
@@ -61,7 +58,7 @@ fun ServicePage() {
         modifier = Modifier.fillMaxSize()
     ) {
         PageLayout(
-            "Services: ${service?.title}",
+            Res.String.SubServicesDocumentTitle.format(service?.title),
             false,
             {
                 menuOpened = true
@@ -254,11 +251,11 @@ fun SubServices(subServices: List<SubService>, breakpoint: Breakpoint) {
                             modifier = MainButtonStyle.toModifier(),
                             onClick = {
                                 // Keeping it like this for the possible support of multiple tags per sub-service
-                                val tagsQuery = listOf(subService.tag).joinToStringIndexed("&") { index, tag -> "tag$index=${tag.id}" }
+                                val tagsQuery = listOf(subService.tag).joinToStringIndexed("&") { index, tag -> "${Identifiers.PathParams.Tag}$index=${tag.id}" }
                                 ctx.router.navigateTo("/projects?$tagsQuery")
                             }
                         ) {
-                            Text("Learn more")
+                            Text(Res.String.LearnMore)
                         }
                     }
 

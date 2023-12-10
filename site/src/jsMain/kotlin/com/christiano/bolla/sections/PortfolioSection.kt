@@ -196,7 +196,7 @@ fun PortfolioContent() {
                             window.alert("Navigate to Project details")
                         }
                     ) {
-                        Text("Read more")
+                        Text(Res.String.ReadMore)
 
                         Spacer(Modifier.width(8.px))
 

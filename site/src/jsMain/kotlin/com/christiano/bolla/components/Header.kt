@@ -10,6 +10,7 @@ import com.christiano.bolla.svg.darkModeSvg
 import com.christiano.bolla.svg.lightModeSvg
 import com.christiano.bolla.svg.overflowMenuSvg
 import com.christiano.bolla.utils.Constants
+import com.christiano.bolla.utils.Res
 import com.christiano.bolla.utils.logoImage
 import com.varabyte.kobweb.compose.css.Cursor
 import com.varabyte.kobweb.compose.css.FontWeight
@@ -106,7 +107,7 @@ fun Header(
                 ColorMode.LIGHT -> darkModeSvg(colorMode.toPalette().background)
             }
         }
-        Tooltip(ElementTarget.PreviousSibling, "Toggle color mode")
+        Tooltip(ElementTarget.PreviousSibling, Res.String.ToggleColorMode)
     }
 }
 

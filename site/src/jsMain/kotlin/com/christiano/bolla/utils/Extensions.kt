@@ -87,3 +87,14 @@ internal fun <T> Appendable.appendElement(element: T, count: Int, transform: ((I
         else -> append(element.toString())
     }
 }
+
+fun String.format(vararg args: Any?): String {
+    val pattern = Regex("\\{\\{|\\}\\}|\\{(\\d+)\\}")
+    return pattern.replace(this) { result ->
+        when (val match = result.value) {
+            "{{" -> "{"
+            "}}" -> "}"
+            else -> args[match.substring(1, match.length - 1).toInt()].toString()
+        }
+    }
+}

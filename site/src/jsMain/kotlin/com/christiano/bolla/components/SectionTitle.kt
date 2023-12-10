@@ -8,6 +8,7 @@ import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Identifiers.PropertyName.margin
 import com.christiano.bolla.utils.Identifiers.PropertyName.padding
 import com.christiano.bolla.utils.ObserveViewportEntered
+import com.christiano.bolla.utils.Res
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextAlign
@@ -126,7 +127,7 @@ fun SectionTitle(
                     onClickButton()
                 }
             ) {
-                Text("See all")
+                Text(Res.String.SeeAll)
 
                 Spacer(Modifier.width(8.px))
 

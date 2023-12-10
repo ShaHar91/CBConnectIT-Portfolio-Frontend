@@ -52,9 +52,68 @@ object Res {
             const val php = "/icons/techStack/php.svg"
         }
     }
+
+    object String {
+        const val Home = "Home"
+        const val DocumentTitle = "{0} | C.B. Connect I.T"
+        const val Projects = "Projects"
+        const val PickCategory = "Pick a category"
+        const val ServiceDocumentTitle = "Services"
+        const val SubServicesDocumentTitle = "Services: {0}"
+
+        const val LearnMore = "Learn more"
+        const val ReadMore = "Read more"
+
+        const val MyServices = "My Services"
+        const val ServicesBannerDescription =
+            "Over the years, my knowledge and repertoire has grown and I can be deployed in multiple areas. I am always willing to learn and strive to push my limits. Besides implementing an existing idea, I also like to think along with the customer for new ideas and features.\n\nMy services include, but do not limit, to the following:"
+        const val TechnologyStacks = "Technology Stacks"
+
+        const val AboutContent = "Skilled Android Developer with developing applications using Java and Kotlin since 2017. Someone who has a passion for staying up-to-date with all new technologies, constantly seeking to explore and take advantage of the latest advancements in the Android Framework. Committed to delivering robust, user-friendly, and scalable applications. A fast learner with an ability to adapt quickly to new technologies and a strong focus for code quality and best practices."
+        const val ExperienceInYears = "{0}+ years"
+        const val Completed = "Completed"
+        const val CompletedProjects = "15+ projects"
+
+        const val IntroductionHello = "Hello, I am"
+        const val IntroductionName = "Christiano Bolla"
+        const val IntroductionFunction = "Mobile developer"
+        const val IntroductionBody = "I have been working since 2017 as an Android Developer. Proficient in turning an idea into a fully functioning and UI/UX stunning application."
+        const val LetsChat = "Let's chat!"
+
+        const val AboutMe = "About me"
+        const val AboutMeSubtitle = "Why Hire Me?"
+        const val Service= "Service"
+        const val ServiceSubtitle = "I'm Good At"
+        const val Portfolio = "Portfolio"
+        const val PortfolioSubtitle = "My Work"
+        const val Experience = "Experience"
+        const val ExperienceSubtitle = "Work Experience"
+        const val ContactMe = "Contact me"
+        const val ContactMeSubtitle= "Get In Touch"
+        const val Testimonial = "Testimonial"
+        const val TestimonialsSubtitle = "What They Say"
+        const val Achievements = "Achievements"
+        const val AchievementsSubtitle = "Personal Achievements"
+
+        const val Name= "Name"
+        const val FullName = "Full Name"
+        const val Email ="Email"
+        const val EmailAddress = "Eamil Address"
+        const val Message = "Message"
+        const val YourMessage = "Your Message"
+        const val Submit = "Submit"
+
+        const val ToggleColorMode = "Toggle color mode"
+        const val SeeAll = "See all"
+    }
 }
 
 object Identifiers {
+    object PathParams {
+        const val Tag = "tag"
+        const val ServiceId = "serviceId"
+    }
+
     object ProjectsPage {
         const val dropBtn = "dropBtn"
     }

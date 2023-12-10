@@ -13,6 +13,7 @@ import com.christiano.bolla.utils.Identifiers.ClassNames.formLabel
 import com.christiano.bolla.utils.Identifiers.ContactForm.inputEmail
 import com.christiano.bolla.utils.Identifiers.ContactForm.inputMessage
 import com.christiano.bolla.utils.Identifiers.ContactForm.inputName
+import com.christiano.bolla.utils.Res
 import com.varabyte.kobweb.compose.css.Cursor
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -53,7 +54,7 @@ fun ContactForm(breakpoint: Breakpoint) {
                 .toAttrs(),
             forId = inputName
         ) {
-            Text("Name")
+            Text(Res.String.Name)
         }
 
         Input(
@@ -67,7 +68,7 @@ fun ContactForm(breakpoint: Breakpoint) {
                 .classNames(formControl)
                 .attrsModifier {
                     attr(autoComplete, "off")
-                    attr(placeholder, "Full Name")
+                    attr(placeholder, Res.String.FullName)
                     attr(name, "name")
                     attr(required, "true")
                     attr(data1PasswordIgnore, "") // Add this so 1Password will ignore this field
@@ -83,7 +84,7 @@ fun ContactForm(breakpoint: Breakpoint) {
                 .toAttrs(),
             forId = inputEmail
         ) {
-            Text("Email")
+            Text(Res.String.Email)
         }
 
         Input(
@@ -97,7 +98,7 @@ fun ContactForm(breakpoint: Breakpoint) {
                 .classNames(formControl)
                 .attrsModifier {
                     attr(autoComplete, "off")
-                    attr(placeholder, "Email Address")
+                    attr(placeholder, Res.String.EmailAddress)
                     attr(name, "email")
                     attr(required, "true")
                     attr(data1PasswordIgnore, "") // Add this so 1Password will ignore this field
@@ -113,7 +114,7 @@ fun ContactForm(breakpoint: Breakpoint) {
                 .toAttrs(),
             forId = inputMessage
         ) {
-            Text("Message")
+            Text(Res.String.Message)
         }
 
         TextArea(
@@ -126,7 +127,7 @@ fun ContactForm(breakpoint: Breakpoint) {
                 .boxShadow(0.px, 0.px, 0.px, 0.px, null) // overrides the default behaviour of the bootstrap
                 .height(150.px)
                 .attrsModifier {
-                    attr(placeholder, "Your Message")
+                    attr(placeholder, Res.String.YourMessage)
                     attr(name, "message")
                     attr(required, "true")
                 }
@@ -148,7 +149,7 @@ fun ContactForm(breakpoint: Breakpoint) {
                     .borderRadius(r = 5.px)
                     .cursor(Cursor.Pointer),
             ) {
-                Text("Submit")
+                Text(Res.String.Submit)
             }
         }
     }

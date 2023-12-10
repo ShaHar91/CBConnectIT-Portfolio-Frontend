@@ -6,6 +6,8 @@ import com.christiano.bolla.components.Header
 import com.christiano.bolla.components.OverlowMenu
 import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.sections.*
+import com.christiano.bolla.utils.Res
+import com.christiano.bolla.utils.format
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -37,7 +39,7 @@ fun HomePage() {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        PageLayout("Home",
+        PageLayout(Res.String.Home,
             onMenuClicked = {
                 menuOpened = true
             }
@@ -104,7 +106,7 @@ fun HomePage() {
 @Composable
 fun PageLayout(title: String, showMenu: Boolean = true, onMenuClicked: () -> Unit, content: @Composable () -> Unit) {
     LaunchedEffect(title) {
-        document.title = "Kobweb - $title"
+        document.title = Res.String.DocumentTitle.format(title)
     }
 
     // Create a box with two rows: the main content (fills as much space as it can) and the footer (which reserves

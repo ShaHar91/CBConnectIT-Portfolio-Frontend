@@ -103,7 +103,7 @@ fun MainText(breakpoint: Breakpoint) {
                     .fontWeight(FontWeight.Normal)
                     .toAttrs()
             ) {
-                Text("Hello, I am")
+                Text(Res.String.IntroductionHello)
             }
 
             P(
@@ -115,7 +115,7 @@ fun MainText(breakpoint: Breakpoint) {
                     .fontWeight(FontWeight.Bolder)
                     .toAttrs()
             ) {
-                Text("Christiano Bolla")
+                Text(Res.String.IntroductionName)
             }
 
             P(
@@ -126,7 +126,7 @@ fun MainText(breakpoint: Breakpoint) {
                     .fontWeight(FontWeight.Bold)
                     .toAttrs()
             ) {
-                Text("Mobile Developer")
+                Text(Res.String.IntroductionFunction)
             }
 
             P(
@@ -137,7 +137,7 @@ fun MainText(breakpoint: Breakpoint) {
                     .fontWeight(FontWeight.Normal)
                     .toAttrs()
             ) {
-                Text("I have been working since 2017 as an Android Developer. Proficient in turning an idea into a fully functioning and UI/UX stunning application")
+                Text(Res.String.IntroductionBody)
             }
 
             Spacer(Modifier.height(40.px))
@@ -148,7 +148,7 @@ fun MainText(breakpoint: Breakpoint) {
                     ctx.router.tryRoutingTo(Section.Contact.path)
                 }
             ) {
-                Text("Let's chat!")
+                Text(Res.String.LetsChat)
             }
         }
     }
@@ -172,6 +172,7 @@ fun MainImage(breakpoint: Breakpoint) {
         Image(
             modifier = MainImageStyle.toModifier()
                 .fillMaxWidth(90.percent)
+                .borderRadius(8.px)
                 .maxWidth(if (breakpoint < Breakpoint.MD) 345.px else 400.px),
             src = Res.Image.mainImage,
             alt = "Main Image"

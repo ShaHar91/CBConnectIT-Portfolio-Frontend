@@ -57,7 +57,7 @@ fun ServicesPage() {
         modifier = Modifier.fillMaxSize(),
     ) {
         PageLayout(
-            "Services",
+            Res.String.ServiceDocumentTitle,
             false,
             {
                 menuOpened = true
@@ -83,15 +83,6 @@ fun ServicesPage() {
             }
         }
 
-//        * var showModal by remember { mutableStateOf(true) }
-//        * if (showModal) {
-//        *   Overlay(Modifier.onClick { showModal = false }) {
-//            *     Dialog {
-//            *        // ... your modal content here ...
-//            *     }
-//            *   }
-//        * }
-
         BackToTopButton()
 
         if (menuOpened) {
@@ -104,7 +95,7 @@ fun ServicesPage() {
 private fun ServicesPageHeader(breakpoint: Breakpoint, services: List<Service>) {
     Box(
         Modifier
-            .backgroundImage(url(Res.Image.servicesBanner)) // TODO: correct image, should not come from the backend!!
+            .backgroundImage(url(Res.Image.servicesBanner))
             .backgroundSize(BackgroundSize.Cover)
             .backgroundPosition(BackgroundPosition.of(CSSPosition(50.percent, 50.percent)))
             .fillMaxWidth(),
@@ -135,7 +126,7 @@ private fun ServicesPageHeader(breakpoint: Breakpoint, services: List<Service>) 
                         .toAttrs()
                 ) {
                     Text(
-                        "My Services"
+                        Res.String.MyServices
                     )
                 }
 
@@ -148,7 +139,7 @@ private fun ServicesPageHeader(breakpoint: Breakpoint, services: List<Service>) 
                         .margin(topBottom = 0.px)
                         .fontSize(22.px)
                         .toAttrs {
-                            markdownParagraph("Over the years, my knowledge and repertoire has grown and I can be deployed in multiple areas. I am always willing to learn and strive to push my limits. Besides implementing an existing idea, I also like to think along with the customer for new ideas and features.\n\nMy services include, but do not limit, to the following:")
+                            markdownParagraph(Res.String.ServicesBannerDescription)
                         }
                 )
 
@@ -263,7 +254,7 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
                                 pageContext.router.navigateTo("/services/${service.id}")
                             }
                         ) {
-                            Text("Learn more")
+                            Text(Res.String.LearnMore)
                         }
                     }
 
@@ -311,7 +302,7 @@ private fun ServicesPageTechnologyStacks(breakpoint: Breakpoint) {
                     .fontSize(if (breakpoint < Breakpoint.MD) 32.px else 45.px)
                     .toAttrs()
             ) {
-                Text("Technology Stacks")
+                Text(Res.String.TechnologyStacks)
             }
 
             Spacer(Modifier.height(40.px))

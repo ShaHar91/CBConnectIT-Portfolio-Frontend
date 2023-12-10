@@ -12,6 +12,8 @@ import com.christiano.bolla.styles.secondaryContainer
 import com.christiano.bolla.svg.completedProjectsSvg
 import com.christiano.bolla.svg.experienceSvg
 import com.christiano.bolla.utils.Constants
+import com.christiano.bolla.utils.Res
+import com.christiano.bolla.utils.format
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.foundation.layout.Box
@@ -74,7 +76,7 @@ fun AboutContent() {
                 .fontWeight(FontWeight.Normal)
                 .toAttrs()
         ) {
-            Text("Skilled Android Developer with developing applications using Java and Kotlin since 2017. Someone who has a passion for staying up-to-date with all new technologies, constantly seeking to explore and take advantage of the latest advancements in the Android Framework. Committed to delivering robust, user-friendly, and scalable applications. A fast learner with an ability to adapt quickly to new technologies and a strong focus for code quality and best practices.")
+            Text(Res.String.AboutContent)
         }
 
         Spacer(Modifier.height(36.px))
@@ -85,13 +87,13 @@ fun AboutContent() {
 
             val yearsExperience = (current - started).inWholeDays / 365
 
-            HighLightCard(colorMode, "Experience", "$yearsExperience+ years") {
+            HighLightCard(colorMode, Res.String.Experience, Res.String.ExperienceInYears.format(yearsExperience)) {
                 experienceSvg(colorMode.toPalette().onSurface)
             }
 
             Spacer(Modifier.width(16.px))
 
-            HighLightCard(colorMode, "Completed", "15+ projects") {
+            HighLightCard(colorMode, Res.String.Completed, Res.String.CompletedProjects) {
                 completedProjectsSvg(colorMode.toPalette().onSurface)
             }
         }
