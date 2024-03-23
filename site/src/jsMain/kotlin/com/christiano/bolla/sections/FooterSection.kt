@@ -79,7 +79,7 @@ fun FooterContent(showMenu: Boolean) {
 
         SocialBar(
             row = true,
-            links = Social.entries.map { com.christiano.bolla.models.Link(it.type, it.link) },
+            links = Social.entries.map { com.christiano.bolla.models.LinkOld(it.type, it.link) },
             itemGap = 20.px
         )
     }

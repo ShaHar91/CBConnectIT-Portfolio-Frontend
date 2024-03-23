@@ -20,12 +20,12 @@ data class Project(
     @SerialName("short_description")
     val shortDescription: String,
     val description: String,
-    val links: List<Link>,
+    val links: List<LinkOld>,
     val tags: List<TagOld>
 )
 
 @Serializable
-data class Link(
+data class LinkOld(
     val type: LinkType,
     val url: String
 )
@@ -36,23 +36,6 @@ data class TagOld(
     val name: String
 )
 
-enum class LinkType {
-    Github,
-    LinkedIn,
-    PlayStore;
-}
-
-@Composable
-fun LinkType.LinkIcon(
-    modifier: Modifier = Modifier,
-    size: IconSize = IconSize.SM,
-) {
-    when (this) {
-        LinkType.Github -> FaGithub(modifier = modifier, size)
-        LinkType.LinkedIn -> FaLinkedin(modifier = modifier, size)
-        LinkType.PlayStore -> FaGooglePlay(modifier = modifier, size)
-    }
-}
 
 enum class Social(val link: String, val type: LinkType) {
     Github(Constants.GITHUB_LINK_PERSONAL, LinkType.Github),

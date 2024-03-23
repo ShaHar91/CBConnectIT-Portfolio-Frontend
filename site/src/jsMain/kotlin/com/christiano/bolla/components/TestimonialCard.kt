@@ -43,7 +43,7 @@ fun TestimonialCard(
         ) {
             Row {
                 Image(
-                    testimonial.image,
+                    testimonial.imageUrl,
                     modifier = Modifier
                         .weight(1)
                         .size(56.px)
@@ -76,7 +76,7 @@ fun TestimonialCard(
                             .fontWeight(FontWeight.Medium)
                             .toAttrs()
                     ) {
-                        Text(testimonial.function)
+                        Text(testimonial.jobPosition.name)
                     }
                 }
             }
