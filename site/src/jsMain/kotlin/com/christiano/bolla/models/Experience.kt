@@ -6,6 +6,7 @@ import com.christiano.bolla.svg.tvAndroidSvg
 import com.varabyte.kobweb.compose.ui.Modifier
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.internal.JSJoda.DateTimeFormatter
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toJSDate
 import kotlinx.serialization.SerialName
@@ -15,16 +16,19 @@ import org.jetbrains.compose.web.css.CSSColorValue
 @Serializable
 data class Experience(
     val id: String,
-    @SerialName("job_position")
-    val jobPosition: String,
     @SerialName("short_description")
     val shortDescription: String,
     val description: String,
-    val company: String,
     val from: String,
     val to: String,
-    @SerialName("tech_stack")
-    val techStack: List<TechStack>
+    val tags: List<Tag>,
+    @SerialName("job_position")
+    val jobPosition: JobPosition,
+    val company: Company,
+    @SerialName("created_at")
+    val createdAt: String,
+    @SerialName("updated_at")
+    val updatedAt: String
 ) {
 
     val formattedDate: String
@@ -39,18 +43,15 @@ data class Experience(
 
             "$fromDateFormatted - $toDateFormatted"
         }
-}
-
-enum class TechStack {
-    Android,
-    AndroidTV;
 
     @Composable
     fun techStackSvg(
+        tag: Tag,
         fill: CSSColorValue,
-        modifier: Modifier = Modifier,
-    ) = when (this) {
-        Android -> phoneAndroidSvg(fill, modifier)
-        AndroidTV -> tvAndroidSvg(fill, modifier)
+        modifier: Modifier = Modifier
+    ) = when (tag.slug) {
+        "android" -> phoneAndroidSvg(fill, modifier)
+        "android-tv" -> tvAndroidSvg(fill, modifier)
+        else -> Unit
     }
 }

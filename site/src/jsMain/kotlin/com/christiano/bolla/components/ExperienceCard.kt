@@ -152,7 +152,7 @@ fun ExperienceDetails(
                     }
                     .toAttrs()
             ) {
-                Text(experience.jobPosition)
+                Text(experience.jobPosition.name)
             }
 
             P(
@@ -180,7 +180,7 @@ fun ExperienceDetails(
                     }
                     .toAttrs()
             ) {
-                Text(experience.company)
+                Text(experience.company.name)
             }
         }
     }
@@ -212,11 +212,11 @@ fun ExperiencNumber(
             contentAlignment = Alignment.Center
         ) {
             Column {
-                experience.techStack.forEachIndexed { index, techStack ->
+                experience.tags.forEachIndexed { index, tag ->
                     if (index != 0) {
                         Spacer(Modifier.height(10.px))
                     }
-                    techStack.techStackSvg(if (active) colorMode.toPalette().onPrimary else colorMode.toPalette().primary)
+                    experience.techStackSvg(tag, if (active) colorMode.toPalette().onPrimary else colorMode.toPalette().primary)
                 }
             }
         }
