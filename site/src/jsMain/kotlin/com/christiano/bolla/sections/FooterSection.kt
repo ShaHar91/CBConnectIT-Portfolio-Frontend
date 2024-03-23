@@ -3,6 +3,7 @@ package com.christiano.bolla.sections
 import androidx.compose.runtime.Composable
 import com.christiano.bolla.components.SocialBar
 import com.christiano.bolla.components.Spacer
+import com.christiano.bolla.models.Link
 import com.christiano.bolla.models.Section
 import com.christiano.bolla.models.Social
 import com.christiano.bolla.styles.NavigationItemStyle
@@ -79,7 +80,7 @@ fun FooterContent(showMenu: Boolean) {
 
         SocialBar(
             row = true,
-            links = Social.entries.map { com.christiano.bolla.models.Link(it.type, it.link) },
+            links = Social.entries.map { Link(id = it.name, type = it.type, url = it.link, createdAt = "", updatedAt = "") },
             itemGap = 20.px
         )
     }

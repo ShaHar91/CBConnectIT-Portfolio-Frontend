@@ -69,7 +69,7 @@ fun TestimonialContent() {
     var testimonials by remember { mutableStateOf(emptyList<Testimonial>()) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("/api/testimonials.json").decodeToString()
+        val responseText = window.http.get("http://localhost:8080/api/v1/testimonials").decodeToString()
 
         testimonials = Json.decodeFromString(responseText)
 

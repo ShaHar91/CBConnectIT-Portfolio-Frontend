@@ -27,7 +27,7 @@ fun ServiceTypeCard(
     service: Service
 ) {
     Link(
-        service.type.path,
+        "#${service.id}",
         ServicesTypeCardStyle.toModifier()
             .fillMaxWidth()
             .textDecorationLine(TextDecorationLine.None)
@@ -40,7 +40,7 @@ fun ServiceTypeCard(
                 .color(ColorMode.current.toPalette().onSurfaceVariant),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            service.type.getServiceTypeIcon(ColorMode.current.toPalette().primary, Modifier.size(56.px))
+            service.getServiceTypeIcon(ColorMode.current.toPalette().primary, Modifier.size(56.px))
 
             Spacer(Modifier.height(10.px))
 

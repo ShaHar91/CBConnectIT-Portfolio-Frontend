@@ -5,7 +5,6 @@ import com.christiano.bolla.components.BackToTopButton
 import com.christiano.bolla.components.OverlowMenu
 import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.models.Service
-import com.christiano.bolla.models.SubService
 import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.*
 import com.varabyte.kobweb.compose.css.BackgroundPosition
@@ -49,9 +48,8 @@ fun ServicePage() {
     var service by remember { mutableStateOf<Service?>(null) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("/api/services.json").decodeToString()
-        val response = Json.decodeFromString<List<Service>>(responseText)
-        service = response.find { it.id == serviceId }
+        val responseText = window.http.get("http://localhost:8080/api/v1/services/$serviceId").decodeToString()
+        service = Json.decodeFromString<Service>(responseText)
     }
 
     Box(
@@ -124,7 +122,7 @@ fun ServicePage() {
 fun ServiceBanner(service: Service?, breakpoint: Breakpoint) {
     Box(
         Modifier
-            .backgroundImage(url(service?.image ?: Res.Image.servicesBanner))
+            .backgroundImage(url(service?.imageUrl ?: Res.Image.servicesBanner))
             .backgroundSize(BackgroundSize.Cover)
             .backgroundPosition(BackgroundPosition.of(CSSPosition(50.percent, 50.percent)))
             .fillMaxWidth(),
@@ -164,7 +162,7 @@ fun ServiceBanner(service: Service?, breakpoint: Breakpoint) {
 
                 Spacer(Modifier.height(12.px))
 
-                if (service != null) {
+                if (service?.bannerDescription != null) {
                     P(
                         Modifier
                             .color(ColorMode.current.toPalette().onPrimary)
@@ -182,7 +180,7 @@ fun ServiceBanner(service: Service?, breakpoint: Breakpoint) {
 }
 
 @Composable
-fun SubServices(subServices: List<SubService>, breakpoint: Breakpoint) {
+fun SubServices(subServices: List<Service>, breakpoint: Breakpoint) {
     val ctx = rememberPageContext()
 
     subServices.forEachIndexed { index, subService ->
@@ -218,7 +216,7 @@ fun SubServices(subServices: List<SubService>, breakpoint: Breakpoint) {
                         .padding(topBottom = 50.px, leftRight = 10.percent)
                 ) {
                     if (leftAligned && breakpoint > Breakpoint.MD) {
-                        Image(subService.image ?: "", Modifier.width(275.px))
+                        Image(subService.imageUrl, Modifier.width(275.px))
 
                         Spacer(Modifier.width(100.px))
                     }
@@ -251,7 +249,7 @@ fun SubServices(subServices: List<SubService>, breakpoint: Breakpoint) {
                             modifier = MainButtonStyle.toModifier(),
                             onClick = {
                                 // Keeping it like this for the possible support of multiple tags per sub-service
-                                val tagsQuery = listOf(subService.tag).joinToStringIndexed("&") { index, tag -> "${Identifiers.PathParams.Tag}$index=${tag.id}" }
+                                val tagsQuery = listOf(subService.tag).joinToStringIndexed("&") { index, tag -> "${Identifiers.PathParams.Tag}$index=${tag?.id}" }
                                 ctx.router.navigateTo("/projects?$tagsQuery")
                             }
                         ) {
@@ -268,7 +266,7 @@ fun SubServices(subServices: List<SubService>, breakpoint: Breakpoint) {
                             })
 
                         Image(
-                            subService.image ?: "",
+                            subService.imageUrl,
                             Modifier.maxWidth(250.px)
                                 .thenIf(breakpoint <= Breakpoint.MD) {
                                     Modifier.fillMaxWidth(90.percent)

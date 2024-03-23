@@ -49,7 +49,7 @@ fun ServicesPage() {
     var services by remember { mutableStateOf<List<Service>>(emptyList()) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("/api/services.json").decodeToString()
+        val responseText = window.http.get("http://localhost:8080/api/v1/services").decodeToString()
         services = Json.decodeFromString<List<Service>>(responseText)
     }
 
@@ -211,7 +211,7 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
                 Box(
                     Modifier
                         .fillMaxWidth()
-                        .id(service.type.id)
+                        .id(service.id)
                         .scrollMargin(top = 60.px)
                         .display(DisplayStyle.Flex)
                         .flexDirection(if (breakpoint > Breakpoint.MD) FlexDirection.Row else FlexDirection.Column)
@@ -219,7 +219,7 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
                         .padding(topBottom = 50.px, leftRight = 10.percent)
                 ) {
                     if (leftAligned && breakpoint > Breakpoint.MD) {
-                        Image(service.type.image, Modifier.width(350.px))
+                        Image(service.typeImage, Modifier.width(350.px))
 
                         Spacer(Modifier.width(100.px))
                     }
@@ -242,7 +242,7 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
                                 .fontSize(22.px)
                                 .fontFamily(Constants.FONT_FAMILY)
                                 .toAttrs {
-                                    markdownParagraph(service.shortDescription)
+                                    markdownParagraph(service.shortDescription ?: "")
                                 }
                         )
 
@@ -267,7 +267,7 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
                             })
 
                         Image(
-                            service.type.image,
+                            service.typeImage,
                             Modifier.maxWidth(350.px)
                                 .thenIf(breakpoint <= Breakpoint.MD) {
                                     Modifier.fillMaxWidth(90.percent)

@@ -28,7 +28,7 @@ fun MainServiceCard(service: Service, modifier: Modifier = Modifier, onClick: ()
     Box(modifier) {
         Column(Modifier.margin(right = 24.px, bottom = 24.px)) {
             Column(Modifier.margin(left = 8.px)) {
-                service.type.getServiceTypeIcon(colorMode.toPalette().primary, Modifier.size(34.px))
+                service.getServiceTypeIcon(colorMode.toPalette().primary, Modifier.size(34.px))
 
                 Spacer(Modifier.height(10.px))
 
@@ -55,7 +55,7 @@ fun MainServiceCard(service: Service, modifier: Modifier = Modifier, onClick: ()
                         .fontWeight(FontWeight.Normal)
                         .toAttrs()
                 ) {
-                    Text(service.shortDescription)
+                    Text(service.shortDescription ?: "")
                 }
             }
 

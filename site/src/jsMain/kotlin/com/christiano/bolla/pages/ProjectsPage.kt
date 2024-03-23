@@ -68,10 +68,10 @@ fun ProjectsPage() {
     }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("/api/works.json").decodeToString()
+        val responseText = window.http.get("http://localhost:8080/api/v1/projects").decodeToString()
         projects = Json.decodeFromString<List<Project>>(responseText)
 
-        val responseTagText = window.http.get("/api/tags.json").decodeToString()
+        val responseTagText = window.http.get("http://localhost:8080/api/v1/tags").decodeToString()
         tags = Json.decodeFromString<List<Tag>>(responseTagText).sortedBy { it.name }
     }
 
@@ -375,7 +375,7 @@ private fun ProjectImageWithLinks(breakpoint: Breakpoint, project: Project) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(modifier = Modifier.width(250.px), src = project.image, alt = "")
+        Image(modifier = Modifier.width(250.px), src = project.imageUrl, alt = "")
 
         Spacer(Modifier.height(36.px))
 

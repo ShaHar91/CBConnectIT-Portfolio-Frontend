@@ -48,7 +48,7 @@ fun ServiceContent() {
     var services by remember { mutableStateOf<List<Service>>(emptyList()) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("/api/services.json").decodeToString()
+        val responseText = window.http.get("http://localhost:8080/api/v1/services").decodeToString()
         services = Json.decodeFromString<List<Service>>(responseText)
     }
 
