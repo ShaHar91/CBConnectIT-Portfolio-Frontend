@@ -3,7 +3,7 @@ package com.christiano.bolla.pages
 import androidx.compose.runtime.*
 import com.christiano.bolla.components.*
 import com.christiano.bolla.models.Project
-import com.christiano.bolla.models.Tag
+import com.christiano.bolla.models.TagOld
 import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.*
 import com.varabyte.kobweb.compose.css.*
@@ -54,7 +54,7 @@ fun ProjectsPage() {
     var menuOpened by remember { mutableStateOf(false) }
     val breakpoint = rememberBreakpoint()
     var projects by remember { mutableStateOf<List<Project>>(emptyList()) }
-    var tags by remember { mutableStateOf<List<Tag>>(emptyList()) }
+    var tags by remember { mutableStateOf<List<TagOld>>(emptyList()) }
     var showDropDownMenu by remember { mutableStateOf(false) }
     val queryTagIds = ctx.route.params.filterKeys { it.startsWith(Identifiers.PathParams.Tag) }.values.toList()
     var filterTags by remember { mutableStateOf(queryTagIds) }
@@ -72,7 +72,7 @@ fun ProjectsPage() {
         projects = Json.decodeFromString<List<Project>>(responseText)
 
         val responseTagText = window.http.get("/api/tags.json").decodeToString()
-        tags = Json.decodeFromString<List<Tag>>(responseTagText).sortedBy { it.name }
+        tags = Json.decodeFromString<List<TagOld>>(responseTagText).sortedBy { it.name }
     }
 
     Box(
@@ -127,9 +127,9 @@ fun ProjectsPage() {
 fun TitleAndDropDown(
     breakpoint: Breakpoint,
     showDropDownMenu: Boolean,
-    tags: List<Tag>,
+    tags: List<TagOld>,
     filterTags: List<String>,
-    toggleFilterTag: (tag: Tag) -> Unit,
+    toggleFilterTag: (tag: TagOld) -> Unit,
     toggleDropDownMenu: (Boolean) -> Unit
 ) {
     Box(

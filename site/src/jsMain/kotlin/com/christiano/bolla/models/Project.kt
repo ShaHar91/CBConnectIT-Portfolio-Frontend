@@ -21,7 +21,7 @@ data class Project(
     val shortDescription: String,
     val description: String,
     val links: List<Link>,
-    val tags: List<Tag>
+    val tags: List<TagOld>
 )
 
 @Serializable
@@ -31,7 +31,7 @@ data class Link(
 )
 
 @Serializable
-data class Tag(
+data class TagOld(
     val id: String,
     val name: String
 )
