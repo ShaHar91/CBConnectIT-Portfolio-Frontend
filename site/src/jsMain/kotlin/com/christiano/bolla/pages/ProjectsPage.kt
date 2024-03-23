@@ -3,7 +3,7 @@ package com.christiano.bolla.pages
 import androidx.compose.runtime.*
 import com.christiano.bolla.components.*
 import com.christiano.bolla.models.Project
-import com.christiano.bolla.models.TagOld
+import com.christiano.bolla.models.Tag
 import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.*
 import com.varabyte.kobweb.compose.css.*
@@ -54,7 +54,7 @@ fun ProjectsPage() {
     var menuOpened by remember { mutableStateOf(false) }
     val breakpoint = rememberBreakpoint()
     var projects by remember { mutableStateOf<List<Project>>(emptyList()) }
-    var tags by remember { mutableStateOf<List<TagOld>>(emptyList()) }
+    var tags by remember { mutableStateOf<List<Tag>>(emptyList()) }
     var showDropDownMenu by remember { mutableStateOf(false) }
     val queryTagIds = ctx.route.params.filterKeys { it.startsWith(Identifiers.PathParams.Tag) }.values.toList()
     var filterTags by remember { mutableStateOf(queryTagIds) }
@@ -68,11 +68,11 @@ fun ProjectsPage() {
     }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("/api/works.json").decodeToString()
+        val responseText = window.http.get("http://localhost:8080/api/v1/projects").decodeToString()
         projects = Json.decodeFromString<List<Project>>(responseText)
 
-        val responseTagText = window.http.get("/api/tags.json").decodeToString()
-        tags = Json.decodeFromString<List<TagOld>>(responseTagText).sortedBy { it.name }
+        val responseTagText = window.http.get("http://localhost:8080/api/v1/tags").decodeToString()
+        tags = Json.decodeFromString<List<Tag>>(responseTagText).sortedBy { it.name }
     }
 
     Box(
@@ -127,9 +127,9 @@ fun ProjectsPage() {
 fun TitleAndDropDown(
     breakpoint: Breakpoint,
     showDropDownMenu: Boolean,
-    tags: List<TagOld>,
+    tags: List<Tag>,
     filterTags: List<String>,
-    toggleFilterTag: (tag: TagOld) -> Unit,
+    toggleFilterTag: (tag: Tag) -> Unit,
     toggleDropDownMenu: (Boolean) -> Unit
 ) {
     Box(
@@ -375,7 +375,7 @@ private fun ProjectImageWithLinks(breakpoint: Breakpoint, project: Project) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(modifier = Modifier.width(250.px), src = project.image, alt = "")
+        Image(modifier = Modifier.width(250.px), src = project.imageUrl, alt = "")
 
         Spacer(Modifier.height(36.px))
 

@@ -60,7 +60,7 @@ fun PortfolioContent() {
     val pageContext = rememberPageContext()
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("/api/works.json").decodeToString()
+        val responseText = window.http.get("http://localhost:8080/api/v1/projects").decodeToString()
 
         works = Json.decodeFromString<List<Project>>(responseText)
         selectedWork = works.first()
@@ -84,7 +84,7 @@ fun PortfolioContent() {
         Box(
             Modifier
                 .borderRadius(20.px)
-                .backgroundImage(url(selectedWork?.bannerImage ?: Res.Image.portfolio1))
+                .backgroundImage(url(selectedWork?.bannerImageUrl ?: Res.Image.portfolio1))
                 .backgroundSize(BackgroundSize.Cover)
                 .backgroundPosition(BackgroundPosition.of(CSSPosition(50.percent, 50.percent)))
                 .fillMaxWidth()

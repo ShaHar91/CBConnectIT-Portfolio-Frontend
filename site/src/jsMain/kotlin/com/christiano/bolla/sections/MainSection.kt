@@ -6,6 +6,7 @@ import com.christiano.bolla.components.Backdrop
 import com.christiano.bolla.components.SocialBar
 import com.christiano.bolla.components.SocialLinkSize
 import com.christiano.bolla.components.Spacer
+import com.christiano.bolla.models.Link
 import com.christiano.bolla.models.Section
 import com.christiano.bolla.models.Social
 import com.christiano.bolla.styles.MainButtonStyle
@@ -84,7 +85,7 @@ fun MainText(breakpoint: Breakpoint) {
 
         SocialBar(
             socialLinkSize = SocialLinkSize.LG,
-            links = Social.entries.map { com.christiano.bolla.models.LinkOld(it.type, it.link) },
+            links = Social.entries.map { Link(id = it.name, type = it.type, url = it.link, createdAt = "", updatedAt = "") },
             itemGap = 20.px
         )
 

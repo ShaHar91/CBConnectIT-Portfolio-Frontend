@@ -2,7 +2,7 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import com.christiano.bolla.models.LinkOld
+import com.christiano.bolla.models.Link
 import com.christiano.bolla.models.LinkIcon
 import com.christiano.bolla.styles.SocialLinkStyle
 import com.christiano.bolla.utils.Identifiers.SocialBar.socialIcon
@@ -22,7 +22,7 @@ import org.jetbrains.compose.web.css.*
 fun SocialBar(
     row: Boolean = false,
     socialLinkSize: SocialLinkSize = SocialLinkSize.SM,
-    links: List<LinkOld> = emptyList(),
+    links: List<Link> = emptyList(),
     itemGap: CSSNumeric
 ) {
 
@@ -41,7 +41,7 @@ fun SocialBar(
 @Composable
 private fun SocialLinks(
     socialLinkSize: SocialLinkSize = SocialLinkSize.SM,
-    links: List<LinkOld> = emptyList()
+    links: List<Link> = emptyList()
 ) {
     val colorMode by ColorMode.currentState
 
