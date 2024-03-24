@@ -2,6 +2,7 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.*
 import com.christiano.bolla.models.Section
+import com.christiano.bolla.navigation.Navigation
 import com.christiano.bolla.styles.primary
 import com.christiano.bolla.svg.chevronRightSvg
 import com.christiano.bolla.utils.Constants
@@ -12,6 +13,7 @@ import com.christiano.bolla.utils.Res
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextAlign
+import com.varabyte.kobweb.compose.css.TextDecorationLine
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -25,6 +27,7 @@ import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.web.css.ms
 import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 
@@ -34,7 +37,7 @@ fun SectionTitle(
     section: Section,
     alignment: Alignment.Horizontal = Alignment.Start,
     showSeeAllButton: Boolean = false,
-    onClickButton: () -> Unit = {}
+    href: String? = null
 ) {
     val scope = rememberCoroutineScope()
     var titleMargin by remember { mutableStateOf(100.px) }
@@ -120,18 +123,23 @@ fun SectionTitle(
         }
 
         if (showSeeAllButton) {
-            Button(
-                variant = TextPrimaryButtonVariant,
-                size = ButtonSize.SM,
-                onClick = {
-                    onClickButton()
-                }
+            A(
+                href = href,
+                attrs = Modifier
+                    .textDecorationLine(TextDecorationLine.None)
+                    .toAttrs()
             ) {
-                Text(Res.String.SeeAll)
+                Button(
+                    variant = TextPrimaryButtonVariant,
+                    size = ButtonSize.SM,
+                    onClick = {}
+                ) {
+                    Text(Res.String.SeeAll)
 
-                Spacer(Modifier.width(8.px))
+                    Spacer(Modifier.width(8.px))
 
-                chevronRightSvg(Modifier.size(18.px).margin(top = 2.px))
+                    chevronRightSvg(Modifier.size(18.px).margin(top = 2.px))
+                }
             }
         }
     }

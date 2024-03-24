@@ -7,6 +7,7 @@ import com.christiano.bolla.components.ServiceTypeCard
 import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.models.Service
 import com.christiano.bolla.models.TechnologyStacks
+import com.christiano.bolla.navigation.Navigation
 import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
@@ -38,6 +39,7 @@ import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.AlignItems
 import org.jetbrains.compose.web.css.JustifyContent
+import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 
@@ -248,13 +250,18 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
 
                         Spacer(Modifier.height(24.px))
 
-                        Button(
-                            modifier = MainButtonStyle.toModifier(),
-                            onClick = {
-                                pageContext.router.navigateTo("/services/${service.id}")
-                            }
+                        A(
+                            href = Navigation.Screen.Services.getService(service.id),
+                            attrs = Modifier
+                                .textDecorationLine(TextDecorationLine.None)
+                                .toAttrs()
                         ) {
-                            Text(Res.String.LearnMore)
+                            Button(
+                                modifier = MainButtonStyle.toModifier(),
+                                onClick = {}
+                            ) {
+                                Text(Res.String.LearnMore)
+                            }
                         }
                     }
 

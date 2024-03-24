@@ -3,11 +3,13 @@ package com.christiano.bolla.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.christiano.bolla.models.Service
+import com.christiano.bolla.navigation.Navigation
 import com.christiano.bolla.styles.primary
 import com.christiano.bolla.svg.chevronRightSvg
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
 import com.varabyte.kobweb.compose.css.FontWeight
+import com.varabyte.kobweb.compose.css.TextDecorationLine
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -18,11 +20,12 @@ import com.varabyte.kobweb.silk.components.forms.ButtonSize
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 
 @Composable
-fun MainServiceCard(service: Service, modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun MainServiceCard(service: Service, modifier: Modifier = Modifier) {
     val colorMode by ColorMode.currentState
 
     Box(modifier) {
@@ -61,16 +64,24 @@ fun MainServiceCard(service: Service, modifier: Modifier = Modifier, onClick: ()
 
             Spacer(Modifier.height(10.px))
 
-            Button(
-                variant = TextPrimaryButtonVariant,
-                size = ButtonSize.SM,
-                onClick = { onClick() }
+            A(
+                href = Navigation.Screen.Services.getService(service.id),
+                attrs = Modifier
+                    .fillMaxSize()
+                    .textDecorationLine(TextDecorationLine.None)
+                    .toAttrs()
             ) {
-                Text(Res.String.ReadMore)
+                Button(
+                    variant = TextPrimaryButtonVariant,
+                    size = ButtonSize.SM,
+                    onClick = { }
+                ) {
+                    Text(Res.String.ReadMore)
 
-                Spacer(Modifier.width(8.px))
+                    Spacer(Modifier.width(8.px))
 
-                chevronRightSvg(Modifier.size(18.px).margin(top = 2.px))
+                    chevronRightSvg(Modifier.size(18.px).margin(top = 2.px))
+                }
             }
         }
     }

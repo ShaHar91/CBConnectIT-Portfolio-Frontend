@@ -5,12 +5,10 @@ import com.christiano.bolla.components.BackToTopButton
 import com.christiano.bolla.components.OverlowMenu
 import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.models.Service
+import com.christiano.bolla.navigation.Navigation
 import com.christiano.bolla.styles.*
 import com.christiano.bolla.utils.*
-import com.varabyte.kobweb.compose.css.BackgroundPosition
-import com.varabyte.kobweb.compose.css.BackgroundSize
-import com.varabyte.kobweb.compose.css.CSSPosition
-import com.varabyte.kobweb.compose.css.FontWeight
+import com.varabyte.kobweb.compose.css.*
 import com.varabyte.kobweb.compose.css.functions.url
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
@@ -34,6 +32,8 @@ import kotlinx.browser.window
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.css.AlignItems
+import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 
@@ -245,15 +245,20 @@ fun SubServices(subServices: List<Service>, breakpoint: Breakpoint) {
 
                         Spacer(Modifier.height(24.px))
 
-                        Button(
-                            modifier = MainButtonStyle.toModifier(),
-                            onClick = {
-                                // Keeping it like this for the possible support of multiple tags per sub-service
-                                val tagsQuery = listOf(subService.tag).joinToStringIndexed("&") { index, tag -> "${Identifiers.PathParams.Tag}$index=${tag?.id}" }
-                                ctx.router.navigateTo("/projects?$tagsQuery")
-                            }
+                        A(
+                            // Keeping it like this for the possible support of multiple tags per sub-service
+                            href = Navigation.Screen.Projects.getByTagQuery(listOf(subService.tag).joinToStringIndexed("&") { index, tag -> "${Identifiers.PathParams.Tag}$index=${tag?.id}" }),
+                            attrs = Modifier
+                                .fillMaxSize()
+                                .textDecorationLine(TextDecorationLine.None)
+                                .toAttrs()
                         ) {
-                            Text(Res.String.LearnMore)
+                            Button(
+                                modifier = MainButtonStyle.toModifier(),
+                                onClick = {}
+                            ) {
+                                Text(Res.String.LearnMore)
+                            }
                         }
                     }
 

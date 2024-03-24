@@ -54,11 +54,9 @@ fun ExperienceContent() {
                 .fillMaxWidth(),
             section = Section.Experience,
             alignment = Alignment.CenterHorizontally,
+            href = null // TODO: add navigation
 //            showSeeAllButton = true
-        ) {
-            //TODO: add navigation
-            window.alert("See all experiences")
-        }
+        )
 
         Spacer(Modifier.height(25.px))
 

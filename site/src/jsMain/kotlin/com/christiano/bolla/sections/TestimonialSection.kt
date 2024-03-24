@@ -95,11 +95,9 @@ fun TestimonialContent() {
                 .fillMaxWidth(),
             section = Section.Testimonial,
             alignment = Alignment.CenterHorizontally,
+            href = null // TODO: add navigation
 //            showSeeAllButton = true
-        ) {
-            //TODO: add navigation
-            window.alert("See all testimonials")
-        }
+        )
 
         val widthPercentage = when {
             breakpoint > Breakpoint.MD -> 30.percent
