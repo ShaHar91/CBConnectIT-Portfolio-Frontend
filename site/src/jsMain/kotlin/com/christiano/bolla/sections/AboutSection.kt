@@ -38,7 +38,7 @@ fun AboutSection() {
     Box(
         modifier = Modifier
             .id(Section.About.id)
-            .scrollMargin(60.px)
+            .scrollMargin(80.px)
             .fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {

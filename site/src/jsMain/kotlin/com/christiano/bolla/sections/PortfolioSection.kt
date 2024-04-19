@@ -6,6 +6,7 @@ import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.components.TextPrimaryButtonVariant
 import com.christiano.bolla.models.Project
 import com.christiano.bolla.models.Section
+import com.christiano.bolla.navigation.Navigation
 import com.christiano.bolla.styles.*
 import com.christiano.bolla.svg.chevronRightSvg
 import com.christiano.bolla.utils.Constants
@@ -43,7 +44,7 @@ fun PortfolioSection() {
     Box(
         modifier = Modifier
             .id(Section.Portfolio.id)
-            .scrollMargin(60.px)
+            .scrollMargin(80.px)
             .fillMaxWidth()
             .maxWidth(Constants.SECTION_WIDTH.px),
         contentAlignment = Alignment.Center
@@ -76,10 +77,9 @@ fun PortfolioContent() {
         SectionTitle(
             Modifier.fillMaxWidth().margin(bottom = 25.px),
             Section.Portfolio,
-            showSeeAllButton = true
-        ) {
-            pageContext.router.navigateTo("/projects")
-        }
+            showSeeAllButton = true,
+            href = Navigation.Screen.Projects.route
+        )
 
         Box(
             Modifier

@@ -47,7 +47,7 @@ fun TestimonialSection() {
     Box(
         modifier = Modifier
             .id(Section.Testimonial.id)
-            .scrollMargin(60.px)
+            .scrollMargin(80.px)
             .fillMaxWidth()
             .maxWidth(Constants.SECTION_WIDTH.px),
         contentAlignment = Alignment.Center
@@ -95,11 +95,9 @@ fun TestimonialContent() {
                 .fillMaxWidth(),
             section = Section.Testimonial,
             alignment = Alignment.CenterHorizontally,
+            href = null // TODO: add navigation
 //            showSeeAllButton = true
-        ) {
-            //TODO: add navigation
-            window.alert("See all testimonials")
-        }
+        )
 
         val widthPercentage = when {
             breakpoint > Breakpoint.MD -> 30.percent

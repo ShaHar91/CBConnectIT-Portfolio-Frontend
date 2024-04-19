@@ -22,6 +22,8 @@ data class Experience(
     val from: String,
     val to: String,
     val tags: List<Tag>,
+    @SerialName("as_freelance")
+    val asFreelance: Boolean,
     @SerialName("job_position")
     val jobPosition: JobPosition,
     val company: Company,

@@ -32,6 +32,7 @@ object Res {
 
         const val servicesMobile = "/images/img_services_mobile.svg"
         const val servicesWeb = "/images/img_services_web.svg"
+        const val servicesBackend = "/images/img_services_backend.svg"
         const val servicesTutoring = "/images/img_services_tutoring.svg"
     }
 
@@ -71,7 +72,7 @@ object Res {
             "Over the years, my knowledge and repertoire has grown and I can be deployed in multiple areas. I am always willing to learn and strive to push my limits. Besides implementing an existing idea, I also like to think along with the customer for new ideas and features.\n\nMy services include, but do not limit, to the following:"
         const val TechnologyStacks = "Technology Stacks"
 
-        const val AboutContent = "Skilled Android Developer with developing applications using Java and Kotlin since 2017. Someone who has a passion for staying up-to-date with all new technologies, constantly seeking to explore and take advantage of the latest advancements in the Android Framework. Committed to delivering robust, user-friendly, and scalable applications. A fast learner with an ability to adapt quickly to new technologies and a strong focus for code quality and best practices."
+        const val AboutContent = "Very skilled Android Developer with close to 7 years of experience in developing applications using Java and Kotlin. Someone who has a passion for staying up-to-date with all new technologies, constantly seeking to explore and take advantage of the latest advancements in the Android Framework. Committed to delivering robust, user-friendly, and scalable applications. A fast learner with an ability to adapt quickly to new technologies and a strong focus for code quality and best practices."
         const val ExperienceInYears = "{0}+ years"
         const val Completed = "Completed"
         const val CompletedProjects = "15+ projects"

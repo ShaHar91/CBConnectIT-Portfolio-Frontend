@@ -6,6 +6,7 @@ import com.christiano.bolla.components.MainServiceCard
 import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.models.Section
 import com.christiano.bolla.models.Service
+import com.christiano.bolla.navigation.Navigation
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
 import com.varabyte.kobweb.compose.css.JustifyContent
@@ -32,7 +33,7 @@ fun ServiceSection() {
     Box(
         modifier = Modifier
             .id(Section.Service.id)
-            .scrollMargin(60.px)
+            .scrollMargin(80.px)
             .fillMaxWidth()
             .maxWidth(Constants.SECTION_WIDTH.px),
         contentAlignment = Alignment.Center
@@ -92,10 +93,9 @@ fun ServiceContent() {
                 modifier = Modifier.fillMaxWidth(),
                 section = Section.Service,
                 alignment = Alignment.Start,
+                href = Navigation.Screen.Services.route,
                 showSeeAllButton = true
-            ) {
-                pageContext.router.navigateTo("/services")
-            }
+            )
 
             Spacer(Modifier.height(36.px))
 
@@ -111,9 +111,7 @@ fun ServiceContent() {
                     MainServiceCard(
                         modifier = Modifier.fillMaxWidth(if (breakpoint >= Breakpoint.MD) 50.percent else 100.percent),
                         service = it
-                    ) {
-                        pageContext.router.navigateTo("/services/${it.id}")
-                    }
+                    )
                 }
             }
         }

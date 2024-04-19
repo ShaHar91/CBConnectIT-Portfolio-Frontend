@@ -26,7 +26,7 @@ fun ExperienceSection() {
     Box(
         modifier = Modifier
             .id(Section.Experience.id)
-            .scrollMargin(60.px)
+            .scrollMargin(80.px)
             .fillMaxWidth()
             .maxWidth(Constants.SECTION_WIDTH.px),
         contentAlignment = Alignment.Center
@@ -54,11 +54,9 @@ fun ExperienceContent() {
                 .fillMaxWidth(),
             section = Section.Experience,
             alignment = Alignment.CenterHorizontally,
+            href = null // TODO: add navigation
 //            showSeeAllButton = true
-        ) {
-            //TODO: add navigation
-            window.alert("See all experiences")
-        }
+        )
 
         Spacer(Modifier.height(25.px))
 
