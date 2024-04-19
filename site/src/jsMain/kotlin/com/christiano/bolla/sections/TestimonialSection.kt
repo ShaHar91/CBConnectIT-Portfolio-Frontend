@@ -47,7 +47,7 @@ fun TestimonialSection() {
     Box(
         modifier = Modifier
             .id(Section.Testimonial.id)
-            .scrollMargin(60.px)
+            .scrollMargin(80.px)
             .fillMaxWidth()
             .maxWidth(Constants.SECTION_WIDTH.px),
         contentAlignment = Alignment.Center

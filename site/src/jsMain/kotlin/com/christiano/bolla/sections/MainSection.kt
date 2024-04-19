@@ -44,7 +44,7 @@ fun MainSection() {
     Box(
         modifier = Modifier
             .id(Section.Home.id)
-            .scrollMargin(60.px)
+            .scrollMargin(80.px)
             .fillMaxWidth()
             .maxWidth(SECTION_WIDTH.px),
         contentAlignment = Alignment.TopCenter

@@ -33,7 +33,7 @@ fun ServiceSection() {
     Box(
         modifier = Modifier
             .id(Section.Service.id)
-            .scrollMargin(60.px)
+            .scrollMargin(80.px)
             .fillMaxWidth()
             .maxWidth(Constants.SECTION_WIDTH.px),
         contentAlignment = Alignment.Center

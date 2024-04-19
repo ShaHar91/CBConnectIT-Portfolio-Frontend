@@ -26,7 +26,7 @@ fun ExperienceSection() {
     Box(
         modifier = Modifier
             .id(Section.Experience.id)
-            .scrollMargin(60.px)
+            .scrollMargin(80.px)
             .fillMaxWidth()
             .maxWidth(Constants.SECTION_WIDTH.px),
         contentAlignment = Alignment.Center

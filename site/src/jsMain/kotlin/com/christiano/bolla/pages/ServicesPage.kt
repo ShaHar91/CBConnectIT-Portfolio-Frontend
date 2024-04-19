@@ -244,7 +244,7 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
                                 .fontSize(22.px)
                                 .fontFamily(Constants.FONT_FAMILY)
                                 .toAttrs {
-                                    markdownParagraph(service.shortDescription ?: "")
+                                    markdownParagraph(service.description ?: "")
                                 }
                         )
 

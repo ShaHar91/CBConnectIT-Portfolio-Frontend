@@ -1,9 +1,7 @@
 package com.christiano.bolla.models
 
 import androidx.compose.runtime.Composable
-import com.christiano.bolla.svg.mobileDevelopmentSvg
-import com.christiano.bolla.svg.overflowMenuSvg
-import com.christiano.bolla.svg.tutoringSvg
+import com.christiano.bolla.svg.*
 import com.christiano.bolla.utils.Res
 import com.varabyte.kobweb.compose.ui.Modifier
 import kotlinx.serialization.SerialName
@@ -38,7 +36,8 @@ data class Service(
     ) {
         when {
             title.lowercase().startsWith("mobile") -> mobileDevelopmentSvg(fill, modifier)
-            title.lowercase().startsWith("web") -> overflowMenuSvg(fill, modifier)
+            title.lowercase().startsWith("web") -> frontendDevelopmentSvg(fill, modifier)
+            title.lowercase().startsWith("backend") -> backendDevelopmentSvg(fill, modifier)
             title.lowercase().startsWith("tutoring") -> tutoringSvg(fill, modifier)
         }
     }
@@ -47,6 +46,7 @@ data class Service(
         when {
             title.lowercase().startsWith("mobile") -> Res.Image.servicesMobile
             title.lowercase().startsWith("web") -> Res.Image.servicesWeb
+            title.lowercase().startsWith("backend") -> Res.Image.servicesBackend
             title.lowercase().startsWith("tutoring") -> Res.Image.servicesTutoring
             else -> ""
         }

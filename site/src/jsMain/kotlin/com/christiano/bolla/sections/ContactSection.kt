@@ -32,7 +32,7 @@ fun ContactSection() {
     Box(
         modifier = Modifier
             .id(Section.Contact.id)
-            .scrollMargin(60.px)
+            .scrollMargin(80.px)
             .fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
