@@ -1,7 +1,8 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.*
-import com.christiano.bolla.models.Theme
+import com.christiano.bolla.styles.onPrimary
+import com.christiano.bolla.styles.primary
 import com.christiano.bolla.styles.BackToTopButtonStyle
 import com.varabyte.kobweb.compose.css.Cursor
 import com.varabyte.kobweb.compose.css.Visibility
@@ -10,7 +11,6 @@ import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.components.icons.fa.FaArrowUp
@@ -18,6 +18,8 @@ import com.varabyte.kobweb.silk.components.icons.fa.IconSize
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.jetbrains.compose.web.css.Position
@@ -56,7 +58,7 @@ fun BackToTopButton() {
                 .visibility(if ((scroll ?: 0.0) > 400.0) Visibility.Visible else Visibility.Hidden)
                 .borderRadius(20.percent)
                 .margin(right = if (breakpoint <= Breakpoint.SM) 30.px else 40.px, bottom = if (breakpoint <= Breakpoint.SM) 30.px else 40.px)
-                .backgroundColor(Theme.Primary.rgb)
+                .backgroundColor(ColorMode.current.toPalette().primary)
                 .cursor(Cursor.Pointer)
                 .onClick {
                     document.documentElement?.scrollTo(x = 0.0, y = 0.0)
@@ -67,7 +69,7 @@ fun BackToTopButton() {
             contentAlignment = Alignment.Center
         ) {
             FaArrowUp(
-                modifier = Modifier.color(Colors.White),
+                modifier = Modifier.color(ColorMode.current.toPalette().onPrimary),
                 size = IconSize.LG
             )
         }

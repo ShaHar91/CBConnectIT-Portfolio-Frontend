@@ -1,6 +1,5 @@
 package com.christiano.bolla.styles
 
-import com.christiano.bolla.models.Theme
 import com.christiano.bolla.utils.Identifiers.PortfolioCard.boxParent
 import com.christiano.bolla.utils.Identifiers.PortfolioCard.columnParent
 import com.christiano.bolla.utils.Identifiers.PortfolioCard.greenOverlay
@@ -13,6 +12,7 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.hover
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.ms
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
@@ -39,7 +39,6 @@ val PortfolioSectionStyle by ComponentStyle {
 
     cssRule(" > #$columnParent > #${portfolioTitle}") {
         Modifier
-//            .color(Theme.Secondary.rgb)
             .translateX(0.percent)
             .transition(
                 CSSTransition(property = "color", duration = 200.ms),
@@ -49,7 +48,6 @@ val PortfolioSectionStyle by ComponentStyle {
 
     cssRule(":hover > #$columnParent > #${portfolioTitle}") {
         Modifier
-//            .color(Theme.Primary.rgb)
             .translateX(5.percent)
     }
 
@@ -67,11 +65,11 @@ val PortfolioSectionStyle by ComponentStyle {
 
 val PortfolioArrowIconStyle by ComponentStyle {
     base {
-        Modifier.color(Theme.Gray.rgb)
+        Modifier.color(colorMode.toPalette().surface)
             .transition(CSSTransition(property = "color", duration = 200.ms))
     }
 
     hover {
-        Modifier.color(Theme.Primary.rgb)
+        Modifier.color(colorMode.toPalette().primary)
     }
 }

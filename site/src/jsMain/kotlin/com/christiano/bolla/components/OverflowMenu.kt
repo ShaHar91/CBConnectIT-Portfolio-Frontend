@@ -2,9 +2,11 @@ package com.christiano.bolla.components
 
 import androidx.compose.runtime.*
 import com.christiano.bolla.models.Section
+import com.christiano.bolla.styles.LogoStyle
 import com.christiano.bolla.styles.NavigationItemStyle
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
+import com.christiano.bolla.utils.logoImage
 import com.varabyte.kobweb.compose.css.*
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -22,7 +24,8 @@ import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.toSilkPalette
+import com.varabyte.kobweb.silk.theme.colors.palette.background
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -75,7 +78,7 @@ fun OverlowMenu(onMenuClosed: () -> Unit) {
                     .width(if (breakpoint < Breakpoint.MD) 50.percent else 25.percent)
                     .overflow(Overflow.Auto)
                     .scrollBehavior(ScrollBehavior.Smooth)
-                    .backgroundColor(ColorMode.current.toSilkPalette().background)
+                    .backgroundColor(ColorMode.current.toPalette().background)
                     .translateX(tx = translateX)
                     .transition(CSSTransition("translate", 500.ms))
             ) {
@@ -95,13 +98,13 @@ fun OverlowMenu(onMenuClosed: () -> Unit) {
                     )
 
                     Image(
-                        modifier = Modifier.size(80.px),
-                        src = Res.Image.logo,
-                        desc = "Logo Image"
+                        modifier = Modifier.width(110.px),
+                        src = logoImage(ColorMode.current),
+                        alt = "Logo Image"
                     )
                 }
 
-                Section.values().dropLast(2).forEach { section ->
+                Section.entries.dropLast(2).forEach { section ->
                     Link(
                         modifier = NavigationItemStyle.toModifier()
                             .padding(bottom = 10.px)

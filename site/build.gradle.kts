@@ -4,13 +4,14 @@ import kotlinx.html.script
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kobweb.application)
-//    alias(libs.plugins.kobwebx.markdown)
+    alias(libs.plugins.kobwebx.markdown)
 }
 
 group = "com.christiano.bolla"
-version = "1.0-SNAPSHOT"
+version = "0.1.0-SNAPSHOT"
 
 kobweb {
     app {
@@ -39,7 +40,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
-            }
+                implementation(libs.kotlinx.serialization.json)
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1") }
         }
 
         val jsMain by getting {
@@ -48,7 +50,9 @@ kotlin {
                 implementation(libs.kobweb.core)
                 implementation(libs.kobweb.silk.core)
                 implementation(libs.kobweb.silk.icons.fa)
-//                implementation(libs.kobwebx.markdown)
+                implementation(libs.kobwebx.markdown)
+
+                implementation(npm("marked", "4.3.0"))
             }
         }
 //        val jvmMain by getting {

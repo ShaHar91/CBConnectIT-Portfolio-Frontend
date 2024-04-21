@@ -1,20 +1,23 @@
 package com.christiano.bolla.components
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import com.christiano.bolla.models.Testimonial
-import com.christiano.bolla.models.Theme
-import com.christiano.bolla.utils.Constants
+import com.christiano.bolla.styles.outlineVariant
+import com.christiano.bolla.styles.primary
+import com.christiano.bolla.utils.Identifiers.TestimonialSectionClasses.content
+import com.christiano.bolla.utils.Identifiers.TestimonialSectionClasses.item
 import com.varabyte.kobweb.compose.css.FontWeight
-import com.varabyte.kobweb.compose.css.TextAlign
+import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.ui.Alignment
+import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.graphics.Image
-import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.toSilkPalette
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
+import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.P
@@ -22,58 +25,69 @@ import org.jetbrains.compose.web.dom.Text
 
 @Composable
 fun TestimonialCard(
-    modifier: Modifier = Modifier,
     testimonial: Testimonial
 ) {
-    Backdrop(
-        modifier = modifier.maxWidth(500.px).padding(20.px)
+    val colorMode by ColorMode.currentState
+
+    Box(
+        Modifier
+            .classNames(item)
+            .fillMaxWidth()
+            .borderRadius(12.px)
+            .border(2.px, LineStyle.Solid, colorMode.toPalette().outlineVariant)
     ) {
-
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            Modifier
+                .classNames(content)
+                .padding(20.px)
         ) {
-            Image(
-                modifier = Modifier
-                    .borderRadius(50.percent)
-                    .maxWidth(80.px),
-                src = testimonial.image,
-                desc = "Avatar Image"
-            )
+            Row {
+                Image(
+                    testimonial.imageUrl,
+                    modifier = Modifier
+                        .weight(1)
+                        .size(56.px)
+                        .borderRadius(50.percent),
+                    alt = "Testimonial avatar image"
+                )
 
-            P(
-                attrs = Modifier
-                    .fillMaxWidth()
-                    .margin(top = 10.px)
-                    .fontFamily(Constants.FONT_FAMILY)
-                    .color(Theme.Primary.rgb)
-                    .fontWeight(FontWeight.Bold)
-                    .textAlign(TextAlign.Center)
-                    .toAttrs()
-            ) {
-                Text(testimonial.fullName)
+                Spacer(Modifier.width(12.px))
+
+                Column {
+                    P(
+                        Modifier
+                            .fillMaxWidth()
+                            .margin(0.px, 0.px)
+                            .color(colorMode.toPalette().primary)
+                            .fontSize(22.px)
+                            .fontWeight(FontWeight.Bold)
+                            .toAttrs()
+                    ) {
+                        Text(testimonial.fullName)
+                    }
+
+                    Spacer(Modifier.height(4.px))
+
+                    P(
+                        Modifier
+                            .fillMaxWidth()
+                            .margin(0.px, 0.px)
+                            .fontSize(14.px)
+                            .fontWeight(FontWeight.Medium)
+                            .toAttrs()
+                    ) {
+                        Text(testimonial.jobPosition.name)
+                    }
+                }
             }
 
+            Spacer(Modifier.height(16.px))
+
             P(
-                attrs = Modifier
+                Modifier
                     .fillMaxWidth()
-                    .textAlign(TextAlign.Center)
-                    .margin(top = 0.px, bottom = 10.px)
-                    .fontFamily(Constants.FONT_FAMILY)
+                    .margin(0.px, 0.px)
                     .fontSize(14.px)
-                    .color(ColorMode.current.toSilkPalette().color.darkened(0.5f))
-                    .fontWeight(FontWeight.Normal)
-                    .toAttrs()
-            ) {
-                Text(testimonial.profession)
-            }
-
-            P(
-                attrs = Modifier
-                    .fillMaxWidth()
-                    .margin(topBottom = 0.px)
-                    .textAlign(TextAlign.Center)
-                    .fontFamily(Constants.FONT_FAMILY)
-                    .fontWeight(FontWeight.Normal)
                     .toAttrs()
             ) {
                 Text(testimonial.review)

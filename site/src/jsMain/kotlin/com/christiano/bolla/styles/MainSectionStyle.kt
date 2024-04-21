@@ -1,6 +1,7 @@
 package com.christiano.bolla.styles
 
-import com.christiano.bolla.models.Theme
+import com.christiano.bolla.utils.Identifiers.SocialBar.socialIcon
+import com.christiano.bolla.utils.Identifiers.SocialBar.socialLink
 import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.color
@@ -11,25 +12,26 @@ import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.anyLink
 import com.varabyte.kobweb.silk.components.style.hover
-import com.varabyte.kobweb.silk.theme.toSilkPalette
+import com.varabyte.kobweb.silk.theme.colors.palette.link
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.ExperimentalComposeWebApi
 import org.jetbrains.compose.web.css.*
 
 val NavigationItemStyle by ComponentStyle {
     base {
         Modifier
-            .color(colorMode.toSilkPalette().link.default)
+            .color(colorMode.toPalette().link.default)
             .transition(CSSTransition(property = "color", duration = 200.ms))
     }
 
     anyLink {
         Modifier
-            .color(colorMode.toSilkPalette().link.default)
+            .color(colorMode.toPalette().link.default)
     }
 
     hover {
         Modifier
-            .color(Theme.Primary.rgb)
+            .color(colorMode.toPalette().primary)
     }
 }
 
@@ -48,20 +50,21 @@ val LogoStyle by ComponentStyle {
 }
 
 val SocialLinkStyle by ComponentStyle {
-    base {
+    cssRule(" > #$socialLink > #$socialIcon") {
         Modifier
-            .color(Theme.Gray.rgb)
-            .transition(CSSTransition(property = "transform", duration = 200.ms))
+            .color(colorMode.toPalette().onSurface)
+            .transition(CSSTransition(property = "color", duration = 200.ms))
     }
 
-    hover {
-        Modifier.color(Theme.Primary.rgb)
+    cssRule(":hover > #$socialLink > #$socialIcon"){
+        Modifier.color(colorMode.toPalette().primary)
     }
 }
 
 val MainButtonStyle by ComponentStyle {
     base {
         Modifier.width(100.px)
+            .color(colorMode.toPalette().onPrimary)
             .transition(CSSTransition(property = "width", duration = 200.ms))
     }
 

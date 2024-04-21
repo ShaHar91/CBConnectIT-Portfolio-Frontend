@@ -2,147 +2,164 @@ package com.christiano.bolla.sections
 
 import androidx.compose.runtime.*
 import com.christiano.bolla.components.SectionTitle
+import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.components.TestimonialCard
 import com.christiano.bolla.models.Section
 import com.christiano.bolla.models.Testimonial
-import com.christiano.bolla.models.Theme
 import com.christiano.bolla.utils.Constants
-import com.varabyte.kobweb.compose.css.CSSTransition
-import com.varabyte.kobweb.compose.css.Cursor
-import com.varabyte.kobweb.compose.css.Visibility
-import com.varabyte.kobweb.compose.foundation.layout.Arrangement
+import com.christiano.bolla.utils.Identifiers.AttributeName.style
+import com.christiano.bolla.utils.Identifiers.PropertyName.gridAutoRows
+import com.christiano.bolla.utils.Identifiers.PropertyName.gridRowEnd
+import com.christiano.bolla.utils.Identifiers.PropertyName.gridRowGap
+import com.christiano.bolla.utils.Identifiers.TestimonialSectionClasses.content
+import com.christiano.bolla.utils.Identifiers.TestimonialSectionClasses.grid
+import com.christiano.bolla.utils.Identifiers.TestimonialSectionClasses.item
+import com.varabyte.kobweb.compose.css.GridEntry
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.foundation.layout.Row
+import com.varabyte.kobweb.compose.http.http
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.silk.components.layout.SimpleGrid
-import com.varabyte.kobweb.silk.components.layout.numColumns
+import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
-import org.jetbrains.compose.web.css.ms
+import kotlinx.browser.document
+import kotlinx.browser.window
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import org.jetbrains.compose.web.css.DisplayStyle
+import org.jetbrains.compose.web.css.fr
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
-import kotlin.math.roundToInt
+import org.jetbrains.compose.web.dom.Div
+import org.w3c.dom.Element
+import org.w3c.dom.asList
+import org.w3c.dom.get
+import kotlin.math.ceil
 
 @Composable
 fun TestimonialSection() {
     Box(
         modifier = Modifier
             .id(Section.Testimonial.id)
-            .maxWidth(Constants.SECTION_WIDTH.px)
-            .padding(topBottom = Constants.SECTION_PADDING.px),
+            .scrollMargin(80.px)
+            .fillMaxWidth()
+            .maxWidth(Constants.SECTION_WIDTH.px),
         contentAlignment = Alignment.Center
     ) {
         TestimonialContent()
     }
 }
 
+private fun recalculateGridItems() {
+    CoroutineScope(Dispatchers.Default).launch {
+        delay(100)
+        resizeAllGridItems()
+    }
+}
+
 @Composable
 fun TestimonialContent() {
     val breakpoint = rememberBreakpoint()
-    var selectedPage by remember { mutableStateOf(0) }
+    var testimonials by remember { mutableStateOf(emptyList<Testimonial>()) }
+
+    LaunchedEffect(Unit) {
+        val responseText = window.http.get("http://localhost:8080/api/v1/testimonials").decodeToString()
+
+        testimonials = Json.decodeFromString(responseText)
+
+        delay(250)
+        resizeAllGridItems()
+    }
+
+    window.addEventListener("resize", {
+        recalculateGridItems()
+    })
+    // A custom event listener, so we can listen to this change in order to recalculate grid item size for the testimonials
+    window.addEventListener("update-color-mode", {
+        recalculateGridItems()
+    })
+
     Column(
         modifier = Modifier
-            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 100.percent else 80.percent),
+            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 80.percent else 90.percent),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SectionTitle(
             modifier = Modifier
-                .fillMaxWidth()
-                .margin(bottom = 25.px),
+                .fillMaxWidth(),
             section = Section.Testimonial,
-            alignment = Alignment.CenterHorizontally
+            alignment = Alignment.CenterHorizontally,
+            href = null // TODO: add navigation
+//            showSeeAllButton = true
         )
 
-        TestimonialCards(breakpoint, selectedPage)
-
-        TestimonialNavigation(
-            selectedPage = selectedPage,
-            onNavigate = {
-                selectedPage = it
-            }
-        )
-    }
-}
-
-@Composable
-fun TestimonialCards(
-    breakpoint: Breakpoint,
-    selectedPage: Int
-) {
-    // Create 2 lists that are holding the even and uneven indexed Testimonials
-    val (testimonial1, testimonial2) = Testimonial.values().partition { it.ordinal % 2 == 0 }
-
-    SimpleGrid(
-        modifier = Modifier
-            .fillMaxWidth(if (breakpoint >= Breakpoint.MD) 90.percent else 100.percent)
-            .margin(top = 20.px, bottom = 40.px),
-        numColumns = numColumns(base = 1, lg = 2)
-    ) {
-        Box(
-            contentAlignment = Alignment.Center
-        ) {// Box is needed because all items will just be laid out on top of each other
-            testimonial1.forEachIndexed { index, testimonial ->
-                TestimonialCard(
-                    modifier = Modifier
-                        .margin(
-                            right = if (breakpoint > Breakpoint.MD) 20.px else 0.px,
-                            bottom = if (breakpoint > Breakpoint.MD) 0.px else 40.px
-                        )
-                        .visibility(if (index == selectedPage) Visibility.Visible else Visibility.Hidden)
-                        .opacity(if (index == selectedPage) 100.percent else 0.percent)
-                        .transition(
-                            CSSTransition(property = "visibility", duration = 300.ms),
-                            CSSTransition(property = "opacity", duration = 300.ms)
-                        ),
-                    testimonial
-                )
-            }
+        val widthPercentage = when {
+            breakpoint > Breakpoint.MD -> 30.percent
+            breakpoint == Breakpoint.MD -> 48.percent
+            else -> 100.percent
         }
-        Box(
-            contentAlignment = Alignment.Center
-        ) {// Box is needed because all items will just be laid out on top of each other
-            testimonial2.forEachIndexed { index, testimonial ->
-                TestimonialCard(
-                    modifier = Modifier
-                        .margin(
-                            left = if (breakpoint > Breakpoint.MD) 20.px else 0.px,
-                            bottom = if (breakpoint > Breakpoint.MD) 0.px else 40.px
-                        )
-                        .visibility(if (index == selectedPage) Visibility.Visible else Visibility.Hidden)
-                        .opacity(if (index == selectedPage) 100.percent else 0.percent)
-                        .transition(
-                            CSSTransition(property = "visibility", duration = 300.ms),
-                            CSSTransition(property = "opacity", duration = 300.ms)
-                        ),
-                    testimonial
-                )
+
+        Spacer(Modifier.height(25.px))
+
+        Div(
+            Modifier
+                .classNames(grid)
+                .fillMaxWidth()
+                .display(DisplayStyle.Grid)
+                .gridTemplateColumns {
+                    repeat(GridEntry.Repeat.Auto.Type.AutoFill) {
+                        minmax(widthPercentage, 1.fr)
+                    }
+                }
+                .gap(24.px)
+                .gridAutoRows {
+                    size(12.px)
+                }
+                .toAttrs()
+        ) {
+            testimonials.forEach {
+                TestimonialCard(testimonial = it)
             }
         }
     }
 }
 
-@Composable
-fun TestimonialNavigation(
-    selectedPage: Int,
-    onNavigate: (Int) -> Unit
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
-    ) {
-        val amount = Testimonial.values().size.div(2.0).roundToInt()
-        repeat(amount) { index ->
-            Box(
-                modifier = Modifier.margin(right = 10.px).cursor(Cursor.Pointer)
-                    .size(12.px)
-                    .borderRadius(50.px)
-                    .backgroundColor(if (selectedPage == index) Theme.Primary.rgb else Theme.LightGray.rgb)
-                    .onClick { onNavigate(index) }
-            )
-        }
+/**
+ * Resize the grid items to use the specific height. Inspiration taken from
+ *
+ * https://codepen.io/andybarefoot/pen/QMeZda
+ * https://medium.com/@andybarefoot/a-masonry-style-layout-using-css-grid-8c663d355ebb
+ */
+private fun resizeAllGridItems() {
+    val allItems = document.getElementsByClassName(item)
+    allItems.asList().forEach {
+        resizeGridItem(it)
     }
 }
 
+private fun resizeGridItem(element: Element) {
+    val grid = document.getElementsByClassName(grid)[0]
+    if (grid != null) {
+        val rowHeight = window.getComputedStyle(grid).getPropertyValue(gridAutoRows).substringBefore("px")
+        val rowGap = window.getComputedStyle(grid).getPropertyValue(gridRowGap).substringBefore("px").toDoubleOrNull() ?: 0.0
+        val some = element.querySelector(".$content")?.getBoundingClientRect()?.height?.plus(rowGap)
+        val other = rowHeight.toDouble().plus(rowGap)
+        val rowSpan = ceil(some?.div(other) ?: 0.0)
+
+        val attributes = element.getAttribute(style)
+        if (attributes != null) {
+            val realEnding = if (attributes.contains(gridRowEnd)) {
+                val index = attributes.indexOf(gridRowEnd)
+                attributes.removeRange(index, attributes.length)
+            } else attributes
+
+            element.setAttribute(style, "$realEnding$gridRowEnd: span $rowSpan;")
+        }
+    }
+}

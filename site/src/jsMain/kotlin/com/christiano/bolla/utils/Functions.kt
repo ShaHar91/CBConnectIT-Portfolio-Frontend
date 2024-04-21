@@ -1,6 +1,7 @@
 package com.christiano.bolla.utils
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import kotlinx.browser.document
 import kotlinx.browser.window
 import kotlinx.coroutines.delay
@@ -33,13 +34,7 @@ fun ObserveViewportEntered(
     }
 }
 
-suspend fun animateNumbers(
-    number: Int,
-    delay: Long = 10L,
-    onUpdate: (Int) -> Unit
-) {
-    (0..number).forEach {
-        delay(delay)
-        onUpdate(it)
-    }
+fun logoImage(colorMode: ColorMode) = when (colorMode) {
+    ColorMode.DARK -> Res.Image.logoDark
+    ColorMode.LIGHT -> Res.Image.logo
 }

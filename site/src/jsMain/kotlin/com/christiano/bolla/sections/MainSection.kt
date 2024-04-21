@@ -1,16 +1,20 @@
 package com.christiano.bolla.sections
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import com.christiano.bolla.components.Backdrop
 import com.christiano.bolla.components.SocialBar
+import com.christiano.bolla.components.SocialLinkSize
+import com.christiano.bolla.components.Spacer
+import com.christiano.bolla.models.Link
 import com.christiano.bolla.models.Section
-import com.christiano.bolla.models.Theme
+import com.christiano.bolla.models.Social
 import com.christiano.bolla.styles.MainButtonStyle
 import com.christiano.bolla.styles.MainImageStyle
+import com.christiano.bolla.styles.primary
 import com.christiano.bolla.utils.Constants.FONT_FAMILY
 import com.christiano.bolla.utils.Constants.SECTION_WIDTH
 import com.christiano.bolla.utils.Res
-import com.varabyte.kobweb.compose.css.FontStyle
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
@@ -29,7 +33,7 @@ import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.toSilkPalette
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.P
@@ -40,6 +44,8 @@ fun MainSection() {
     Box(
         modifier = Modifier
             .id(Section.Home.id)
+            .scrollMargin(80.px)
+            .fillMaxWidth()
             .maxWidth(SECTION_WIDTH.px),
         contentAlignment = Alignment.TopCenter
     ) {
@@ -54,7 +60,7 @@ fun MainContent() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         // SimpleGrid will automatically use a column (horizontal) for bigger devices, or a row (vertical) for smaller devices
         SimpleGrid(
@@ -77,67 +83,73 @@ fun MainText(breakpoint: Breakpoint) {
     ) {
         val ctx = rememberPageContext()
 
-        if (breakpoint > Breakpoint.MD) {
-            SocialBar()
-        }
+        SocialBar(
+            socialLinkSize = SocialLinkSize.LG,
+            links = Social.entries.map { Link(id = it.name, type = it.type, url = it.link, createdAt = "", updatedAt = "") },
+            itemGap = 20.px
+        )
+
+        Spacer(Modifier.width(50.px))
 
         Column {
-            P(
-                attrs = Modifier
-                    .margin(top = if (breakpoint <= Breakpoint.SM) 50.px else 0.px, bottom = 0.px)
-                    .fontFamily(FONT_FAMILY)
-                    .fontSize(if (breakpoint >= Breakpoint.LG) 45.px else 20.px)
-                    .fontWeight(FontWeight.Normal)
-                    .toAttrs()
-            ) {
-                Text("Hello, I am")
+            if (breakpoint > Breakpoint.SM) {
+                Spacer(Modifier.height(50.px))
             }
 
             P(
                 attrs = Modifier
-                    .margin(top = 20.px, bottom = 0.px)
+                    .margin(top = 0.px, bottom = 0.px)
                     .fontFamily(FONT_FAMILY)
-                    .fontSize(if (breakpoint >= Breakpoint.LG) 68.px else 40.px)
-                    .color(Theme.Primary.rgb)
+                    .fontSize(if (breakpoint >= Breakpoint.LG) 36.px else 24.px)
+                    .fontWeight(FontWeight.Normal)
+                    .toAttrs()
+            ) {
+                Text(Res.String.IntroductionHello)
+            }
+
+            P(
+                attrs = Modifier
+                    .margin(top = 0.px, bottom = 0.px)
+                    .fontFamily(FONT_FAMILY)
+                    .fontSize(if (breakpoint >= Breakpoint.LG) 56.px else 36.px)
+                    .color(ColorMode.current.toPalette().primary)
                     .fontWeight(FontWeight.Bolder)
                     .toAttrs()
             ) {
-                Text("Christiano Bolla")
+                Text(Res.String.IntroductionName)
             }
 
             P(
                 attrs = Modifier
-                    .margin(top = 10.px, bottom = 5.px)
+                    .margin(top = 0.px, bottom = 5.px)
                     .fontFamily(FONT_FAMILY)
-                    .fontSize(20.px)
+                    .fontSize(22.px)
                     .fontWeight(FontWeight.Bold)
                     .toAttrs()
             ) {
-                Text("Mobile Developer")
+                Text(Res.String.IntroductionFunction)
             }
 
             P(
                 attrs = Modifier
-                    .maxWidth(400.px)
-                    .margin(bottom = 25.px)
+                    .fillMaxWidth()
+                    .margin(top = 0.px, bottom = 0.px)
                     .fontFamily(FONT_FAMILY)
-                    .fontSize(15.px)
-                    .fontStyle(FontStyle.Italic)
                     .fontWeight(FontWeight.Normal)
                     .toAttrs()
             ) {
-                Text("I have been working since 2017 as an Android Developer. Proficient in turning an idea into a fully functioning and UI/UX stunning application")
+                Text(Res.String.IntroductionBody)
             }
 
+            Spacer(Modifier.height(40.px))
+
             Button(
-                modifier = MainButtonStyle
-                    .toModifier()
-                    .color(ColorMode.current.opposite.toSilkPalette().color), // The color is being used for the Text color!
+                modifier = MainButtonStyle.toModifier(),
                 onClick = {
                     ctx.router.tryRoutingTo(Section.Contact.path)
                 }
             ) {
-                Text("Hire me")
+                Text(Res.String.LetsChat)
             }
         }
     }
@@ -146,15 +158,25 @@ fun MainText(breakpoint: Breakpoint) {
 @Composable
 fun MainImage(breakpoint: Breakpoint) {
     Box(
-        modifier = Modifier.fillMaxSize(100.percent).fillMaxHeight(),//.margin(left = if (breakpoint >= Breakpoint.MD) 60.px else 0.px),
-        contentAlignment = Alignment.BottomCenter,
+        modifier = Modifier.fillMaxSize(100.percent),
+        contentAlignment = if (breakpoint < Breakpoint.MD) Alignment.BottomCenter else Alignment.BottomEnd,
     ) {
-        Backdrop(modifier = Modifier.fillMaxWidth(80.percent).fillMaxHeight(85.percent))
+        val colorMode by ColorMode.currentState
+
+        Backdrop(
+            colorMode, modifier = Modifier
+                .fillMaxWidth(90.percent)
+                .fillMaxHeight(85.percent)
+                .maxWidth(if (breakpoint < Breakpoint.MD) 345.px else 400.px)
+        )
 
         Image(
-            modifier = MainImageStyle.toModifier().fillMaxWidth(80.percent),
+            modifier = MainImageStyle.toModifier()
+                .fillMaxWidth(90.percent)
+                .borderRadius(8.px)
+                .maxWidth(if (breakpoint < Breakpoint.MD) 345.px else 400.px),
             src = Res.Image.mainImage,
-            desc = "Main Image"
+            alt = "Main Image"
         )
     }
 }
