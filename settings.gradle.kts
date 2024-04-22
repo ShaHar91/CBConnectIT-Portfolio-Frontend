@@ -7,6 +7,10 @@ pluginManagement {
     }
 }
 
-rootProject.name = "bolla"
+rootProject.name = "C.B._Connect_I.T._Portfolio_FrontEnd"
 
+//include(":core")
+//include(":data")
+//include(":backoffice")
+//include(":landing")
 include(":site")
