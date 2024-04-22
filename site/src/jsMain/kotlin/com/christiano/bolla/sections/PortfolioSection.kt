@@ -9,6 +9,7 @@ import com.christiano.bolla.models.Section
 import com.christiano.bolla.navigation.Navigation
 import com.christiano.bolla.styles.*
 import com.christiano.bolla.svg.chevronRightSvg
+import com.christiano.bolla.utils.Config
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
 import com.christiano.bolla.utils.maxLines
@@ -61,7 +62,7 @@ fun PortfolioContent() {
     val pageContext = rememberPageContext()
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("http://localhost:8080/api/v1/projects").decodeToString()
+        val responseText = window.http.get("${Config.baseUrl}/api/v1/projects").decodeToString()
 
         works = Json.decodeFromString<List<Project>>(responseText)
         selectedWork = works.first()

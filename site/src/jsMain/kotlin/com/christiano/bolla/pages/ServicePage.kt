@@ -48,7 +48,7 @@ fun ServicePage() {
     var service by remember { mutableStateOf<Service?>(null) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("http://localhost:8080/api/v1/services/$serviceId").decodeToString()
+        val responseText = window.http.get("${Config.baseUrl}/api/v1/services/$serviceId").decodeToString()
         service = Json.decodeFromString<Service>(responseText)
     }
 

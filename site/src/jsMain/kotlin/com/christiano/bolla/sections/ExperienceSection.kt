@@ -6,6 +6,7 @@ import com.christiano.bolla.components.SectionTitle
 import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.models.Experience
 import com.christiano.bolla.models.Section
+import com.christiano.bolla.utils.Config
 import com.christiano.bolla.utils.Constants
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -41,7 +42,7 @@ fun ExperienceContent() {
     var experiences by remember { mutableStateOf(emptyList<Experience>()) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("http://localhost:8080/api/v1/experiences").decodeToString()
+        val responseText = window.http.get("${Config.baseUrl}/api/v1/experiences").decodeToString()
         experiences = Json.decodeFromString(responseText)
     }
 

@@ -6,6 +6,7 @@ import com.christiano.bolla.components.Spacer
 import com.christiano.bolla.components.TestimonialCard
 import com.christiano.bolla.models.Section
 import com.christiano.bolla.models.Testimonial
+import com.christiano.bolla.utils.Config
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Identifiers.AttributeName.style
 import com.christiano.bolla.utils.Identifiers.PropertyName.gridAutoRows
@@ -69,7 +70,7 @@ fun TestimonialContent() {
     var testimonials by remember { mutableStateOf(emptyList<Testimonial>()) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("http://localhost:8080/api/v1/testimonials").decodeToString()
+        val responseText = window.http.get("${Config.baseUrl}/api/v1/testimonials").decodeToString()
 
         testimonials = Json.decodeFromString(responseText)
 

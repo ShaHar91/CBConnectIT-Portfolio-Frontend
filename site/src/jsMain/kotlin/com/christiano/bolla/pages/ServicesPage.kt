@@ -9,6 +9,7 @@ import com.christiano.bolla.models.Service
 import com.christiano.bolla.models.TechnologyStacks
 import com.christiano.bolla.navigation.Navigation
 import com.christiano.bolla.styles.*
+import com.christiano.bolla.utils.Config
 import com.christiano.bolla.utils.Constants
 import com.christiano.bolla.utils.Res
 import com.christiano.bolla.utils.markdownParagraph
@@ -51,7 +52,7 @@ fun ServicesPage() {
     var services by remember { mutableStateOf<List<Service>>(emptyList()) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("http://localhost:8080/api/v1/services").decodeToString()
+        val responseText = window.http.get("${Config.baseUrl}/api/v1/services").decodeToString()
         services = Json.decodeFromString<List<Service>>(responseText)
     }
 

@@ -68,10 +68,10 @@ fun ProjectsPage() {
     }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("http://localhost:8080/api/v1/projects").decodeToString()
+        val responseText = window.http.get("${Config.baseUrl}/api/v1/projects").decodeToString()
         projects = Json.decodeFromString<List<Project>>(responseText)
 
-        val responseTagText = window.http.get("http://localhost:8080/api/v1/tags").decodeToString()
+        val responseTagText = window.http.get("${Config.baseUrl}/api/v1/tags").decodeToString()
         tags = Json.decodeFromString<List<Tag>>(responseTagText).sortedBy { it.name }
     }
 

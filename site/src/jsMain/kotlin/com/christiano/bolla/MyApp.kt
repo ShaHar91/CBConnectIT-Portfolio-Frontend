@@ -5,9 +5,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import com.christiano.bolla.styles.darkColorScheme
 import com.christiano.bolla.styles.lightColorScheme
+import com.christiano.bolla.utils.Config
 import com.varabyte.kobweb.compose.ui.graphics.lightened
 import com.varabyte.kobweb.compose.ui.modifiers.minHeight
 import com.varabyte.kobweb.core.App
+import com.varabyte.kobweb.core.AppGlobals
 import com.varabyte.kobweb.silk.SilkApp
 import com.varabyte.kobweb.silk.components.layout.Surface
 import com.varabyte.kobweb.silk.components.style.common.SmoothColorStyle
@@ -63,6 +65,8 @@ fun updateTheme(ctx: InitSilkContext) {
 fun MyApp(content: @Composable () -> Unit) {
     SilkApp {
         val colorMode by ColorMode.currentState
+
+        Config.init(AppGlobals.getOrElse("BASE_URL") { "" })
 
         LaunchedEffect(colorMode) {
             localStorage.setItem(COLOR_MODE_KEY, colorMode.name)

@@ -15,6 +15,8 @@ version = "0.1.0-SNAPSHOT"
 
 kobweb {
     app {
+        globals.put("BASE_URL", System.getenv("BASE_URL") ?: "")
+
         index {
             description.set("Powered by Kobweb")
 
@@ -33,7 +35,7 @@ kobweb {
 }
 
 kotlin {
-    configAsKobwebApplication("bolla")
+    configAsKobwebApplication("bolla", false)
 
     @Suppress("UNUSED_VARIABLE") // Suppress spurious warnings about sourceset variables not being used
     sourceSets {
