@@ -11,7 +11,7 @@ plugins {
 //    id(libs.plugins.kobweb.application.get().pluginId)
 }
 
-group = "com.christiano.bolla"
+group = "cbconnectit.frontend"
 version = "0.1.0-SNAPSHOT"
 
 kobweb {
