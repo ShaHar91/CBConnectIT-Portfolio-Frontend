@@ -11,7 +11,7 @@ plugins {
 //    id(libs.plugins.kobweb.application.get().pluginId)
 }
 
-group = "cbconnectit.frontend"
+group = "cbconnectit.portfolio.web"
 version = "0.1.0-SNAPSHOT"
 
 kobweb {
@@ -44,7 +44,9 @@ kotlin {
             dependencies {
                 implementation(compose.runtime)
                 implementation(libs.kotlinx.serialization.json)
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1") }
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
+                api(project(":core"))
+            }
         }
 
         val jsMain by getting {

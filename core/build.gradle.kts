@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.kobwebx.markdown)
 }
 
-group = "cbconnectit.frontend"
+group = "cbconnectit.portfolio.web"
 version = "1.0-SNAPSHOT"
 
 kotlin {
