@@ -8,6 +8,7 @@ import cbconnectit.portfolio.web.styles.lightColorScheme
 import cbconnectit.portfolio.web.utils.Config
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.lightened
+import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
 import com.varabyte.kobweb.compose.ui.modifiers.fontFamily
 import com.varabyte.kobweb.compose.ui.modifiers.lineHeight
 import com.varabyte.kobweb.compose.ui.modifiers.minHeight
@@ -21,14 +22,11 @@ import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.colors.palette.background
-import com.varabyte.kobweb.silk.theme.colors.palette.button
-import com.varabyte.kobweb.silk.theme.colors.palette.color
-import com.varabyte.kobweb.silk.theme.colors.palette.link
+import com.varabyte.kobweb.silk.theme.colors.palette.*
 import kotlinx.browser.localStorage
 import org.jetbrains.compose.web.css.vh
 
-private const val COLOR_MODE_KEY = "app:colorMode"
+private const val COLOR_MODE_KEY = "cbconnectit:app:colorMode"
 
 @InitSilk
 fun updateTheme(ctx: InitSilkContext) {
@@ -69,6 +67,8 @@ fun updateTheme(ctx: InitSilkContext) {
 
 @InitSilk
 fun registerGlobalStyles(ctx: InitSilkContext) = ctx.stylesheet.apply {
+    val colorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
+
     registerStyleBase("body") {
         Modifier
             .fontFamily(
@@ -76,6 +76,7 @@ fun registerGlobalStyles(ctx: InitSilkContext) = ctx.stylesheet.apply {
                 "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans-serif"
             )
             .lineHeight(1.4)
+            .backgroundColor(colorMode.toPalette().background)
     }
 }
 

@@ -76,6 +76,10 @@ fun HomePage() {
 //
 //                Spacer(Modifier.height(spacerHeight))
 
+                ExperienceSection()
+
+                Spacer(Modifier.height(spacerHeight))
+
                 ContactSection()
 
                 Spacer(Modifier.height(52.px))

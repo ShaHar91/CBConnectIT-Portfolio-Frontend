@@ -1,13 +1,15 @@
 package cbconnectit.portfolio.web.utils
 
+import cbconnectit.portfolio.web.externals.parse
 import com.varabyte.kobweb.compose.css.Overflow
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.attrsModifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.modifiers.display
 import com.varabyte.kobweb.compose.ui.modifiers.overflow
+import org.jetbrains.compose.web.attributes.AttrsScope
 import org.jetbrains.compose.web.css.DisplayStyle
-
+import org.w3c.dom.HTMLParagraphElement
 
 fun Modifier.maxLines(max: Number) = this
     .display(DisplayStyle("-webkit-box"))
@@ -18,6 +20,18 @@ fun Modifier.maxLines(max: Number) = this
             property("-webkit-box-orient", "vertical")
         }
     }
+
+fun AttrsScope<HTMLParagraphElement>.markdownParagraph(
+    text: String,
+    breaks: Boolean = false,
+    vararg classes: String,
+) {
+    if (classes.isNotEmpty()) classes(*classes)
+
+    val textToParse = if (breaks) text.replace("\n", "<br>") else text
+
+    this.prop({ htmlParagraphElement: HTMLParagraphElement, s: String -> htmlParagraphElement.innerHTML = s }, parse(textToParse))
+}
 
 /**
  * Creates a string from all the elements separated using [separator] and using the given [prefix] and [postfix] if supplied.
