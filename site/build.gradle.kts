@@ -46,6 +46,8 @@ kotlin {
 //                implementation(libs.kotlinx.serialization.json)
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
                 api(project(":core"))
+                api(project(":landing"))
+                api(project(":backoffice"))
             }
         }
 

@@ -6,7 +6,10 @@ import androidx.compose.runtime.getValue
 import cbconnectit.portfolio.web.styles.darkColorScheme
 import cbconnectit.portfolio.web.styles.lightColorScheme
 import cbconnectit.portfolio.web.utils.Config
+import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.lightened
+import com.varabyte.kobweb.compose.ui.modifiers.fontFamily
+import com.varabyte.kobweb.compose.ui.modifiers.lineHeight
 import com.varabyte.kobweb.compose.ui.modifiers.minHeight
 import com.varabyte.kobweb.core.App
 import com.varabyte.kobweb.core.AppGlobals
@@ -16,6 +19,7 @@ import com.varabyte.kobweb.silk.components.style.common.SmoothColorStyle
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
+import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.background
 import com.varabyte.kobweb.silk.theme.colors.palette.button
@@ -63,6 +67,19 @@ fun updateTheme(ctx: InitSilkContext) {
     )
 }
 
+@InitSilk
+fun registerGlobalStyles(ctx: InitSilkContext) = ctx.stylesheet.apply {
+    registerStyleBase("body") {
+        Modifier
+            .fontFamily(
+                "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+                "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans-serif"
+            )
+            .lineHeight(1.4)
+    }
+}
+
+
 @App
 @Composable
 fun MyApp(content: @Composable () -> Unit) {
@@ -70,8 +87,6 @@ fun MyApp(content: @Composable () -> Unit) {
         val colorMode by ColorMode.currentState
 
         Config.init(AppGlobals.getOrElse("BASE_URL") { "" })
-
-        println("BASE_URL: ${AppGlobals.getOrElse("BASE_URL") { "" }}")
 
         LaunchedEffect(colorMode) {
             localStorage.setItem(COLOR_MODE_KEY, colorMode.name)
