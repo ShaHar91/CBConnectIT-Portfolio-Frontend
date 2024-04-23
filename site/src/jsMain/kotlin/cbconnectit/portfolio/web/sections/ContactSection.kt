@@ -4,7 +4,7 @@ import androidx.compose.runtime.*
 import cbconnectit.portfolio.web.components.ContactForm
 import cbconnectit.portfolio.web.components.SectionTitle
 import cbconnectit.portfolio.web.components.Spacer
-import cbconnectit.portfolio.web.models.Section
+import cbconnectit.portfolio.web.models.enums.Section
 import cbconnectit.portfolio.web.styles.secondaryContainer
 import cbconnectit.portfolio.web.utils.Identifiers.PropertyName.transform
 import cbconnectit.portfolio.web.utils.ObserveViewportEntered

@@ -1,13 +1,13 @@
-package cbconnectit.portfolio.web.models
+package cbconnectit.portfolio.web.data.models.dto.responses
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Company(
+data class TagDto(
     val id: String,
     val name: String,
-    val links: List<Link>,
+    val slug: String,
     @SerialName("created_at")
     val createdAt: String,
     @SerialName("updated_at")

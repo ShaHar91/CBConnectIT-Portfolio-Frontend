@@ -2,7 +2,8 @@ package cbconnectit.portfolio.web.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import cbconnectit.portfolio.web.models.Experience
+import cbconnectit.portfolio.web.data.models.domain.Experience
+import cbconnectit.portfolio.web.extensions.techStackSvg
 import cbconnectit.portfolio.web.styles.onPrimary
 import cbconnectit.portfolio.web.styles.onSurface
 import cbconnectit.portfolio.web.styles.primary
@@ -51,7 +52,7 @@ fun ExperienceCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             ExperienceDetails(breakpoint, experience)
-            ExperiencNumber(active, experience)
+            ExperienceNumber(active, experience)
             ExperienceDescription(breakpoint, active, experience.description)
         }
     } else {
@@ -63,7 +64,7 @@ fun ExperienceCard(
                     size(85.percent)
                 },
         ) {
-            ExperiencNumber(active, experience)
+            ExperienceNumber(active, experience)
 
             Column {
                 Spacer(Modifier.height(20.px))
@@ -187,7 +188,7 @@ fun ExperienceDetails(
 }
 
 @Composable
-fun ExperiencNumber(
+fun ExperienceNumber(
     active: Boolean,
     experience: Experience
 ) {

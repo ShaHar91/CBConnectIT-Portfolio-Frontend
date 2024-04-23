@@ -1,34 +1,26 @@
-package cbconnectit.portfolio.web.models
+package cbconnectit.portfolio.web.data.models.domain
 
 import androidx.compose.runtime.Composable
-import cbconnectit.portfolio.web.svg.phoneAndroidSvg
-import cbconnectit.portfolio.web.svg.tvAndroidSvg
+import cbconnectit.portfolio.web.data.models.dto.responses.ExperienceDto
 import com.varabyte.kobweb.compose.ui.Modifier
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toJSDate
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import org.jetbrains.compose.web.css.CSSColorValue
 
-@Serializable
+
 data class Experience(
     val id: String,
-    @SerialName("short_description")
     val shortDescription: String,
     val description: String,
     val from: String,
     val to: String,
     val tags: List<Tag>,
-    @SerialName("as_freelance")
     val asFreelance: Boolean,
-    @SerialName("job_position")
     val jobPosition: JobPosition,
     val company: Company,
-    @SerialName("created_at")
     val createdAt: String,
-    @SerialName("updated_at")
     val updatedAt: String
 ) {
 
@@ -44,15 +36,18 @@ data class Experience(
 
             "$fromDateFormatted - $toDateFormatted"
         }
-
-    @Composable
-    fun techStackSvg(
-        tag: Tag,
-        fill: CSSColorValue,
-        modifier: Modifier = Modifier
-    ) = when (tag.slug) {
-        "android" -> phoneAndroidSvg(fill, modifier)
-        "android-tv" -> tvAndroidSvg(fill, modifier)
-        else -> Unit
-    }
 }
+
+fun ExperienceDto.toExperience() = Experience(
+    id,
+    shortDescription,
+    description,
+    from,
+    to,
+    tags.map { it.toTag() },
+    asFreelance,
+    jobPosition.toJobPosition(),
+    company.toCompany(),
+    createdAt,
+    updatedAt
+)

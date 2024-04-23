@@ -4,8 +4,9 @@ import androidx.compose.runtime.*
 import cbconnectit.portfolio.web.components.SectionTitle
 import cbconnectit.portfolio.web.components.Spacer
 import cbconnectit.portfolio.web.components.TextPrimaryButtonVariant
-import cbconnectit.portfolio.web.models.Project
-import cbconnectit.portfolio.web.models.Section
+import cbconnectit.portfolio.web.data.models.domain.Project
+import cbconnectit.portfolio.web.data.repos.ProjectRepo
+import cbconnectit.portfolio.web.models.enums.Section
 import cbconnectit.portfolio.web.navigation.Navigation
 import cbconnectit.portfolio.web.styles.*
 import cbconnectit.portfolio.web.svg.chevronRightSvg
@@ -19,7 +20,6 @@ import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
-import com.varabyte.kobweb.compose.http.http
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
@@ -34,8 +34,6 @@ import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import kotlinx.browser.window
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
@@ -62,9 +60,7 @@ fun PortfolioContent() {
     val pageContext = rememberPageContext()
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("${Config.baseUrl}/api/v1/projects").decodeToString()
-
-        works = Json.decodeFromString<List<Project>>(responseText)
+        works = ProjectRepo.getProjects(Config.baseUrl)
         selectedWork = works.first()
     }
 

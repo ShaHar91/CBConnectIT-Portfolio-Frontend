@@ -4,8 +4,9 @@ import androidx.compose.runtime.*
 import cbconnectit.portfolio.web.components.SectionTitle
 import cbconnectit.portfolio.web.components.Spacer
 import cbconnectit.portfolio.web.components.TestimonialCard
-import cbconnectit.portfolio.web.models.Section
-import cbconnectit.portfolio.web.models.Testimonial
+import cbconnectit.portfolio.web.data.models.domain.Testimonial
+import cbconnectit.portfolio.web.data.repos.TestimonialRepo
+import cbconnectit.portfolio.web.models.enums.Section
 import cbconnectit.portfolio.web.utils.Config
 import cbconnectit.portfolio.web.utils.Constants
 import cbconnectit.portfolio.web.utils.Identifiers.AttributeName.style
@@ -18,7 +19,6 @@ import cbconnectit.portfolio.web.utils.Identifiers.TestimonialSectionClasses.ite
 import com.varabyte.kobweb.compose.css.GridEntry
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.http.http
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
@@ -31,8 +31,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.DisplayStyle
 import org.jetbrains.compose.web.css.fr
 import org.jetbrains.compose.web.css.percent
@@ -70,9 +68,7 @@ fun TestimonialContent() {
     var testimonials by remember { mutableStateOf(emptyList<Testimonial>()) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("${Config.baseUrl}/api/v1/testimonials").decodeToString()
-
-        testimonials = Json.decodeFromString(responseText)
+        testimonials = TestimonialRepo.getTestimonials(Config.baseUrl)
 
         delay(250)
         resizeAllGridItems()

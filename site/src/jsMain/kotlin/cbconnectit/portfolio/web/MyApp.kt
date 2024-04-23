@@ -17,7 +17,10 @@ import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.colors.palette.*
+import com.varabyte.kobweb.silk.theme.colors.palette.background
+import com.varabyte.kobweb.silk.theme.colors.palette.button
+import com.varabyte.kobweb.silk.theme.colors.palette.color
+import com.varabyte.kobweb.silk.theme.colors.palette.link
 import kotlinx.browser.localStorage
 import org.jetbrains.compose.web.css.vh
 
@@ -67,6 +70,8 @@ fun MyApp(content: @Composable () -> Unit) {
         val colorMode by ColorMode.currentState
 
         Config.init(AppGlobals.getOrElse("BASE_URL") { "" })
+
+        println("BASE_URL: ${AppGlobals.getOrElse("BASE_URL") { "" }}")
 
         LaunchedEffect(colorMode) {
             localStorage.setItem(COLOR_MODE_KEY, colorMode.name)

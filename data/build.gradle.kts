@@ -20,6 +20,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.kotlinx.serialization.json)
             implementation(compose.runtime)
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
         }
         jsMain.dependencies {
             implementation(compose.html.core)

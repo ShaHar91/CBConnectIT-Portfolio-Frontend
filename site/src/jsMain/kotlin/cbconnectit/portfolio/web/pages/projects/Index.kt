@@ -1,17 +1,19 @@
-package cbconnectit.portfolio.web.pages
+package cbconnectit.portfolio.web.pages.projects
 
 import androidx.compose.runtime.*
 import cbconnectit.portfolio.web.components.*
-import cbconnectit.portfolio.web.models.Project
-import cbconnectit.portfolio.web.utils.*
-import cbconnectit.portfolio.web.models.Tag
+import cbconnectit.portfolio.web.data.models.domain.Project
+import cbconnectit.portfolio.web.data.models.domain.Tag
+import cbconnectit.portfolio.web.data.repos.ProjectRepo
+import cbconnectit.portfolio.web.data.repos.TagRepo
+import cbconnectit.portfolio.web.pages.PageLayout
 import cbconnectit.portfolio.web.styles.*
+import cbconnectit.portfolio.web.utils.*
 import com.varabyte.kobweb.compose.css.*
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
-import com.varabyte.kobweb.compose.http.http
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
@@ -37,8 +39,6 @@ import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import com.varabyte.kobweb.silk.theme.shapes.RectF
 import com.varabyte.kobweb.silk.theme.shapes.clip
 import kotlinx.browser.window
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.AlignItems
 import org.jetbrains.compose.web.dom.H1
@@ -68,11 +68,9 @@ fun ProjectsPage() {
     }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("${Config.baseUrl}/api/v1/projects").decodeToString()
-        projects = Json.decodeFromString<List<Project>>(responseText)
+        projects = ProjectRepo.getProjects(Config.baseUrl)
 
-        val responseTagText = window.http.get("${Config.baseUrl}/api/v1/tags").decodeToString()
-        tags = Json.decodeFromString<List<Tag>>(responseTagText).sortedBy { it.name }
+        tags = TagRepo.getTags(Config.baseUrl)
     }
 
     Box(

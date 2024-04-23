@@ -1,4 +1,4 @@
-package cbconnectit.portfolio.web.models
+package cbconnectit.portfolio.web.models.enums
 
 import cbconnectit.portfolio.web.utils.Res
 

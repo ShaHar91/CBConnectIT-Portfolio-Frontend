@@ -1,8 +1,8 @@
 [versions]
-jetbrains-compose = "1.5.10"
-kobweb = "0.15.0"
-kotlin = "1.8.20"
-kotlinx-serialization = "1.4.0"
+jetbrains-compose = "1.5.11"
+kobweb = "0.15.1"
+kotlin = "1.9.20"
+kotlinx-serialization = "1.4.1"
 #kotlin-bootstrap = "0.0.8"
 
 [libraries]

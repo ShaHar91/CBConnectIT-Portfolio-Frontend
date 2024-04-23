@@ -1,13 +1,16 @@
-package cbconnectit.portfolio.web.pages
+package cbconnectit.portfolio.web.pages.services
 
 import androidx.compose.runtime.*
 import cbconnectit.portfolio.web.components.BackToTopButton
 import cbconnectit.portfolio.web.components.OverlowMenu
 import cbconnectit.portfolio.web.components.ServiceTypeCard
 import cbconnectit.portfolio.web.components.Spacer
-import cbconnectit.portfolio.web.models.Service
-import cbconnectit.portfolio.web.models.TechnologyStacks
+import cbconnectit.portfolio.web.data.models.domain.Service
+import cbconnectit.portfolio.web.data.repos.ServiceRepo
+import cbconnectit.portfolio.web.extensions.typeImage
+import cbconnectit.portfolio.web.models.enums.TechnologyStacks
 import cbconnectit.portfolio.web.navigation.Navigation
+import cbconnectit.portfolio.web.pages.PageLayout
 import cbconnectit.portfolio.web.styles.*
 import cbconnectit.portfolio.web.utils.Config
 import cbconnectit.portfolio.web.utils.Constants
@@ -19,7 +22,6 @@ import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
-import com.varabyte.kobweb.compose.http.http
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
@@ -34,9 +36,6 @@ import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
-import kotlinx.browser.window
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.AlignItems
 import org.jetbrains.compose.web.css.JustifyContent
@@ -52,8 +51,7 @@ fun ServicesPage() {
     var services by remember { mutableStateOf<List<Service>>(emptyList()) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("${Config.baseUrl}/api/v1/services").decodeToString()
-        services = Json.decodeFromString<List<Service>>(responseText)
+        services = ServiceRepo.getServices(Config.baseUrl)
     }
 
     Box(

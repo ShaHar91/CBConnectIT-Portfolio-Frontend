@@ -1,11 +1,11 @@
-package cbconnectit.portfolio.web.models
+package cbconnectit.portfolio.web.data.models.dto.responses
 
-import cbconnectit.portfolio.web.utils.Constants
+import cbconnectit.portfolio.web.data.models.enums.LinkType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Project(
+data class ProjectDto(
     val id: String,
     @SerialName("banner_image_url")
     val bannerImageUrl: String,
@@ -15,15 +15,10 @@ data class Project(
     @SerialName("short_description")
     val shortDescription: String,
     val description: String,
-    val links: List<Link>,
-    val tags: List<Tag>,
+    val links: List<LinkDto>,
+    val tags: List<TagDto>,
     @SerialName("created_at")
     val createdAt: String,
     @SerialName("updated_at")
     val updatedAt: String
 )
-
-enum class Social(val link: String, val type: LinkType) {
-    Github(Constants.GITHUB_LINK_PERSONAL, LinkType.Github),
-    LinkedIn(Constants.LINKED_IN_LINK_PERSONAL, LinkType.LinkedIn)
-}

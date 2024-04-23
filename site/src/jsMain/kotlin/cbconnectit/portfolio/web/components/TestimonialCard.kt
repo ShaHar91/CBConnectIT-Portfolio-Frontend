@@ -2,7 +2,7 @@ package cbconnectit.portfolio.web.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import cbconnectit.portfolio.web.models.Testimonial
+import cbconnectit.portfolio.web.data.models.domain.Testimonial
 import cbconnectit.portfolio.web.styles.outlineVariant
 import cbconnectit.portfolio.web.styles.primary
 import cbconnectit.portfolio.web.utils.Identifiers.TestimonialSectionClasses.content

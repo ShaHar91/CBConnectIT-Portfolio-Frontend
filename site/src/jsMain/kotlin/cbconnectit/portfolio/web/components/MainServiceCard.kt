@@ -2,7 +2,8 @@ package cbconnectit.portfolio.web.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import cbconnectit.portfolio.web.models.Service
+import cbconnectit.portfolio.web.data.models.domain.Service
+import cbconnectit.portfolio.web.extensions.getServiceTypeIcon
 import cbconnectit.portfolio.web.navigation.Navigation
 import cbconnectit.portfolio.web.styles.primary
 import cbconnectit.portfolio.web.svg.chevronRightSvg

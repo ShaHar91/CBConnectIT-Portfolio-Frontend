@@ -1,7 +1,8 @@
 package cbconnectit.portfolio.web.components
 
 import androidx.compose.runtime.Composable
-import cbconnectit.portfolio.web.models.Service
+import cbconnectit.portfolio.web.data.models.domain.Service
+import cbconnectit.portfolio.web.extensions.getServiceTypeIcon
 import cbconnectit.portfolio.web.styles.ServicesTypeCardStyle
 import cbconnectit.portfolio.web.styles.onSurfaceVariant
 import cbconnectit.portfolio.web.styles.primary

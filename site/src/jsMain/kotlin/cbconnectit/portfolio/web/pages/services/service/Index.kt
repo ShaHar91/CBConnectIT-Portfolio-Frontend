@@ -1,11 +1,13 @@
-package cbconnectit.portfolio.web.pages
+package cbconnectit.portfolio.web.pages.services.service
 
 import androidx.compose.runtime.*
 import cbconnectit.portfolio.web.components.BackToTopButton
 import cbconnectit.portfolio.web.components.OverlowMenu
 import cbconnectit.portfolio.web.components.Spacer
-import cbconnectit.portfolio.web.models.Service
+import cbconnectit.portfolio.web.data.models.domain.Service
+import cbconnectit.portfolio.web.data.repos.ServiceRepo
 import cbconnectit.portfolio.web.navigation.Navigation
+import cbconnectit.portfolio.web.pages.PageLayout
 import cbconnectit.portfolio.web.styles.*
 import cbconnectit.portfolio.web.utils.*
 import com.varabyte.kobweb.compose.css.*
@@ -13,7 +15,6 @@ import com.varabyte.kobweb.compose.css.functions.url
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.http.http
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
@@ -28,9 +29,6 @@ import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
-import kotlinx.browser.window
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.AlignItems
 import org.jetbrains.compose.web.dom.A
@@ -48,8 +46,7 @@ fun ServicePage() {
     var service by remember { mutableStateOf<Service?>(null) }
 
     LaunchedEffect(Unit) {
-        val responseText = window.http.get("${Config.baseUrl}/api/v1/services/$serviceId").decodeToString()
-        service = Json.decodeFromString<Service>(responseText)
+        service = ServiceRepo.getServiceById(Config.baseUrl, serviceId)
     }
 
     Box(
@@ -162,7 +159,7 @@ fun ServiceBanner(service: Service?, breakpoint: Breakpoint) {
 
                 Spacer(Modifier.height(12.px))
 
-                if (service?.bannerDescription != null) {
+                service?.bannerDescription?.let {
                     P(
                         Modifier
                             .color(ColorMode.current.toPalette().onPrimary)
@@ -170,7 +167,7 @@ fun ServiceBanner(service: Service?, breakpoint: Breakpoint) {
                             .margin(topBottom = 0.px)
                             .fontSize(22.px)
                             .toAttrs {
-                                markdownParagraph(service.bannerDescription)
+                                markdownParagraph(it)
                             }
                     )
                 }
@@ -181,7 +178,6 @@ fun ServiceBanner(service: Service?, breakpoint: Breakpoint) {
 
 @Composable
 fun SubServices(subServices: List<Service>, breakpoint: Breakpoint) {
-    val ctx = rememberPageContext()
 
     subServices.forEachIndexed { index, subService ->
         val leftAligned = index % 2 == 0

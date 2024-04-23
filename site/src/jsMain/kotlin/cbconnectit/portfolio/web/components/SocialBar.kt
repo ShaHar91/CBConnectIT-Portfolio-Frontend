@@ -2,8 +2,8 @@ package cbconnectit.portfolio.web.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import cbconnectit.portfolio.web.models.Link
-import cbconnectit.portfolio.web.models.LinkIcon
+import cbconnectit.portfolio.web.data.models.domain.Link
+import cbconnectit.portfolio.web.data.models.enums.LinkIcon
 import cbconnectit.portfolio.web.styles.SocialLinkStyle
 import cbconnectit.portfolio.web.utils.Identifiers.SocialBar.socialIcon
 import cbconnectit.portfolio.web.utils.Identifiers.SocialBar.socialLink

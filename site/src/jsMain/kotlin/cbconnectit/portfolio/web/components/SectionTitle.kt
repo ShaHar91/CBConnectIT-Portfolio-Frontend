@@ -1,7 +1,7 @@
 package cbconnectit.portfolio.web.components
 
 import androidx.compose.runtime.*
-import cbconnectit.portfolio.web.models.Section
+import cbconnectit.portfolio.web.models.enums.Section
 import cbconnectit.portfolio.web.styles.primary
 import cbconnectit.portfolio.web.svg.chevronRightSvg
 import cbconnectit.portfolio.web.utils.Constants
