@@ -7,11 +7,11 @@ sealed class Navigation(val route: String) {
         }
 
         data object Services: Screen("/services") {
-            fun getService(id: String) = "$route/$id"
+            fun getService(id: String) = "$route/service/?serviceId=$id"
         }
 
         data object Projects: Screen("/projects") {
-            fun getByTagQuery(tagQuery: String) = "$route?$tagQuery"
+            fun getByTagQuery(tagQuery: String) = "$route/?$tagQuery"
             fun getProject(id: String) = "$route/?projectId=$id"
         }
     }

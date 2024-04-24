@@ -35,18 +35,23 @@ import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 
-@Page("/services/{${Identifiers.PathParams.ServiceId}}")
+@Page
 @Composable
 fun ServicePage() {
     var menuOpened by remember { mutableStateOf(false) }
     val breakpoint = rememberBreakpoint()
     val ctx = rememberPageContext()
-    val serviceId = ctx.route.params.getValue(Identifiers.PathParams.ServiceId)
+    val hasServiceIdParam = remember(ctx.route) {
+        ctx.route.params.containsKey(Identifiers.PathParams.ServiceId)
+    }
 
     var service by remember { mutableStateOf<Service?>(null) }
 
     LaunchedEffect(Unit) {
-        service = ServiceRepo.getServiceById(Config.baseUrl, serviceId)
+        if (hasServiceIdParam) {
+            val serviceId = ctx.route.params.getValue(Identifiers.PathParams.ServiceId)
+            service = ServiceRepo.getServiceById(Config.baseUrl, serviceId)
+        }
     }
 
     Box(
