@@ -4,13 +4,14 @@ import kotlinx.html.script
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.kotlin.serialization)
+//    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kobweb.application)
     alias(libs.plugins.kobwebx.markdown)
+//    id(libs.plugins.kobweb.application.get().pluginId)
 }
 
-group = "com.christiano.bolla"
+group = "cbconnectit.portfolio.web"
 version = "0.1.0-SNAPSHOT"
 
 kobweb {
@@ -42,25 +43,24 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
-                implementation(libs.kotlinx.serialization.json)
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1") }
+//                implementation(libs.kotlinx.serialization.json)
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
+                api(project(":core"))
+                api(project(":landing"))
+                api(project(":backoffice"))
+            }
         }
 
         val jsMain by getting {
             dependencies {
                 implementation(compose.html.core)
                 implementation(libs.kobweb.core)
-                implementation(libs.kobweb.silk.core)
+                implementation(libs.kobweb.silk)
                 implementation(libs.kobweb.silk.icons.fa)
                 implementation(libs.kobwebx.markdown)
 
                 implementation(npm("marked", "4.3.0"))
             }
         }
-//        val jvmMain by getting {
-//            dependencies {
-//                implementation(libs.kobweb.api)
-//            }
-//        }
     }
 }
