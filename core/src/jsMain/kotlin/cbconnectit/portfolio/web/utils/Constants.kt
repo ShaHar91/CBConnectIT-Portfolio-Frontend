@@ -90,7 +90,7 @@ object Res {
         const val Name = "Name"
         const val FullName = "Full Name"
         const val Email = "Email"
-        const val EmailAddress = "Eamil Address"
+        const val EmailAddress = "Email Address"
         const val Message = "Message"
         const val YourMessage = "Your Message"
         const val Submit = "Submit"

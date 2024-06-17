@@ -1,13 +1,10 @@
 package cbconnectit.portfolio.web.data.models.domain
 
-import androidx.compose.runtime.Composable
 import cbconnectit.portfolio.web.data.models.dto.responses.ExperienceDto
-import com.varabyte.kobweb.compose.ui.Modifier
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toJSDate
-import org.jetbrains.compose.web.css.CSSColorValue
 
 
 data class Experience(
@@ -36,6 +33,12 @@ data class Experience(
 
             "$fromDateFormatted - $toDateFormatted"
         }
+
+    val formattedJobPosition: String get() = run {
+        val suffix = if (asFreelance) " (Freelance)" else ""
+
+        jobPosition.name + suffix
+    }
 }
 
 fun ExperienceDto.toExperience() = Experience(

@@ -153,7 +153,7 @@ fun ExperienceDetails(
                     }
                     .toAttrs()
             ) {
-                Text(experience.jobPosition.name)
+                Text(experience.formattedJobPosition)
             }
 
             P(

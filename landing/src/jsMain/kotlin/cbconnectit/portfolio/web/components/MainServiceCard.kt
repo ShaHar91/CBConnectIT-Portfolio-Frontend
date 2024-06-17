@@ -68,7 +68,6 @@ fun MainServiceCard(service: Service, modifier: Modifier = Modifier) {
             A(
                 href = Navigation.Screen.Services.getService(service.id),
                 attrs = Modifier
-                    .fillMaxSize()
                     .textDecorationLine(TextDecorationLine.None)
                     .toAttrs()
             ) {
