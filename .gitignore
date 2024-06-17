@@ -30,3 +30,4 @@ site/.kobweb/*
 .gradle
 
 /firebase-tools-instant-win.exe
+/site/.kobweb/site/
