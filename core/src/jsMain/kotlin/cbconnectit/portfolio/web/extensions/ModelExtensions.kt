@@ -32,13 +32,3 @@ fun Service.getServiceTypeIcon(
         title.lowercase().startsWith("tutoring") -> tutoringSvg(fill, modifier)
     }
 }
-
-val Service.typeImage get() = run {
-    when {
-        title.lowercase().startsWith("mobile") -> Res.Image.servicesMobile
-        title.lowercase().startsWith("web") -> Res.Image.servicesWeb
-        title.lowercase().startsWith("backend") -> Res.Image.servicesBackend
-        title.lowercase().startsWith("tutoring") -> Res.Image.servicesTutoring
-        else -> ""
-    }
-}
