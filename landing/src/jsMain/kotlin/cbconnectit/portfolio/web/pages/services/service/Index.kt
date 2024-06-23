@@ -124,7 +124,7 @@ fun ServicePage() {
 fun ServiceBanner(service: Service?, breakpoint: Breakpoint) {
     Box(
         Modifier
-            .backgroundImage(url(service?.imageUrl ?: Res.Image.servicesBanner))
+            .backgroundImage(url(service?.bannerImageUrl ?: ""))
             .backgroundSize(BackgroundSize.Cover)
             .backgroundPosition(BackgroundPosition.of(CSSPosition(50.percent, 50.percent)))
             .fillMaxWidth(),

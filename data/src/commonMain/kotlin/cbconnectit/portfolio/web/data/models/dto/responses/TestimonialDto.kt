@@ -10,7 +10,7 @@ data class TestimonialDto(
     val imageUrl: String = "",
     @SerialName("full_name")
     val fullName: String = "",
-    val company: CompanyDto = CompanyDto(),
+    val company: CompanyDto? = null,
     @SerialName("job_position")
     val jobPosition: JobPositionDto = JobPositionDto(),
     val review: String = "",

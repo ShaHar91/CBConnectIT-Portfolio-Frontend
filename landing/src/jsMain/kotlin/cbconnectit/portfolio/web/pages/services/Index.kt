@@ -7,7 +7,6 @@ import cbconnectit.portfolio.web.components.ServiceTypeCard
 import cbconnectit.portfolio.web.components.Spacer
 import cbconnectit.portfolio.web.data.models.domain.Service
 import cbconnectit.portfolio.web.data.repos.ServiceRepo
-import cbconnectit.portfolio.web.extensions.typeImage
 import cbconnectit.portfolio.web.models.enums.TechnologyStacks
 import cbconnectit.portfolio.web.navigation.Navigation
 import cbconnectit.portfolio.web.pages.PageLayout
@@ -220,7 +219,7 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
                         .padding(topBottom = 50.px, leftRight = 10.percent)
                 ) {
                     if (leftAligned && breakpoint > Breakpoint.MD) {
-                        Image(service.typeImage, Modifier.width(350.px))
+                        Image(service.imageUrl, Modifier.width(350.px))
 
                         Spacer(Modifier.width(100.px))
                     }
@@ -273,7 +272,7 @@ private fun ServicesPageList(breakpoint: Breakpoint, services: List<Service>) {
                             })
 
                         Image(
-                            service.typeImage,
+                            service.imageUrl,
                             Modifier.maxWidth(350.px)
                                 .thenIf(breakpoint <= Breakpoint.MD) {
                                     Modifier.fillMaxWidth(90.percent)
