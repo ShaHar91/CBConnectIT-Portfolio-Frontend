@@ -2,6 +2,7 @@ package cbconnectit.portfolio.web.components
 
 import androidx.compose.runtime.Composable
 import cbconnectit.portfolio.web.styles.InputStyle
+import com.varabyte.kobweb.silk.components.forms.InputStyle
 import cbconnectit.portfolio.web.styles.MainButtonStyle
 import cbconnectit.portfolio.web.styles.onSurface
 import cbconnectit.portfolio.web.styles.surface
@@ -24,8 +25,8 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.attrsModifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
-import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
-import com.varabyte.kobweb.silk.components.style.toModifier
+import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
+import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.attributes.ButtonType

@@ -4,7 +4,7 @@ import cbconnectit.portfolio.web.data.models.domain.Service
 import cbconnectit.portfolio.web.data.models.domain.Tag
 import cbconnectit.portfolio.web.data.models.domain.toService
 import cbconnectit.portfolio.web.data.models.dto.responses.ServiceDto
-import com.varabyte.kobweb.compose.http.http
+import com.varabyte.kobweb.browser.http.http
 import kotlinx.browser.window
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
