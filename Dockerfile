@@ -17,6 +17,7 @@ ENV KOBWEB_CLI_VERSION=0.9.13
 ARG KOBWEB_APP_ROOT
 
 ENV NODE_MAJOR=20
+ENV BASE_URL="http://cb-connect-it.com"
 
 # Copy the project code to an arbitrary subdir so we can install stuff in the
 # Docker container root without worrying about clobbering project files.
@@ -60,7 +61,7 @@ FROM java as run
 
 ARG KOBWEB_APP_ROOT
 
-EXPOSE 3000:8080
+EXPOSE 8081:8081
 
 COPY --from=export /project/${KOBWEB_APP_ROOT}/.kobweb .kobweb
 

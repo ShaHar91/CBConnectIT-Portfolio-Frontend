@@ -63,20 +63,19 @@ fun updateTheme(ctx: InitSilkContext) {
         darkColorScheme.onBackground,
         darkColorScheme.onBackground
     )
-}
 
-@InitSilk
-fun registerGlobalStyles(ctx: InitSilkContext) = ctx.stylesheet.apply {
-    val colorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
+    ctx.stylesheet.apply {
+        val colorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
 
-    registerStyleBase("body") {
-        Modifier
-            .fontFamily(
-                "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-                "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans-serif"
-            )
-            .lineHeight(1.4)
-            .backgroundColor(colorMode.toPalette().background)
+        registerStyleBase("body") {
+            Modifier
+                .fontFamily(
+                    "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+                    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans-serif"
+                )
+                .lineHeight(1.4)
+                .backgroundColor(colorMode.toPalette().background)
+        }
     }
 }
 
