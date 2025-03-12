@@ -38,7 +38,7 @@ fun ExperienceCard(
     active: Boolean = false,
     experience: Experience,
 ) {
-    @Composable
+//    @Composable // TODO: check what this is about?
     if (breakpoint > Breakpoint.MD) {
         Row(
             Modifier

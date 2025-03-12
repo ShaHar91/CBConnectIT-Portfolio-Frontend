@@ -8,7 +8,7 @@ import cbconnectit.portfolio.web.models.enums.Section
 import cbconnectit.portfolio.web.styles.secondaryContainer
 import cbconnectit.portfolio.web.utils.Identifiers.PropertyName.transform
 import cbconnectit.portfolio.web.utils.ObserveViewportEntered
-import com.varabyte.kobweb.compose.css.CSSTransition
+import com.varabyte.kobweb.compose.css.Transition
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -69,7 +69,7 @@ fun ContactContent() {
             modifier = Modifier
                 .fillMaxWidth()
                 .transform { rotate(animatedRotation) }
-                .transition(CSSTransition(transform, 500.ms)),
+                .transition(Transition.of(transform, 500.ms)),
             section = Section.Contact,
             alignment = Alignment.CenterHorizontally
         )

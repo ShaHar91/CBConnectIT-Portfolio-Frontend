@@ -7,6 +7,7 @@ import cbconnectit.portfolio.web.data.models.enums.LinkIcon
 import cbconnectit.portfolio.web.styles.SocialLinkStyle
 import cbconnectit.portfolio.web.utils.Identifiers.SocialBar.socialIcon
 import cbconnectit.portfolio.web.utils.Identifiers.SocialBar.socialLink
+import com.varabyte.kobweb.compose.css.CSSLengthOrPercentageNumericValue
 import com.varabyte.kobweb.compose.css.TextDecorationLine
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -14,6 +15,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.navigation.OpenLinkStrategy
 import com.varabyte.kobweb.silk.components.icons.fa.IconSize
 import com.varabyte.kobweb.silk.components.navigation.Link
+import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.*
 
@@ -22,7 +24,7 @@ fun SocialBar(
     row: Boolean = false,
     socialLinkSize: SocialLinkSize = SocialLinkSize.SM,
     links: List<Link> = emptyList(),
-    itemGap: CSSNumeric
+    itemGap: CSSLengthOrPercentageNumericValue
 ) {
 
     Box(

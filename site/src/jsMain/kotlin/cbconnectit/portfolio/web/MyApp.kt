@@ -16,10 +16,11 @@ import com.varabyte.kobweb.core.App
 import com.varabyte.kobweb.core.AppGlobals
 import com.varabyte.kobweb.silk.SilkApp
 import com.varabyte.kobweb.silk.components.layout.Surface
-import com.varabyte.kobweb.silk.components.style.common.SmoothColorStyle
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerStyleBase
+import com.varabyte.kobweb.silk.style.common.SmoothColorStyle
+import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.*
 import kotlinx.browser.localStorage
@@ -85,7 +86,7 @@ fun MyApp(content: @Composable () -> Unit) {
     SilkApp {
         val colorMode by ColorMode.currentState
 
-        Config.init(AppGlobals.getOrElse("BASE_URL") { "" })
+        Config.init(AppGlobals.get("BASE_URL") ?: "")
 
         LaunchedEffect(colorMode) {
             localStorage.setItem(COLOR_MODE_KEY, colorMode.name)

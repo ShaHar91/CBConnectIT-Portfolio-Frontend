@@ -246,18 +246,16 @@ fun TitleAndDropDown(
     }
 }
 
-val ProjectTagLinkStyle by ComponentStyle {
+val ProjectTagLinkStyle = CssStyle {
     base {
         Modifier
-            .transition(CSSTransition(property = "background", duration = 200.ms))
+            .transition(Transition.of(property = "background", duration = 200.ms))
     }
 
     hover {
-        Modifier
-            .backgroundColor(colorMode.toPalette().onSurfaceVariant.toRgb().copyf(alpha = 0.2f))
+        Modifier.backgroundColor(colorMode.toPalette().onSurfaceVariant.toRgb().copyf(alpha = 0.2f))
     }
 }
-
 
 @Composable
 private fun ProjectsList(breakpoint: Breakpoint, projects: List<Project>) {

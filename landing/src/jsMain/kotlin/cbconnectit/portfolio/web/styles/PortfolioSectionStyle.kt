@@ -6,12 +6,12 @@ import cbconnectit.portfolio.web.utils.Identifiers.PortfolioCard.greenOverlay
 import cbconnectit.portfolio.web.utils.Identifiers.PortfolioCard.linkIcon
 import cbconnectit.portfolio.web.utils.Identifiers.PortfolioCard.portfolioDesc
 import cbconnectit.portfolio.web.utils.Identifiers.PortfolioCard.portfolioTitle
-import com.varabyte.kobweb.compose.css.CSSTransition
+import com.varabyte.kobweb.compose.css.Transition
 import com.varabyte.kobweb.compose.css.Visibility
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.silk.components.style.ComponentStyle
-import com.varabyte.kobweb.silk.components.style.hover
+import com.varabyte.kobweb.silk.style.CssStyle
+import com.varabyte.kobweb.silk.style.selectors.hover
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.ms
 import org.jetbrains.compose.web.css.percent
@@ -19,10 +19,10 @@ import org.jetbrains.compose.web.css.px
 
 // Passing the animation through from the parent to a child can be done like this.
 // Id's need to be added to the views and then can be accessed like this.
-val PortfolioSectionStyle by ComponentStyle {
+val PortfolioSectionStyle = CssStyle {
     cssRule(" > #$columnParent > #${boxParent} > #${greenOverlay}") {
         Modifier.width(0.px)
-            .transition(CSSTransition(property = "width", duration = 500.ms))
+            .transition(Transition.of(property = "width", duration = 500.ms))
     }
 
     cssRule(":hover > #$columnParent > #${boxParent} > #${greenOverlay}") {
@@ -41,8 +41,8 @@ val PortfolioSectionStyle by ComponentStyle {
         Modifier
             .translateX(0.percent)
             .transition(
-                CSSTransition(property = "color", duration = 200.ms),
-                CSSTransition(property = "translate", duration = 200.ms)
+                Transition.of(property = "color", duration = 200.ms),
+                Transition.of(property = "translate", duration = 200.ms)
             )
     }
 
@@ -54,7 +54,7 @@ val PortfolioSectionStyle by ComponentStyle {
     cssRule(" > #$columnParent > #${portfolioDesc}") {
         Modifier
             .translateX(0.percent)
-            .transition(CSSTransition(property = "translate", duration = 200.ms))
+            .transition(Transition.of(property = "translate", duration = 200.ms))
     }
 
     cssRule(":hover > #$columnParent > #${portfolioDesc}") {
@@ -63,10 +63,10 @@ val PortfolioSectionStyle by ComponentStyle {
     }
 }
 
-val PortfolioArrowIconStyle by ComponentStyle {
+val PortfolioArrowIconStyle = CssStyle {
     base {
         Modifier.color(colorMode.toPalette().surface)
-            .transition(CSSTransition(property = "color", duration = 200.ms))
+            .transition(Transition.of(property = "color", duration = 200.ms))
     }
 
     hover {

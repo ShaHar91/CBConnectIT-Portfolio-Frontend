@@ -2,7 +2,6 @@ package cbconnectit.portfolio.web.components
 
 import androidx.compose.runtime.Composable
 import cbconnectit.portfolio.web.styles.InputStyle
-import com.varabyte.kobweb.silk.components.forms.InputStyle
 import cbconnectit.portfolio.web.styles.MainButtonStyle
 import cbconnectit.portfolio.web.styles.onSurface
 import cbconnectit.portfolio.web.styles.surface
