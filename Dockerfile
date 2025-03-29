@@ -18,7 +18,7 @@ ENV KOBWEB_CLI_VERSION=0.9.18
 ARG KOBWEB_APP_ROOT
 
 ENV NODE_MAJOR=20
-ENV BASE_URL="http://cb-connect-it.com"
+ENV BASE_URL="https://cb-connect-it.com"
 
 # Copy the project code to an arbitrary subdir so we can install stuff in the
 # Docker container root without worrying about clobbering project files.
