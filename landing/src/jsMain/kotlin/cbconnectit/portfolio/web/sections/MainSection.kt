@@ -79,7 +79,6 @@ fun MainContent() {
 @Composable
 fun MainText(breakpoint: Breakpoint) {
     Row(
-        modifier = Modifier.background(Color.red),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
