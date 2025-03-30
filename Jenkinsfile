@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "kobweb-frontend"
-        CONTAINER_NAME = "kobweb-frontend"
+        IMAGE_NAME = "portfolio-frontend"
+        CONTAINER_NAME = "portfolio-frontend"
     }
 
     stages {
