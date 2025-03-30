@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "kobweb-frontend-test"
-        CONTAINER_NAME = "kobweb-frontend-container-test"
+        IMAGE_NAME = "kobweb-frontend"
+        CONTAINER_NAME = "kobweb-frontend"
     }
 
     stages {
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 sh 'docker stop ${CONTAINER_NAME} || true'
                 sh 'docker rm ${CONTAINER_NAME} || true'
-                sh 'docker run -d --name ${CONTAINER_NAME} -p 9000:9000 ${IMAGE_NAME}'
+                sh 'docker run -d --name ${CONTAINER_NAME} -p 3000:8081 ${IMAGE_NAME}'
             }
         }
     }
