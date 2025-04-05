@@ -41,8 +41,8 @@ pipeline {
 
                     echo "Branch: ${branch}"
                     echo "Environment: ${ENVIRONMENT}"
-                    echo "Using port: ${EXPOSED_PORT}"
-                    echo "Using env file: ${ENV_FILE}"
+//                     echo "Using port: ${EXPOSED_PORT}"
+//                     echo "Using env file: ${ENV_FILE}"
                 }
             }
         }
