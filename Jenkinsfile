@@ -21,38 +21,18 @@ pipeline {
                         environment = 'staging'
                     }
 
-                    // Set environment values
-                    env.ENVIRONMENT = environment
-                    env.CONTAINER_NAME = "${IMAGE_NAME}-${environment}"
+                    def envFileId = "env-file-${ENVIRONMENT}"
 
-                    // Set port based on environment
-                    env.EXPOSED_PORT = environment == 'production' ? '3002' :
-                                       environment == 'staging' ? '3001' : '3000'
-
-                    env.BASE_URL = environment == 'production' ? 'https://cb-connect-it.com' :
-                                    environment == 'staging' ? 'https://stag.cb-connect-it.com' :
-                                    'https://dev.cb-connect-it.com'
-
-//                     // Use correct env file
-//                     env.ENV_FILE = ".env.${environment}"
+                    withCredentials([file(credentialsId: envFileId, variable: 'ENV_FILE_PATH')]) {
+                        sh 'cp "$ENV_FILE_PATH" .env'
+                    }
 
                     echo "Branch: ${branch}"
-                    echo "Environment: ${ENVIRONMENT}"
+                    echo "Environment: ${environment}"
                     echo "Using port: ${EXPOSED_PORT}"
-//                     echo "Using env file: ${ENV_FILE}"
                 }
             }
         }
-//
-//         stage('Prepare Environment File') {
-//             steps {
-//                 script {
-//                     // Fail if the env file doesn't exist
-//                     sh "[ -f ${ENV_FILE} ] || (echo 'Missing environment file: ${ENV_FILE}' && exit 1)"
-//                     sh "cp ${ENV_FILE} .env"
-//                 }
-//             }
-//         }
 
         stage('Build Docker Image') {
             steps {

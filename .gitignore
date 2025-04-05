@@ -31,3 +31,5 @@ site/.kobweb/*
 
 /firebase-tools-instant-win.exe
 /site/.kobweb/site/
+
+.env*
