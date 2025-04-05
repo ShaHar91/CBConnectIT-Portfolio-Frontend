@@ -30,6 +30,12 @@ pipeline {
                                     environment == 'staging' ? 'https://stag.cb-connect-it.com' :
                                     'https://dev.cb-connect-it.com'
 
+                    def envFileId = "env-file-${environment}"
+
+                    withCredentials([file(credentialsId: envFileId, variable: 'ENV_FILE_PATH')]) {
+                        sh 'cp "$ENV_FILE_PATH" .env.${environment}'
+                    }
+
                     // Use correct env file
                     env.ENV_FILE = ".env.${environment}"
 
