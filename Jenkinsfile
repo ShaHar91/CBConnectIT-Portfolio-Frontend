@@ -33,11 +33,11 @@ pipeline {
                     def envFileId = "env-file-${environment}"
 
                     withCredentials([file(credentialsId: envFileId, variable: 'ENV_FILE_PATH')]) {
-                        sh 'cp "$ENV_FILE_PATH" .env'
+                        sh 'cp "$ENV_FILE_PATH" .env.temp'
                     }
 
                     // Use correct env file
-                    env.ENV_FILE = ".env"
+                    env.ENV_FILE = ".env.temp"
 
                     echo "Branch: ${branch}"
                     echo "Environment: ${ENVIRONMENT}"
