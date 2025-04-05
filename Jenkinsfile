@@ -17,15 +17,36 @@ pipeline {
                         environment = 'staging'
                     }
 
-                    def envFileId = "env-file-${environment}"
+                    // Set environment values
+                    env.ENVIRONMENT = environment
+                    env.IMAGE_NAME = "portfolio-frontend-${environment}"
+                    env.CONTAINER_NAME = "${IMAGE_NAME}-${environment}"
 
-                    withCredentials([file(credentialsId: envFileId, variable: 'ENV_FILE_PATH')]) {
-                        sh 'cp "$ENV_FILE_PATH" .env'
-                    }
+                    // Set port based on environment
+                    env.EXPOSED_PORT = environment == 'production' ? '2022' :
+                                       environment == 'staging' ? '2021' : '2020'
+
+                    env.BASE_URL = environment == 'production' ? 'https://cb-connect-it.com' :
+                                    environment == 'staging' ? 'https://stag.cb-connect-it.com' :
+                                    'https://dev.cb-connect-it.com'
+
+                    // Use correct env file
+                    env.ENV_FILE = ".env.${environment}"
 
                     echo "Branch: ${branch}"
-                    echo "Environment: ${environment}"
+                    echo "Environment: ${ENVIRONMENT}"
                     echo "Using port: ${EXPOSED_PORT}"
+                    echo "Using env file: ${ENV_FILE}"
+                }
+            }
+        }
+
+        stage('Prepare Environment File') {
+            steps {
+                script {
+                    // Fail if the env file doesn't exist
+                    sh "[ -f ${ENV_FILE} ] || (echo 'Missing environment file: ${ENV_FILE}' && exit 1)"
+                    sh "cp ${ENV_FILE} .env"
                 }
             }
         }
