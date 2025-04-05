@@ -59,7 +59,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${IMAGE_NAME}:${ENVIRONMENT} ."
+                sh "docker build -t ${env.IMAGE_NAME}:${ENVIRONMENT} ."
             }
         }
 
@@ -73,9 +73,9 @@ pipeline {
             }
             steps {
                 script {
-                    sh "docker stop ${CONTAINER_NAME} || true"
-                    sh "docker rm ${CONTAINER_NAME} || true"
-                    sh "docker run -d --name ${CONTAINER_NAME} -p ${EXPOSED_PORT}:8081 ${IMAGE_NAME}:${ENVIRONMENT}"
+                    sh "docker stop ${env.CONTAINER_NAME} || true"
+                    sh "docker rm ${env.CONTAINER_NAME} || true"
+                    sh "docker run -d --name ${env.CONTAINER_NAME} -p ${env.EXPOSED_PORT}:8081 ${env.IMAGE_NAME}:${ENVIRONMENT}"
                     sh "docker system prune -f"
                 }
             }
