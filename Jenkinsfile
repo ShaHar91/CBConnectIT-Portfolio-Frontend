@@ -19,16 +19,16 @@ pipeline {
 
                     // Set environment values
                     env.ENVIRONMENT = environment
-                    env.IMAGE_NAME = "portfolio-frontend-${environment}"
-                    env.CONTAINER_NAME = "${IMAGE_NAME}-${environment}"
-
-                    // Set port based on environment
-                    env.EXPOSED_PORT = environment == 'production' ? '2022' :
-                                       environment == 'staging' ? '2021' : '2020'
-
-                    env.BASE_URL = environment == 'production' ? 'https://cb-connect-it.com' :
-                                    environment == 'staging' ? 'https://stag.cb-connect-it.com' :
-                                    'https://dev.cb-connect-it.com'
+//                     env.IMAGE_NAME = "portfolio-frontend-${environment}"
+//                     env.CONTAINER_NAME = "${IMAGE_NAME}-${environment}"
+//
+//                     // Set port based on environment
+//                     env.EXPOSED_PORT = environment == 'production' ? '2022' :
+//                                        environment == 'staging' ? '2021' : '2020'
+//
+//                     env.BASE_URL = environment == 'production' ? 'https://cb-connect-it.com' :
+//                                     environment == 'staging' ? 'https://stag.cb-connect-it.com' :
+//                                     'https://dev.cb-connect-it.com'
 
                     def envFileId = "env-file-${environment}"
 
