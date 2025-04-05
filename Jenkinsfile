@@ -33,8 +33,8 @@ pipeline {
                                     environment == 'staging' ? 'https://stag.cb-connect-it.com' :
                                     'https://dev.cb-connect-it.com'
 
-                    // Use correct env file
-                    env.ENV_FILE = ".env.${environment}"
+//                     // Use correct env file
+//                     env.ENV_FILE = ".env.${environment}"
 
                     echo "Branch: ${branch}"
                     echo "Environment: ${ENVIRONMENT}"
@@ -43,16 +43,16 @@ pipeline {
                 }
             }
         }
-
-        stage('Prepare Environment File') {
-            steps {
-                script {
-                    // Fail if the env file doesn't exist
-                    sh "[ -f ${ENV_FILE} ] || (echo 'Missing environment file: ${ENV_FILE}' && exit 1)"
-                    sh "cp ${ENV_FILE} .env"
-                }
-            }
-        }
+//
+//         stage('Prepare Environment File') {
+//             steps {
+//                 script {
+//                     // Fail if the env file doesn't exist
+//                     sh "[ -f ${ENV_FILE} ] || (echo 'Missing environment file: ${ENV_FILE}' && exit 1)"
+//                     sh "cp ${ENV_FILE} .env"
+//                 }
+//             }
+//         }
 
         stage('Build Docker Image') {
             steps {
