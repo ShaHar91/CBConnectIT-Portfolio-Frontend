@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = "portfolio-frontend"
-    }
-
     stages {
         stage('Determine Environment') {
             steps {
@@ -21,7 +17,7 @@ pipeline {
                         environment = 'staging'
                     }
 
-                    def envFileId = "env-file-${ENVIRONMENT}"
+                    def envFileId = "env-file-${environment}"
 
                     withCredentials([file(credentialsId: envFileId, variable: 'ENV_FILE_PATH')]) {
                         sh 'cp "$ENV_FILE_PATH" .env'
