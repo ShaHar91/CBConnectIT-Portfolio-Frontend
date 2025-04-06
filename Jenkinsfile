@@ -17,7 +17,7 @@ pipeline {
                     sh 'git fetch --tags'
 
                     def tag = sh(script: "git describe --exact-match --tags HEAD || echo ''", returnStdout: true).trim()
-                    def branch = sh(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
+                    def branch = env.GIT_BRANCH?.replaceFirst(/^origin\//, '') ?: 'develop'
 
                     echo "Branch: ${branch}"
                     echo "Tag: ${tag}"
