@@ -60,30 +60,6 @@ pipeline {
             }
         }
 
-//         stage('Load Env File') {
-//             steps {
-//                 script {
-//                     def envFileId = "env-file-${env.ENVIRONMENT}"
-//
-//                     withCredentials([file(credentialsId: envFileId, variable: 'ENV_FILE_PATH')]) {
-//                         def envContent = readFile(ENV_FILE_PATH).trim()
-//                         def lines = envContent.split("\n")
-//
-//                         lines.each { line ->
-//                             if (line && !line.startsWith("#") && line.contains("=")) {
-//                                 def (key, value) = line.split("=", 2)
-//                                 key = key.trim()
-//                                 value = value.trim().replaceAll('^"|"$', '')
-//                                 env[key] = value
-//                             }
-//                         }
-//
-//                         sh 'cp "$ENV_FILE_PATH" .env'
-//                     }
-//                 }
-//             }
-//         }
-
         stage('Build Docker Image') {
             steps {
                 sh "docker build -t ${IMAGE_NAME}-${ENVIRONMENT}:${VERSION} ."
