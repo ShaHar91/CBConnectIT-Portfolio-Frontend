@@ -26,10 +26,10 @@ pipeline {
                     def version = 'latest'
 
                     if (tag) {
-                        if (tag ==~ /^staging-v\\d+\\.\\d+\\.\\d+$/) {
+                        if (tag ==~ ~/^staging-v\d+\.\d+\.\d+$/) {
                             environment = 'staging'
                             version = tag.replaceFirst(/^staging-v/, '')
-                        } else if (tag ==~ /^v\\d+\\.\\d+\\.\\d+$/) {
+                        } else if (tag ==~ ~/^v\d+\.\d+\.\d+$/) {
                             environment = 'production'
                             version = tag.replaceFirst(/^v/, '')
                         } else {
@@ -49,7 +49,7 @@ pipeline {
 
                     env.EXPOSED_PORT = environment == 'production' ? '2022' :
                                        environment == 'staging' ? '2021' : '2020'
-        
+
                     env.BASE_URL = environment == 'production' ? 'https://cb-connect-it.com' :
                                    environment == 'staging' ? 'https://stag.cb-connect-it.com' :
                                    'https://dev.cb-connect-it.com'
