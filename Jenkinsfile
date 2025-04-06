@@ -11,19 +11,12 @@ pipeline {
     }
 
     stages {
-        stage('Checkout and Git Setup') {
-            steps {
-                // Ensures tags and full Git metadata are available
-                checkout scm
-                sh 'git fetch --tags'
-            }
-        }
-
         stage('Determine Environment') {
             steps {
                 script {
-                    // Determine current Git tag, if any
-                    def tag = sh(script: "git describe --tags --exact-match || echo ''", returnStdout: true).trim()
+                    sh 'git fetch --tags'
+
+                    def tag = sh(script: "git describe --exact-match --tags HEAD || echo ''", returnStdout: true).trim()
                     def branch = sh(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
 
                     echo "Branch: ${branch}"
@@ -32,31 +25,31 @@ pipeline {
                     def environment = 'develop'
                     def version = 'latest'
 
-                    if (tag == '') {
-                        // Not a tag, just a push to main or other branches
-                        if (branch == 'main' || branch == 'master') {
-                            environment = 'develop'
+                    if (tag) {
+                        if (tag ==~ /^staging-v\\d+\\.\\d+\\.\\d+$/) {
+                            environment = 'staging'
+                            version = tag.replaceFirst(/^staging-v/, '')
+                        } else if (tag ==~ /^v\\d+\\.\\d+\\.\\d+$/) {
+                            environment = 'production'
+                            version = tag.replaceFirst(/^v/, '')
+                        } else {
+                            error("Unknown tag format: ${tag}")
                         }
-                    } else if (tag ==~ /^staging-v\d+\.\d+\.\d+$/) {
-                        environment = 'staging'
-                        version = tag.replaceFirst(/^staging-v/, '')
-                    } else if (tag ==~ /^v\d+\.\d+\.\d+$/) {
-                        environment = 'production'
-                        version = tag.replaceFirst(/^v/, '')
+                    } else if (branch == 'main') {
+                        environment = 'develop'
                     } else {
-                        // Unknown tag format
-                        error("Unknown tag format: ${tag}")
+                        echo "Skipping build: Not a relevant branch or tag"
+                        currentBuild.result = 'SUCCESS'
+                        return
                     }
 
-                    // Export values to env
                     env.ENVIRONMENT = environment
                     env.VERSION = version
                     env.CONTAINER_NAME = "${IMAGE_NAME}-${environment}"
 
-                    // Set port and base url
                     env.EXPOSED_PORT = environment == 'production' ? '2022' :
                                        environment == 'staging' ? '2021' : '2020'
-
+        
                     env.BASE_URL = environment == 'production' ? 'https://cb-connect-it.com' :
                                    environment == 'staging' ? 'https://stag.cb-connect-it.com' :
                                    'https://dev.cb-connect-it.com'
