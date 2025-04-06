@@ -1,75 +1,101 @@
+// Why not work with only 1 main branch (no develop)
+// - Always build a dev image when pushing to the main branch
+// - Always build a staging image when adding tag with `staging-version`
+// - Always build a production image when adding tag with `release-version`
+
 pipeline {
     agent any
+
+    environment {
+        IMAGE_NAME = "portfolio-frontend"
+    }
 
     stages {
         stage('Determine Environment') {
             steps {
                 script {
-                    def branch = env.GIT_BRANCH?.replaceFirst(/^origin\//, '') ?: 'develop'
+                    // Determine current Git tag, if any
+                    def tag = sh(script: "git describe --tags --exact-match || echo ''", returnStdout: true).trim()
+                    def branch = sh(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
 
-                    // Determine environment based on branch/tag
-                    def environment = 'feature'
-                    if (branch == 'main' || branch == 'master') {
-                        environment = 'production'
-                    } else if (branch == 'develop') {
-                        environment = 'develop'
-                    } else if (branch == 'develop' && env.GIT_TAG?.startsWith('staging-')) {
+                    echo "Branch: ${branch}"
+                    echo "Tag: ${tag}"
+
+                    def environment = 'develop'
+                    def version = 'latest'
+
+                    if (tag == '') {
+                        // Not a tag, just a push to main or other branches
+                        if (branch == 'main' || branch == 'master') {
+                            environment = 'develop'
+                        }
+                    } else if (tag ==~ /^staging-v\d+\.\d+\.\d+$/) {
                         environment = 'staging'
+                        version = tag.replaceFirst(/^staging-v/, '')
+                    } else if (tag ==~ /^v\d+\.\d+\.\d+$/) {
+                        environment = 'production'
+                        version = tag.replaceFirst(/^v/, '')
+                    } else {
+                        // Unknown tag format
+                        error("Unknown tag format: ${tag}")
                     }
 
-                    // Set environment values
+                    // Export values to env
                     env.ENVIRONMENT = environment
-                    env.IMAGE_NAME = "portfolio-frontend-${environment}"
+                    env.VERSION = version
                     env.CONTAINER_NAME = "${IMAGE_NAME}-${environment}"
 
-                    // Set port based on environment
+                    // Set port and base url
                     env.EXPOSED_PORT = environment == 'production' ? '2022' :
                                        environment == 'staging' ? '2021' : '2020'
 
                     env.BASE_URL = environment == 'production' ? 'https://cb-connect-it.com' :
-                                    environment == 'staging' ? 'https://stag.cb-connect-it.com' :
-                                    'https://dev.cb-connect-it.com'
+                                   environment == 'staging' ? 'https://stag.cb-connect-it.com' :
+                                   'https://dev.cb-connect-it.com'
 
-                    // Use correct env file
-                    env.ENV_FILE = ".env.${environment}"
-
-                    echo "Branch: ${branch}"
                     echo "Environment: ${ENVIRONMENT}"
-                    echo "Using port: ${EXPOSED_PORT}"
-//                     echo "Using env file: ${ENV_FILE}"
+                    echo "Version: ${VERSION}"
+                    echo "Exposed port: ${EXPOSED_PORT}"
                 }
             }
         }
 
-//         stage('Prepare Environment File') {
+//         stage('Load Env File') {
 //             steps {
 //                 script {
-//                     // Fail if the env file doesn't exist
-//                     sh "[ -f ${ENV_FILE} ] || (echo 'Missing environment file: ${ENV_FILE}' && exit 1)"
-//                     sh "cp ${ENV_FILE} .env"
+//                     def envFileId = "env-file-${env.ENVIRONMENT}"
+//
+//                     withCredentials([file(credentialsId: envFileId, variable: 'ENV_FILE_PATH')]) {
+//                         def envContent = readFile(ENV_FILE_PATH).trim()
+//                         def lines = envContent.split("\n")
+//
+//                         lines.each { line ->
+//                             if (line && !line.startsWith("#") && line.contains("=")) {
+//                                 def (key, value) = line.split("=", 2)
+//                                 key = key.trim()
+//                                 value = value.trim().replaceAll('^"|"$', '')
+//                                 env[key] = value
+//                             }
+//                         }
+//
+//                         sh 'cp "$ENV_FILE_PATH" .env'
+//                     }
 //                 }
 //             }
 //         }
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${IMAGE_NAME}:${ENVIRONMENT} ."
+                sh "docker build -t ${IMAGE_NAME}-${ENVIRONMENT}:${VERSION} ."
             }
         }
 
         stage('Deploy to Docker') {
-            when {
-                anyOf {
-                    branch 'main'
-                    branch 'develop'
-                    expression { return env.GIT_TAG?.startsWith('staging-') }
-                }
-            }
             steps {
                 script {
                     sh "docker stop ${CONTAINER_NAME} || true"
                     sh "docker rm ${CONTAINER_NAME} || true"
-                    sh "docker run -d --name ${CONTAINER_NAME} -p ${EXPOSED_PORT}:8081 ${IMAGE_NAME}:${ENVIRONMENT}"
+                    sh "docker run -d --name ${CONTAINER_NAME} -p ${EXPOSED_PORT}:8081 ${IMAGE_NAME}-${ENVIRONMENT}:${VERSION}"
                     sh "docker system prune -f"
                 }
             }
