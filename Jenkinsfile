@@ -35,7 +35,7 @@ pipeline {
                         } else {
                             error("Unknown tag format: ${tag}")
                         }
-                    } else if (branch == 'main') {
+                    } else if (branch == 'main' || branch == 'master') {
                         environment = 'develop'
                     } else {
                         echo "Skipping build: Not a relevant branch or tag"
