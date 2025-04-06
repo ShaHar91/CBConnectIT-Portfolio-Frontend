@@ -11,6 +11,14 @@ pipeline {
     }
 
     stages {
+        stage('Checkout and Git Setup') {
+            steps {
+                // Ensures tags and full Git metadata are available
+                checkout scm
+                sh 'git fetch --tags'
+            }
+        }
+
         stage('Determine Environment') {
             steps {
                 script {
