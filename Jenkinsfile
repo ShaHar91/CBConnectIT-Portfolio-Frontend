@@ -54,9 +54,9 @@ pipeline {
                                    environment == 'staging' ? 'https://stag.cb-connect-it.com' :
                                    'https://dev.cb-connect-it.com'
 
-                    echo "Environment: ${ENVIRONMENT}"
                     echo "Version: ${VERSION}"
                     echo "Exposed port: ${EXPOSED_PORT}"
+                    echo "Environment: ${ENVIRONMENT}"
                 }
             }
         }
