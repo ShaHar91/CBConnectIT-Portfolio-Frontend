@@ -3,7 +3,7 @@ package cbconnectit.portfolio.web.data.repos
 import cbconnectit.portfolio.web.data.models.domain.Experience
 import cbconnectit.portfolio.web.data.models.domain.toExperience
 import cbconnectit.portfolio.web.data.models.dto.responses.ExperienceDto
-import com.varabyte.kobweb.compose.http.http
+import com.varabyte.kobweb.browser.http.http
 import kotlinx.browser.window
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json

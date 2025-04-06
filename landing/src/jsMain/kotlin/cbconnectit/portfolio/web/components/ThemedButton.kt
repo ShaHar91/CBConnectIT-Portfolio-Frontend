@@ -10,10 +10,10 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.forms.ButtonSize
 import com.varabyte.kobweb.silk.components.forms.ButtonStyle
-import com.varabyte.kobweb.silk.components.style.active
-import com.varabyte.kobweb.silk.components.style.addVariant
-import com.varabyte.kobweb.silk.components.style.hover
 import com.varabyte.kobweb.silk.components.text.SpanText
+import com.varabyte.kobweb.silk.style.addVariant
+import com.varabyte.kobweb.silk.style.selectors.active
+import com.varabyte.kobweb.silk.style.selectors.hover
 import com.varabyte.kobweb.silk.theme.colors.palette.background
 import com.varabyte.kobweb.silk.theme.colors.palette.color
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
@@ -37,7 +37,7 @@ private fun getButtonModifier(shape: ButtonShape): Modifier {
     )
 }
 
-val PrimaryButtonVariant by ButtonStyle.addVariant {
+val PrimaryButtonVariant = ButtonStyle.addVariant {
     val backgroundColor = colorMode.toPalette().primary
     base {
         Modifier
@@ -49,7 +49,7 @@ val PrimaryButtonVariant by ButtonStyle.addVariant {
     }
 }
 
-val NormalButtonVariant by ButtonStyle.addVariant {
+val NormalButtonVariant = ButtonStyle.addVariant {
     val colorMode = colorMode.opposite
 
     base {
@@ -62,7 +62,7 @@ val NormalButtonVariant by ButtonStyle.addVariant {
     }
 }
 
-val TextPrimaryButtonVariant by ButtonStyle.addVariant {
+val TextPrimaryButtonVariant = ButtonStyle.addVariant {
     base {
         Modifier
             .padding(leftRight = 8.px)

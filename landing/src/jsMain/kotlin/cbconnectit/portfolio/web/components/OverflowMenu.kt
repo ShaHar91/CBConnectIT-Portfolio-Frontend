@@ -6,6 +6,7 @@ import cbconnectit.portfolio.web.styles.NavigationItemStyle
 import cbconnectit.portfolio.web.utils.Constants
 import cbconnectit.portfolio.web.utils.logoImage
 import com.varabyte.kobweb.compose.css.*
+import com.varabyte.kobweb.compose.css.Transition
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
@@ -18,8 +19,8 @@ import com.varabyte.kobweb.silk.components.icons.fa.FaXmark
 import com.varabyte.kobweb.silk.components.icons.fa.IconSize
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.overlay.Overlay
-import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
-import com.varabyte.kobweb.silk.components.style.toModifier
+import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
+import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.background
@@ -59,7 +60,7 @@ fun OverlowMenu(onMenuClosed: () -> Unit) {
         .zIndex(2)
         .opacity(opacity)
         .transition(
-            CSSTransition("opacity", 500.ms)
+            Transition.of("opacity", 500.ms)
         )
         .onClick { scope.closeMenu() }) {
 
@@ -78,7 +79,7 @@ fun OverlowMenu(onMenuClosed: () -> Unit) {
                     .scrollBehavior(ScrollBehavior.Smooth)
                     .backgroundColor(ColorMode.current.toPalette().background)
                     .translateX(tx = translateX)
-                    .transition(CSSTransition("translate", 500.ms))
+                    .transition(Transition.of("translate", 500.ms))
             ) {
                 Row(
                     modifier = Modifier

@@ -16,11 +16,11 @@ import com.varabyte.kobweb.core.App
 import com.varabyte.kobweb.core.AppGlobals
 import com.varabyte.kobweb.silk.SilkApp
 import com.varabyte.kobweb.silk.components.layout.Surface
-import com.varabyte.kobweb.silk.components.style.common.SmoothColorStyle
-import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerStyleBase
+import com.varabyte.kobweb.silk.style.common.SmoothColorStyle
+import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.*
 import kotlinx.browser.localStorage
@@ -63,20 +63,19 @@ fun updateTheme(ctx: InitSilkContext) {
         darkColorScheme.onBackground,
         darkColorScheme.onBackground
     )
-}
 
-@InitSilk
-fun registerGlobalStyles(ctx: InitSilkContext) = ctx.stylesheet.apply {
-    val colorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
+    ctx.stylesheet.apply {
+        val colorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
 
-    registerStyleBase("body") {
-        Modifier
-            .fontFamily(
-                "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-                "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans-serif"
-            )
-            .lineHeight(1.4)
-            .backgroundColor(colorMode.toPalette().background)
+        registerStyleBase("body") {
+            Modifier
+                .fontFamily(
+                    "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+                    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans-serif"
+                )
+                .lineHeight(1.4)
+                .backgroundColor(colorMode.toPalette().background)
+        }
     }
 }
 
@@ -87,7 +86,7 @@ fun MyApp(content: @Composable () -> Unit) {
     SilkApp {
         val colorMode by ColorMode.currentState
 
-        Config.init(AppGlobals.getOrElse("BASE_URL") { "" })
+        Config.init(AppGlobals.get("BASE_URL") ?: "")
 
         LaunchedEffect(colorMode) {
             localStorage.setItem(COLOR_MODE_KEY, colorMode.name)

@@ -5,10 +5,10 @@ import kotlinx.html.script
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
 //    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.jetbrains.compose)
-    alias(libs.plugins.kobweb.application)
+    alias(libs.plugins.compose.compiler)
+//    alias(libs.plugins.kobweb.application)
+    id(libs.plugins.kobweb.application.get().pluginId)
     alias(libs.plugins.kobwebx.markdown)
-//    id(libs.plugins.kobweb.application.get().pluginId)
 }
 
 group = "cbconnectit.portfolio.web"
@@ -40,9 +40,9 @@ kotlin {
 
     @Suppress("UNUSED_VARIABLE") // Suppress spurious warnings about sourceset variables not being used
     sourceSets {
-        val commonMain by getting {
+        commonMain.dependencies {
             dependencies {
-                implementation(compose.runtime)
+                implementation(libs.compose.runtime)
 //                implementation(libs.kotlinx.serialization.json)
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
                 api(project(":core"))
@@ -51,9 +51,10 @@ kotlin {
             }
         }
 
-        val jsMain by getting {
+        jsMain.dependencies {
             dependencies {
-                implementation(compose.html.core)
+                implementation(libs.compose.runtime)
+                implementation(libs.compose.html.core)
                 implementation(libs.kobweb.core)
                 implementation(libs.kobweb.silk)
                 implementation(libs.kobweb.silk.icons.fa)

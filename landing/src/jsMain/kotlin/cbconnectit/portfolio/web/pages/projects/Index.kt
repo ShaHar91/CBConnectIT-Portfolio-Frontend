@@ -10,6 +10,7 @@ import cbconnectit.portfolio.web.pages.PageLayout
 import cbconnectit.portfolio.web.styles.*
 import cbconnectit.portfolio.web.utils.*
 import com.varabyte.kobweb.compose.css.*
+import com.varabyte.kobweb.compose.css.Transition
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -29,10 +30,12 @@ import com.varabyte.kobweb.silk.components.icons.fa.FaChevronUp
 import com.varabyte.kobweb.silk.components.layout.SimpleGrid
 import com.varabyte.kobweb.silk.components.layout.numColumns
 import com.varabyte.kobweb.silk.components.navigation.Link
-import com.varabyte.kobweb.silk.components.style.ComponentStyle
-import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
-import com.varabyte.kobweb.silk.components.style.hover
-import com.varabyte.kobweb.silk.components.style.toModifier
+import com.varabyte.kobweb.silk.style.CssStyle
+//import com.varabyte.kobweb.silk.components.style.ComponentStyle
+import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
+import com.varabyte.kobweb.silk.style.selectors.hover
+import com.varabyte.kobweb.silk.style.toModifier
+//import com.varabyte.kobweb.silk.components.style.hover
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
@@ -243,18 +246,16 @@ fun TitleAndDropDown(
     }
 }
 
-val ProjectTagLinkStyle by ComponentStyle {
+val ProjectTagLinkStyle = CssStyle {
     base {
         Modifier
-            .transition(CSSTransition(property = "background", duration = 200.ms))
+            .transition(Transition.of(property = "background", duration = 200.ms))
     }
 
     hover {
-        Modifier
-            .backgroundColor(colorMode.toPalette().onSurfaceVariant.toRgb().copyf(alpha = 0.2f))
+        Modifier.backgroundColor(colorMode.toPalette().onSurfaceVariant.toRgb().copyf(alpha = 0.2f))
     }
 }
-
 
 @Composable
 private fun ProjectsList(breakpoint: Breakpoint, projects: List<Project>) {
@@ -354,11 +355,12 @@ private fun ProjectsList(breakpoint: Breakpoint, projects: List<Project>) {
                     }
 
                     if (leftAligned.not() || breakpoint <= Breakpoint.MD) {
-                        Spacer(Modifier
-                            .width(100.px)
-                            .thenIf(breakpoint <= Breakpoint.MD) {
-                                Modifier.height(100.px)
-                            })
+                        Spacer(
+                            Modifier
+                                .width(100.px)
+                                .thenIf(breakpoint <= Breakpoint.MD) {
+                                    Modifier.height(100.px)
+                                })
 
                         ProjectImageWithLinks(breakpoint, project)
                     }
