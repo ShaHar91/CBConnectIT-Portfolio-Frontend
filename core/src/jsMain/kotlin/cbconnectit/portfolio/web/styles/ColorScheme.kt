@@ -7,6 +7,7 @@ import com.varabyte.kobweb.silk.theme.colors.palette.colorMode
 import org.jetbrains.compose.web.css.CSSColorValue
 import org.jetbrains.compose.web.css.rgb
 
+@Suppress("MagicNumber")
 private enum class LightColorScheme(val hex: String, val rgb: CSSColorValue, val silkRgb: Color) {
     Primary(hex = "#FF4E5B92", rgb = rgb(78, 91, 146), silkRgb = Color.rgb(78, 91, 146)),
     OnPrimary(hex = "#FFFFFFFF", rgb = rgb(255, 255, 255), silkRgb = Color.rgb(255, 255, 255)),
@@ -45,6 +46,7 @@ private enum class LightColorScheme(val hex: String, val rgb: CSSColorValue, val
     SurfaceContainerHighest(hex = "#FFE3E1E9", rgb = rgb(227, 225, 233), silkRgb = Color.rgb(227, 225, 233))
 }
 
+@Suppress("MagicNumber")
 private enum class DarkColorScheme(val hex: String, val rgb: CSSColorValue, val silkRgb: Color) {
     Primary(hex = "#FFB7C4FF", rgb = rgb(183, 196, 255), silkRgb = Color.rgb(183, 196, 255)),
     OnPrimary(hex = "#FF1F2D61", rgb = rgb(31, 45, 97), silkRgb = Color.rgb(31, 45, 97)),
