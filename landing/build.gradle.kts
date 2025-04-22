@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kobweb.library)
+    alias(libs.plugins.detekt)
 }
 
 group = "cbconnectit.portfolio.web"

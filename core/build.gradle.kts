@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kobweb.library)
     alias(libs.plugins.kobwebx.markdown)
+    alias(libs.plugins.detekt)
 }
 
 group = "cbconnectit.portfolio.web"

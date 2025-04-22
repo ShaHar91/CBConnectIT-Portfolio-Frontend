@@ -9,6 +9,7 @@ plugins {
 //    alias(libs.plugins.kobweb.application)
     id(libs.plugins.kobweb.application.get().pluginId)
     alias(libs.plugins.kobwebx.markdown)
+    alias(libs.plugins.detekt)
 }
 
 group = "cbconnectit.portfolio.web"

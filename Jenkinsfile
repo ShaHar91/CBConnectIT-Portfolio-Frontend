@@ -68,7 +68,6 @@ pipeline {
                     sh "docker stop ${CONTAINER_NAME} || true"
                     sh "docker rm ${CONTAINER_NAME} || true"
                     sh "docker run -d --name ${CONTAINER_NAME} -p ${EXPOSED_PORT}:8081 ${IMAGE_NAME}-${ENVIRONMENT}:${VERSION}"
-                    sh "docker system prune -f"
                 }
             }
         }
