@@ -23,6 +23,7 @@ import com.varabyte.kobweb.silk.style.common.SmoothColorStyle
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.*
+import com.varabyte.kobweb.silk.theme.colors.systemPreference
 import kotlinx.browser.localStorage
 import org.jetbrains.compose.web.css.vh
 
@@ -30,7 +31,7 @@ private const val COLOR_MODE_KEY = "cbconnectit:app:colorMode"
 
 @InitSilk
 fun updateTheme(ctx: InitSilkContext) {
-    ctx.config.initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
+    ctx.config.initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.systemPreference
 
     // Background
     ctx.theme.palettes.light.background = lightColorScheme.background

@@ -15,6 +15,7 @@ import cbconnectit.portfolio.web.styles.primary
 import cbconnectit.portfolio.web.utils.Constants.FONT_FAMILY
 import cbconnectit.portfolio.web.utils.Constants.SECTION_WIDTH
 import cbconnectit.portfolio.web.utils.Res
+import com.varabyte.kobweb.compose.css.Cursor
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
@@ -145,7 +146,11 @@ fun MainText(breakpoint: Breakpoint) {
             Spacer(Modifier.height(40.px))
 
             Button(
-                modifier = MainButtonStyle.toModifier(),
+                modifier = MainButtonStyle.toModifier()
+                    .height(40.px)
+                    .border(width = 0.px)
+                    .borderRadius(r = 5.px)
+                    .cursor(Cursor.Pointer),
                 onClick = {
                     ctx.router.tryRoutingTo(Section.Contact.path)
                 }
