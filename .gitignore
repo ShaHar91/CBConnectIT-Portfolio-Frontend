@@ -33,3 +33,4 @@ site/.kobweb/*
 /site/.kobweb/site/
 
 .env*
+*.salive
