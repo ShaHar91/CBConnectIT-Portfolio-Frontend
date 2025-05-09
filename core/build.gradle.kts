@@ -26,6 +26,7 @@ kotlin {
             implementation(libs.kobweb.core)
             implementation(libs.kobweb.silk)
             implementation(libs.kobweb.silk.icons.fa)
+            api("dev.gitlive:firebase-storage:1.12.0")
         }
     }
 }

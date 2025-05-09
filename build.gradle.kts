@@ -6,3 +6,14 @@ plugins {
     alias(libs.plugins.kobwebx.markdown) apply false
     alias(libs.plugins.detekt) apply false
 }
+
+subprojects {
+    repositories {
+        mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        google()
+        maven("https://us-central1-maven.pkg.dev/varabyte-repos/public")
+        mavenCentral()
+        maven("https://jitpack.io")
+    }
+}
